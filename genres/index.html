@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Browse by Genre — VAULT.GG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.genre-index-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.genre-tile{display:flex;align-items:center;gap:18px;background:var(--card);border:1px solid var(--b1);
+  border-radius:var(--r3);padding:22px 24px;text-decoration:none;transition:all .2s var(--ease);
+  border-left:3px solid transparent}
+.genre-tile:hover{transform:translateY(-3px);border-left-color:var(--tile-color)}
+.genre-tile-icon{width:48px;height:48px;border-radius:var(--r2);display:flex;align-items:center;
+  justify-content:center;font-size:22px;flex-shrink:0;background:var(--float);color:var(--tile-color);
+  transition:box-shadow .2s}
+.genre-tile:hover .genre-tile-icon{box-shadow:0 0 18px var(--tile-color-a);}
+.genre-tile-info h3{font-weight:700;font-size:15px;color:var(--t1);margin-bottom:3px}
+.genre-tile-info p{font-size:11.5px;color:var(--t3);line-height:1.4}
+.genre-tile-count{font-family:var(--mono);font-size:11px;color:var(--tile-color);
+  font-weight:600;margin-top:5px}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="../index.html">VAULT<em>.GG</em></a>
+    <ul class="nav-links">
+      <li><a class="nav-link" href="../index.html">Home</a></li>
+      <li><a class="nav-link active" href="../genres/">Genres</a></li>
+      <li><a class="nav-link" href="../guides.html">Guides</a></li>
+      <li><a class="nav-link" href="../upcoming.html">Upcoming</a></li>
+      <li><a class="nav-link" href="../esports.html">Esports</a></li>
+      <li><a class="nav-link" href="../borderlands.html">Borderlands</a></li>
+    </ul>
+  </div>
+</nav>
+<div style="background:linear-gradient(to bottom,var(--raised),var(--void));padding:64px 0 0">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><h1 class="page-title">Browse by <span>Genre</span></h1>
+        <p class="sec-sub">Every major PC gaming genre — curated best-of lists with achievements, videos, and guides</p>
+      </div>
+    </div>
+    <div class="genre-index-grid" id="genreGrid"></div>
+  </div>
+</div>
+<section class="section alt" style="margin-top:60px">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><h2 class="sec-title">Quick <span>Browse</span></h2>
+        <p class="sec-sub">Jump to any section on the main site</p>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <a class="btn btn-ghost" href="../index.html#top10"><i class="fa-solid fa-crown"></i>Top 10</a>
+      <a class="btn btn-ghost" href="../esports.html"><i class="fa-solid fa-fire"></i>Esports</a>
+      <a class="btn btn-ghost" href="../upcoming.html"><i class="fa-solid fa-calendar"></i>Upcoming</a>
+      <a class="btn btn-ghost" href="../guides.html"><i class="fa-solid fa-scroll"></i>Guides</a>
+      <a class="btn btn-ghost" href="../borderlands.html"><i class="fa-solid fa-gun"></i>Borderlands</a>
+      <a class="btn btn-ghost" href="../nostalgia.html"><i class="fa-solid fa-clock-rotate-left"></i>Classics</a>
+    </div>
+  </div>
+</section>
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <a class="footer-logo" href="../index.html">VAULT<em>.GG</em></a>
+      <p class="footer-copy">VAULT.GG genre browser — best games in every category. March 2026.</p>
+    </div>
+  </div>
+</footer>
+<script src="../js/data.js"></script>
+<script>
+const GENRE_META = [
+  {id:'fps',      title:'FPS & Shooters',          icon:'fa-crosshairs',    color:'#ff4444', colorA:'rgba(255,68,68,.35)',  sub:'The most competitive genre on PC'},
+  {id:'horror',   title:'Horror',                  icon:'fa-ghost',         color:'#8b00ff', colorA:'rgba(139,0,255,.35)',  sub:'Designed to make you uncomfortable'},
+  {id:'strategy', title:'Strategy',                icon:'fa-chess',         color:'#3d93d6', colorA:'rgba(61,147,214,.35)', sub:'Big brains. Long sessions. One more turn.'},
+  {id:'roguelike',title:'Roguelike & Roguelite',   icon:'fa-dice-d20',      color:'#f43f5e', colorA:'rgba(244,63,94,.35)',  sub:'Every death is a lesson'},
+  {id:'simulation',title:'Simulation',             icon:'fa-city',          color:'#00cc6a', colorA:'rgba(0,204,106,.35)',  sub:'Build something that matters'},
+  {id:'survival', title:'Survival & Crafting',     icon:'fa-campground',    color:'#f5c842', colorA:'rgba(245,200,66,.35)', sub:'Start with nothing. Build everything.'},
+  {id:'soulslike',title:'Soulslike',               icon:'fa-skull',         color:'#ff5c35', colorA:'rgba(255,92,53,.35)',  sub:'Punishing. Rewarding. Unforgettable.'},
+  {id:'platformer',title:'Platformer',             icon:'fa-person-running',color:'#38d9f5', colorA:'rgba(56,217,245,.35)', sub:'Pure movement mastery'},
+  {id:'fighting', title:'Fighting Games',          icon:'fa-hand-fist',     color:'#f97316', colorA:'rgba(249,115,22,.35)', sub:'Highest skill ceiling in gaming'},
+  {id:'esports',  title:'Esports',                 icon:'fa-fire',          color:'#ff4655', colorA:'rgba(255,70,85,.35)',  sub:'Prize pools, pro play, peak competition'},
+  {id:'racing',   title:'Racing',                  icon:'fa-flag-checkered',color:'#00ff88', colorA:'rgba(0,255,136,.35)', sub:'Track days, rally, sim racing'},
+  {id:'anime',    title:'Anime & JRPG',            icon:'fa-star',          color:'#a78bfa', colorA:'rgba(167,139,250,.35)',sub:'Cel-shaded, story-driven, epic'},
+  {id:'nostalgia',title:'Classics',                icon:'fa-clock-rotate-left',color:'#c0c0c8',colorA:'rgba(192,192,200,.35)','sub':'Games that refuse to die'},
+  {id:'gems',     title:'Hidden Gems',             icon:'fa-gem',           color:'#4ade80', colorA:'rgba(74,222,128,.35)', sub:'Criminally underplayed masterpieces'},
+];
+
+const grid = document.getElementById('genreGrid');
+GENRE_META.forEach(function(g) {
+  const count = GAMES.filter(function(gm) { return gm.cat && gm.cat.includes(g.id); }).length;
+  const tile = document.createElement('a');
+  tile.className = 'genre-tile';
+  tile.href = g.id === 'nostalgia' ? '../nostalgia.html' : (g.id === 'esports' ? '../esports.html' : '../genres/' + g.id + '.html');
+  tile.style.setProperty('--tile-color', g.color);
+  tile.style.setProperty('--tile-color-a', g.colorA);
+  tile.innerHTML = '<div class="genre-tile-icon"><i class="fa-solid ' + g.icon + '"></i></div>'
+    + '<div class="genre-tile-info"><h3>' + g.title + '</h3><p>' + g.sub + '</p>'
+    + '<div class="genre-tile-count">' + count + ' game' + (count !== 1 ? 's' : '') + '</div></div>';
+  grid.appendChild(tile);
+});
+</script>
+</body>
+</html>

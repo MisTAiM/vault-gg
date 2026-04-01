@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AI Game Recommender — VAULT.GG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="css/style.css">
+<style>
+.rec-hero{background:linear-gradient(135deg,var(--raised) 0%,rgba(0,255,136,.06) 50%,var(--raised) 100%);
+  border-bottom:1px solid var(--b1);padding:72px 0 52px;position:relative;overflow:hidden}
+.rec-hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(
+  -45deg,transparent,transparent 60px,rgba(0,255,136,.015) 60px,rgba(0,255,136,.015) 61px)}
+.rec-hero::after{content:'\f5fc';font-family:'Font Awesome 6 Free';font-weight:900;
+  position:absolute;right:-60px;top:50%;transform:translateY(-50%);font-size:320px;
+  color:var(--neon);opacity:.025;pointer-events:none}
+.step-card{background:var(--card);border:1px solid var(--b1);border-radius:var(--r3);
+  padding:22px 26px;margin-bottom:14px;transition:border-color .2s}
+.step-card.active{border-color:var(--neon-border);box-shadow:var(--neon-box)}
+.step-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;
+  color:var(--neon);margin-bottom:8px;display:flex;align-items:center;gap:7px}
+.step-num{width:20px;height:20px;border-radius:50%;background:var(--neon);color:#000;
+  font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-q{font-size:17px;font-weight:600;color:var(--t1);margin-bottom:16px}
+.choice-grid{display:flex;flex-wrap:wrap;gap:9px}
+.choice-btn{padding:9px 17px;border-radius:var(--r2);background:var(--float);border:1px solid var(--b1);
+  color:var(--t2);cursor:pointer;font-size:13.5px;font-weight:500;transition:all .15s var(--ease);
+  display:flex;align-items:center;gap:8px}
+.choice-btn:hover{background:var(--hover);border-color:var(--b2);color:var(--t1)}
+.choice-btn.selected{background:var(--neon-bg);border-color:var(--neon-border);color:var(--neon)}
+.choice-btn i{font-size:16px}
+.rec-output{background:var(--card);border:1px solid var(--neon-border);border-radius:var(--r4);
+  padding:0;overflow:hidden;box-shadow:var(--neon-box)}
+.rec-output-header{background:linear-gradient(to right,rgba(0,255,136,.1),transparent);
+  border-bottom:1px solid var(--neon-border);padding:20px 26px;
+  display:flex;align-items:center;gap:12px}
+.rec-output-body{padding:26px;min-height:200px}
+.rec-game-card{background:var(--deep);border:1px solid var(--b1);border-radius:var(--r3);
+  padding:18px 20px;margin-bottom:12px;transition:border-color .2s}
+.rec-game-card:hover{border-color:var(--b2)}
+.rec-game-num{font-family:var(--display);font-size:38px;color:var(--neon);
+  opacity:.3;line-height:1;flex-shrink:0;text-shadow:var(--neon-glow-sm)}
+.rec-game-name{font-family:var(--display);font-size:28px;letter-spacing:.03em;color:var(--t1);line-height:1;margin-bottom:6px}
+.rec-game-why{font-size:13.5px;color:var(--t2);line-height:1.7}
+.rec-game-tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.rec-tag{font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:4px;
+  background:var(--float);color:var(--t3);border:1px solid var(--b1)}
+.typing-dot{display:inline-block;width:7px;height:7px;border-radius:50%;
+  background:var(--neon);animation:tdot 1.2s ease-in-out infinite}
+.typing-dot:nth-child(2){animation-delay:.2s}
+.typing-dot:nth-child(3){animation-delay:.4s}
+@keyframes tdot{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-6px);opacity:1}}
+.progress-bar{height:3px;background:var(--b1);border-radius:2px;overflow:hidden;margin-top:14px}
+.progress-fill{height:100%;background:var(--neon);border-radius:2px;transition:width .4s var(--ease)}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">VAULT<em>.GG</em></a>
+    <ul class="nav-links">
+      <li><a class="nav-link" href="index.html">Home</a></li>
+      <li><a class="nav-link" href="genres/">Genres</a></li>
+      <li><a class="nav-link" href="guides.html">Guides</a></li>
+      <li><a class="nav-link active" href="recommender.html">AI Picks</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="rec-hero">
+  <div class="wrap">
+    <div style="max-width:640px">
+      <div style="display:inline-flex;align-items:center;gap:8px;background:var(--neon-bg);border:1px solid var(--neon-border);padding:5px 14px;border-radius:99px;margin-bottom:18px;font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--neon);text-transform:uppercase">
+        <i class="fa-solid fa-brain"></i>Powered by Claude AI
+      </div>
+      <h1 style="font-family:var(--display);font-size:clamp(44px,6vw,80px);letter-spacing:.02em;color:var(--t1);line-height:.94;margin-bottom:16px">
+        WHAT SHOULD<br><span style="color:var(--neon);text-shadow:var(--neon-glow-sm)">YOU PLAY</span><br>NEXT?
+      </h1>
+      <p style="font-size:15px;color:var(--t2);line-height:1.7;max-width:480px">Answer 5 quick questions. Claude reads the full VAULT.GG catalog — 85+ curated games — and gives you a personalized top 3 with reasoning tailored to right now.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="background:var(--void)">
+  <div class="wrap" style="max-width:760px">
+
+    <div id="quizSection">
+      <!-- Q1 -->
+      <div class="step-card active" id="step1">
+        <div class="step-label"><div class="step-num">1</div>What mood are you in right now?</div>
+        <div class="step-q">I want to feel…</div>
+        <div class="choice-grid" id="q1">
+          <button class="choice-btn" data-q="1" data-v="epic challenge — beat something hard and feel earned satisfaction"><i class="fa-solid fa-skull"></i>Challenged</button>
+          <button class="choice-btn" data-q="1" data-v="immersed in an amazing story that pulls me in for hours"><i class="fa-solid fa-book-open"></i>Absorbed</button>
+          <button class="choice-btn" data-q="1" data-v="pure adrenaline and fast-paced action, no thinking required"><i class="fa-solid fa-bolt"></i>Pumped</button>
+          <button class="choice-btn" data-q="1" data-v="relaxed and cozy, building or exploring at my own pace"><i class="fa-solid fa-seedling"></i>Relaxed</button>
+          <button class="choice-btn" data-q="1" data-v="creeped out and on edge, something tense and atmospheric"><i class="fa-solid fa-ghost"></i>Scared</button>
+          <button class="choice-btn" data-q="1" data-v="smart and strategic, something that requires thinking and planning"><i class="fa-solid fa-chess"></i>Strategic</button>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="step-card" id="step2">
+        <div class="step-label"><div class="step-num">2</div>How much time do you have?</div>
+        <div class="step-q">My session will be…</div>
+        <div class="choice-grid" id="q2">
+          <button class="choice-btn" data-q="2" data-v="1-2 hours — I want something I can pick up and put down easily"><i class="fa-solid fa-hourglass-half"></i>Quick session (1-2h)</button>
+          <button class="choice-btn" data-q="2" data-v="3-5 hours — solid evening of gaming"><i class="fa-solid fa-moon"></i>Evening session (3-5h)</button>
+          <button class="choice-btn" data-q="2" data-v="all day — I'm committing to something epic this weekend"><i class="fa-solid fa-calendar-week"></i>Full weekend commitment</button>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="step-card" id="step3">
+        <div class="step-label"><div class="step-num">3</div>Playing alone or with friends?</div>
+        <div class="step-q">I'm looking for…</div>
+        <div class="choice-grid" id="q3">
+          <button class="choice-btn" data-q="3" data-v="a deep solo single-player experience just for me"><i class="fa-solid fa-user"></i>Solo deep dive</button>
+          <button class="choice-btn" data-q="3" data-v="something to play co-op with friends or online multiplayer"><i class="fa-solid fa-people-group"></i>Co-op with friends</button>
+          <button class="choice-btn" data-q="3" data-v="competitive PvP against other players"><i class="fa-solid fa-crosshairs"></i>Competitive PvP</button>
+          <button class="choice-btn" data-q="3" data-v="either works — I'm flexible"><i class="fa-solid fa-shuffle"></i>Either works</button>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="step-card" id="step4">
+        <div class="step-label"><div class="step-num">4</div>Difficulty preference?</div>
+        <div class="step-q">I want the game to be…</div>
+        <div class="choice-grid" id="q4">
+          <button class="choice-btn" data-q="4" data-v="extremely challenging — I want to die a lot and earn every victory"><i class="fa-solid fa-fire-flame-curved"></i>Punishing (Git gud)</button>
+          <button class="choice-btn" data-q="4" data-v="moderately challenging with a satisfying learning curve"><i class="fa-solid fa-chart-line"></i>Moderate challenge</button>
+          <button class="choice-btn" data-q="4" data-v="accessible with easy difficulty options — I play for story/fun not frustration"><i class="fa-solid fa-spa"></i>Chill and accessible</button>
+        </div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="step-card" id="step5">
+        <div class="step-label"><div class="step-num">5</div>Budget?</div>
+        <div class="step-q">I'm willing to spend…</div>
+        <div class="choice-grid" id="q5">
+          <button class="choice-btn" data-q="5" data-v="nothing — free to play only"><i class="fa-solid fa-gift"></i>Free games only</button>
+          <button class="choice-btn" data-q="5" data-v="under $15 — cheap gems and older classics"><i class="fa-solid fa-coins"></i>Under $15</button>
+          <button class="choice-btn" data-q="5" data-v="$15–$40 — mid-range, happy to buy something discounted"><i class="fa-solid fa-tag"></i>$15–$40</button>
+          <button class="choice-btn" data-q="5" data-v="up to $60 — full price for something great"><i class="fa-solid fa-star"></i>Full price ($60)</button>
+          <button class="choice-btn" data-q="5" data-v="price doesn't matter — I want the best game regardless of cost"><i class="fa-solid fa-gem"></i>Money is no object</button>
+        </div>
+      </div>
+
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+      <div style="margin-top:18px;display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:12px;color:var(--t3)" id="progressLabel">Answer all 5 questions to get your picks</span>
+        <button class="btn btn-primary" id="submitBtn" style="display:none" onclick="getRecommendations()">
+          <i class="fa-solid fa-brain"></i>Get My Picks
+        </button>
+      </div>
+    </div>
+
+    <!-- Output Section -->
+    <div id="outputSection" style="display:none;margin-top:32px">
+      <div class="rec-output" id="recOutput">
+        <div class="rec-output-header">
+          <div style="width:40px;height:40px;border-radius:var(--r2);background:var(--neon-bg);border:1px solid var(--neon-border);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <i class="fa-solid fa-brain" style="color:var(--neon);font-size:18px"></i>
+          </div>
+          <div>
+            <div style="font-weight:700;font-size:14px;color:var(--t1)">Claude's Analysis</div>
+            <div style="font-size:11.5px;color:var(--t3)" id="outputSubtitle">Analyzing your preferences across the VAULT.GG catalog…</div>
+          </div>
+          <div style="margin-left:auto">
+            <span class="typing-dot"></span>
+            <span class="typing-dot"></span>
+            <span class="typing-dot"></span>
+          </div>
+        </div>
+        <div class="rec-output-body" id="recOutputBody">
+          <div style="text-align:center;padding:40px;color:var(--t3)">
+            <i class="fa-solid fa-spinner fa-spin fa-2x" style="color:var(--neon);margin-bottom:14px;display:block"></i>
+            Reading 85+ games and matching to your preferences…
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+        <span style="font-size:12px;color:var(--t3)"><i class="fa-solid fa-circle-info"></i> Powered by Claude — results based on the VAULT.GG catalog</span>
+        <button class="btn btn-ghost btn-sm" onclick="resetQuiz()"><i class="fa-solid fa-rotate-left"></i>Try Again</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <a class="footer-logo" href="index.html">VAULT<em>.GG</em></a>
+      <p class="footer-copy">AI recommendations powered by Claude (Anthropic). Results based on the VAULT.GG curated game catalog.</p>
+      <nav class="footer-links">
+        <a href="index.html"><i class="fa-solid fa-house"></i>Home</a>
+        <a href="genres/"><i class="fa-solid fa-list"></i>Genres</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script>
+const answers = {};
+
+// Handle choice selection
+document.querySelectorAll('.choice-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const q = this.dataset.q;
+    const v = this.dataset.v;
+    // Deselect others in same question
+    document.querySelectorAll(`.choice-btn[data-q="${q}"]`).forEach(b => b.classList.remove('selected'));
+    this.classList.add('selected');
+    answers[q] = v;
+    
+    // Activate next step
+    const nextStep = document.getElementById(`step${parseInt(q)+1}`);
+    if (nextStep) nextStep.classList.add('active');
+    
+    // Update progress
+    const answered = Object.keys(answers).length;
+    document.getElementById('progressFill').style.width = (answered / 5 * 100) + '%';
+    document.getElementById('progressLabel').textContent = answered < 5 
+      ? `${5 - answered} question${5-answered===1?'':'s'} remaining`
+      : 'All questions answered — ready!';
+    
+    if (answered >= 5) {
+      document.getElementById('submitBtn').style.display = '';
+    }
+  });
+});
+
+function buildGameContext() {
+  // Build a compact game catalog for Claude
+  const catalog = GAMES.filter(g => g.id && g.title && g.genre).map(g => ({
+    id: g.id,
+    title: g.title,
+    genre: g.genre,
+    dev: g.dev,
+    year: g.year,
+    score: g.score,
+    tier: g.tier,
+    tags: g.tags ? g.tags.slice(0, 5) : [],
+    hltb: g.hltb,
+    desc: g.desc ? g.desc.slice(0, 80) : '',
+    multi: g.cat ? (g.cat.includes('esports') || g.cat.includes('competitive')) : false,
+    coop: g.cat ? g.cat.includes('esports') : false,
+    free: !g.steam && ['League of Legends','Valorant','CS2','Dota 2','Team Fortress 2','Apex Legends','Fortnite'].includes(g.title),
+    cat: g.cat || []
+  }));
+  
+  // Also build price context from PRICES if available
+  const priceContext = {};
+  if (typeof PRICES !== 'undefined') {
+    Object.entries(PRICES).forEach(([id, p]) => {
+      if (p.free) priceContext[id] = 'free';
+      else if (p.cdkeys) priceContext[id] = p.cdkeys;
+      else if (p.steam) priceContext[id] = p.steam;
+    });
+  }
+  
+  return { catalog, priceContext };
+}
+
+async function getRecommendations() {
+  if (Object.keys(answers).length < 5) return;
+  
+  document.getElementById('outputSection').style.display = 'block';
+  document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth' });
+  
+  const { catalog, priceContext } = buildGameContext();
+  
+  const userProfile = `
+Mood: ${answers[1]}
+Session length: ${answers[2]}  
+Play style: ${answers[3]}
+Difficulty preference: ${answers[4]}
+Budget: ${answers[5]}
+`.trim();
+
+  const systemPrompt = `You are an expert PC gaming recommender for VAULT.GG — a curated gaming encyclopedia with 85+ handpicked titles. Your job is to give the user their PERFECT next 3 games based on their exact preferences right now.
+
+VAULT.GG GAME CATALOG (JSON):
+${JSON.stringify(catalog, null, 0)}
+
+APPROXIMATE PRICES (game ID → price string):
+${JSON.stringify(priceContext)}
+
+RULES:
+- Recommend EXACTLY 3 games from the catalog above
+- Each recommendation must match ALL the user's stated preferences
+- Be specific about WHY each game matches THIS user's exact mood/time/social/difficulty/budget combo
+- If they want free games, only suggest free ones
+- If they want short sessions, favor roguelikes, arcade games, or games you can save anywhere
+- Mention the approximate price (from the price context above, or "Free")
+- Be direct, confident, and specific — no hedging
+
+RESPONSE FORMAT (JSON only, no markdown):
+{
+  "picks": [
+    {
+      "gameId": "game-id-from-catalog",
+      "title": "Game Title",
+      "reason": "2-3 sentences explaining exactly why this game is perfect for THIS user's stated preferences right now. Be specific about what makes it match their mood, session length, social preference, difficulty level, and budget.",
+      "keyFact": "One punchy stat or fact (e.g. '97% positive reviews', '40h to complete', 'Currently $8 on Fanatical')",
+      "matchScore": 95
+    }
+  ],
+  "summary": "One sentence personalized to the user about why these picks are right for them right now."
+}`;
+
+  const userMessage = `My gaming preferences right now:\n${userProfile}\n\nPlease recommend my perfect 3 games from the VAULT.GG catalog.`;
+
+  try {
+    // Call our Vercel proxy — never expose API key in client code
+    const response = await fetch('/api/recommend', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ system: systemPrompt, userMessage })
+    });
+
+    if (!response.ok) {
+      const errData = await response.json().catch(() => ({}));
+      throw new Error(errData.error || `Server error ${response.status}`);
+    }
+
+    const result = await response.json();
+    renderResults(result, userProfile);
+    
+  } catch (err) {
+    const bodyEl = document.getElementById('recOutputBody');
+    if (bodyEl) bodyEl.innerHTML = `
+      <div style="padding:24px;text-align:center;color:var(--rose)">
+        <i class="fa-solid fa-triangle-exclamation" style="font-size:32px;margin-bottom:12px;display:block"></i>
+        <div style="font-weight:600;margin-bottom:8px">Recommendation failed</div>
+        <div style="font-size:12.5px;color:var(--t3);background:var(--deep);padding:10px 14px;border-radius:8px;font-family:monospace">${err.message}</div>
+        <button class="btn btn-ghost btn-sm" style="margin-top:16px" onclick="resetQuiz()">
+          <i class="fa-solid fa-rotate-left"></i> Try again
+        </button>
+      </div>`;
+    const dots = document.querySelector('.typing-dot');
+    if (dots && dots.parentElement) dots.parentElement.style.display = 'none';
+  }
+}
+
+function renderResults(result, userProfile) {
+  const dots = document.querySelector('.rec-output-header div:last-child');
+  if (dots) dots.innerHTML = '<i class="fa-solid fa-check" style="color:var(--neon)"></i>';
+  
+  const subtitle = document.getElementById('outputSubtitle');
+  if (subtitle && result.summary) subtitle.textContent = result.summary;
+
+  const TIER_COLOR = { S: 'var(--neon)', A: 'var(--amber)', B: 'var(--ice)', C: 'var(--t3)' };
+  
+  const picks = (result.picks || []).slice(0, 3);
+  const html = picks.map((pick, i) => {
+    const game = (typeof GAMES !== 'undefined') ? GAMES.find(g => g.id === pick.gameId) : null;
+    const img = game?.steam ? `https://cdn.cloudflare.steamstatic.com/steam/apps/${game.steam}/header.jpg` : '';
+    const tier = game?.tier || '';
+    const tierColor = TIER_COLOR[tier] || 'var(--t3)';
+    
+    return `<div class="rec-game-card" style="${i===0?'border-color:var(--neon-border)':''}">
+      <div style="display:flex;gap:16px;align-items:flex-start">
+        <div class="rec-game-num">${i + 1}</div>
+        <div style="flex:1">
+          ${img ? `<img src="${img}" alt="${pick.title}" style="width:100%;height:130px;object-fit:cover;border-radius:var(--r2);margin-bottom:12px;filter:brightness(.85)" onerror="this.style.display='none'">` : ''}
+          <div class="rec-game-name">${pick.title}</div>
+          ${tier ? `<span style="display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;padding:2px 8px;border-radius:4px;background:${tierColor}20;color:${tierColor};border:1px solid ${tierColor}40;margin-bottom:10px">TIER ${tier}</span>` : ''}
+          <div class="rec-game-why">${pick.reason}</div>
+          ${pick.keyFact ? `<div style="margin-top:9px;display:inline-flex;align-items:center;gap:6px;background:var(--neon-bg);border:1px solid var(--neon-border);padding:5px 11px;border-radius:var(--r1);font-size:11.5px;font-weight:600;color:var(--neon)"><i class="fa-solid fa-bolt"></i>${pick.keyFact}</div>` : ''}
+          <div class="rec-game-tags" style="margin-top:10px">
+            ${game?.genre ? `<span class="rec-tag"><i class="fa-solid fa-gamepad" style="font-size:9px"></i> ${game.genre}</span>` : ''}
+            ${game?.hltb?.main ? `<span class="rec-tag"><i class="fa-regular fa-clock" style="font-size:9px"></i> ${game.hltb.main}h</span>` : ''}
+            ${game?.score ? `<span class="rec-tag">⭐ ${game.score}</span>` : ''}
+          </div>
+          <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+            ${game?.steam ? `<a href="https://store.steampowered.com/app/${game.steam}/" target="_blank" rel="noopener" class="btn btn-ghost btn-sm"><i class="fa-brands fa-steam"></i>Steam</a>` : ''}
+            <a href="game.html?id=${pick.gameId}" class="btn btn-primary btn-sm"><i class="fa-solid fa-circle-info"></i>Full Details</a>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('recOutputBody').innerHTML = html || '<div style="padding:24px;color:var(--t3)">No picks returned.</div>';
+}
+
+function resetQuiz() {
+  Object.keys(answers).forEach(k => delete answers[k]);
+  document.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected'));
+  document.querySelectorAll('.step-card').forEach((c, i) => { if (i > 0) c.classList.remove('active'); });
+  document.getElementById('progressFill').style.width = '0%';
+  document.getElementById('progressLabel').textContent = 'Answer all 5 questions to get your picks';
+  document.getElementById('submitBtn').style.display = 'none';
+  document.getElementById('outputSection').style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

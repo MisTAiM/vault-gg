@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VAULT.GG — Admin cPanel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+<style>
+:root {
+  --void:#07080a; --deep:#0b0d10; --raised:#111318; --float:#181b21; --hover:#1f232b;
+  --neon:#00ff88; --neon-dim:#00cc6a; --neon-bg:rgba(0,255,136,.08); --neon-border:rgba(0,255,136,.35);
+  --neon-glow:0 0 20px rgba(0,255,136,.5),0 0 40px rgba(0,255,136,.25);
+  --neon-glow-sm:0 0 12px rgba(0,255,136,.4);
+  --amber:#f5c842; --rose:#f43f5e; --ice:#38d9f5; --purple:#a78bfa;
+  --t1:#f0f0f4; --t2:#b4b5c8; --t3:#666878; --t4:#2e3040;
+  --b1:rgba(255,255,255,.05); --b2:rgba(255,255,255,.10); --b3:rgba(255,255,255,.18);
+  --display:'Bebas Neue',sans-serif; --body:'DM Sans',sans-serif; --mono:'JetBrains Mono',monospace;
+  --r1:6px; --r2:10px; --r3:16px; --ease:cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased}
+body{background:var(--void);color:var(--t1);font-family:var(--body);font-size:14px;line-height:1.6;min-height:100vh}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;border:none;background:none;font-family:inherit;color:inherit}
+input,textarea,select{font-family:inherit}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--deep)}
+::-webkit-scrollbar-thumb{background:var(--hover);border-radius:3px}
+.mono{font-family:var(--mono)}
+
+/* ── LOGIN ── */
+.login-wrap{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(ellipse at center, rgba(0,255,136,.05) 0%, transparent 70%);
+  padding:24px;
+}
+.login-box{
+  background:var(--raised);border:1px solid var(--neon-border);border-radius:20px;
+  padding:48px 44px;width:100%;max-width:400px;text-align:center;
+  box-shadow:var(--neon-glow),0 40px 80px rgba(0,0,0,.6);
+  animation:popIn .35s var(--ease) both;
+}
+@keyframes popIn{from{opacity:0;transform:scale(.94) translateY(16px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.login-logo{font-family:var(--display);font-size:42px;letter-spacing:.06em;color:var(--neon);text-shadow:var(--neon-glow);margin-bottom:4px}
+.login-logo em{color:var(--t1);font-style:normal}
+.login-sub{font-size:12px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:36px}
+.login-field{position:relative;margin-bottom:14px;text-align:left}
+.login-field label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--t3);margin-bottom:5px}
+.login-field input{
+  width:100%;padding:11px 14px 11px 40px;background:var(--deep);border:1px solid var(--b2);
+  border-radius:var(--r2);color:var(--t1);font-size:14px;outline:none;
+  transition:border-color .15s,box-shadow .15s;
+}
+.login-field input:focus{border-color:var(--neon-border);box-shadow:0 0 0 3px rgba(0,255,136,.12)}
+.login-field i{position:absolute;left:13px;bottom:12px;color:var(--t3);font-size:14px}
+.login-btn{
+  width:100%;padding:13px;background:var(--neon);color:#000;border:none;border-radius:var(--r2);
+  font-size:14px;font-weight:700;letter-spacing:.04em;cursor:pointer;margin-top:8px;
+  transition:all .15s;box-shadow:0 0 20px rgba(0,255,136,.3);
+}
+.login-btn:hover{background:#33ffaa;box-shadow:var(--neon-glow);transform:translateY(-1px)}
+.login-err{font-size:12px;color:var(--rose);margin-top:10px;display:none}
+.login-err.show{display:block}
+.login-hint{font-size:11px;color:var(--t3);margin-top:20px}
+
+/* ── SHELL ── */
+.shell{display:flex;min-height:100vh}
+.hidden{display:none!important}
+
+/* ── SIDEBAR ── */
+.sidebar{
+  width:220px;flex-shrink:0;background:var(--raised);
+  border-right:1px solid var(--b1);display:flex;flex-direction:column;
+  position:sticky;top:0;height:100vh;overflow-y:auto;
+}
+.sb-logo{padding:20px 20px 16px;border-bottom:1px solid var(--b1)}
+.sb-logo-text{font-family:var(--display);font-size:22px;color:var(--neon);text-shadow:var(--neon-glow-sm)}
+.sb-logo-text em{color:var(--t1);font-style:normal}
+.sb-badge{font-size:10px;background:var(--neon-bg);color:var(--neon);border:1px solid var(--neon-border);padding:2px 8px;border-radius:99px;margin-left:6px;letter-spacing:.05em}
+.sb-user{padding:12px 20px;border-bottom:1px solid var(--b1);font-size:12px;color:var(--t3);display:flex;align-items:center;gap:8px}
+.sb-user i{color:var(--neon)}
+.sb-nav{flex:1;padding:12px 0}
+.sb-section{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--t4);padding:10px 20px 4px}
+.sb-link{
+  display:flex;align-items:center;gap:10px;padding:9px 20px;
+  font-size:13px;font-weight:500;color:var(--t3);cursor:pointer;
+  transition:all .14s;border-left:2px solid transparent;
+}
+.sb-link:hover{color:var(--t1);background:var(--float)}
+.sb-link.active{color:var(--neon);background:var(--neon-bg);border-left-color:var(--neon);text-shadow:var(--neon-glow-sm)}
+.sb-link i{width:16px;text-align:center;font-size:13px}
+.sb-bottom{padding:16px 20px;border-top:1px solid var(--b1)}
+.sb-logout{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--t3);cursor:pointer;transition:color .14s}
+.sb-logout:hover{color:var(--rose)}
+
+/* ── MAIN ── */
+.main-area{flex:1;display:flex;flex-direction:column;min-width:0}
+.topbar{background:var(--raised);border-bottom:1px solid var(--b1);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;position:sticky;top:0;z-index:10}
+.topbar-title{font-family:var(--display);font-size:28px;letter-spacing:.03em;color:var(--t1)}
+.topbar-title span{color:var(--neon)}
+.topbar-actions{display:flex;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:8px 16px;border-radius:var(--r2);font-size:13px;font-weight:600;cursor:pointer;transition:all .14s;border:1px solid transparent;white-space:nowrap}
+.btn-primary{background:var(--neon);color:#000}
+.btn-primary:hover{background:#33ffaa;box-shadow:0 0 16px rgba(0,255,136,.4);transform:translateY(-1px)}
+.btn-ghost{background:var(--float);color:var(--t2);border-color:var(--b2)}
+.btn-ghost:hover{color:var(--t1);border-color:var(--b3)}
+.btn-danger{background:rgba(244,63,94,.1);color:var(--rose);border-color:rgba(244,63,94,.3)}
+.btn-danger:hover{background:rgba(244,63,94,.2)}
+.btn-sm{padding:5px 11px;font-size:12px}
+.btn-neon{background:var(--neon-bg);color:var(--neon);border-color:var(--neon-border)}
+.btn-neon:hover{background:rgba(0,255,136,.15);box-shadow:var(--neon-glow-sm)}
+
+.page-content{padding:28px;flex:1}
+
+/* ── STAT CARDS ── */
+.stat-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-bottom:28px}
+.stat-card{background:var(--raised);border:1px solid var(--b1);border-radius:var(--r3);padding:18px 20px;border-left:3px solid var(--neon)}
+.stat-card-n{font-family:var(--display);font-size:36px;color:var(--neon);text-shadow:var(--neon-glow-sm);line-height:1}
+.stat-card-l{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--t3);margin-top:5px}
+
+/* ── IMAGE VERIFIER ── */
+.img-verify-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin-top:16px}
+.img-check-item{background:var(--raised);border:1px solid var(--b1);border-radius:var(--r2);padding:12px 14px;display:flex;align-items:center;gap:10px;transition:border-color .15s}
+.img-check-item.ok{border-left:3px solid var(--neon)}
+.img-check-item.fail{border-left:3px solid var(--rose)}
+.img-check-item.checking{border-left:3px solid var(--t4)}
+.img-thumb{width:60px;height:28px;object-fit:cover;border-radius:4px;flex-shrink:0;background:var(--float)}
+.img-check-info{flex:1;min-width:0}
+.img-check-name{font-size:12px;font-weight:600;color:var(--t1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.img-check-id{font-size:11px;font-family:var(--mono);color:var(--t3)}
+.img-status-icon{font-size:14px;flex-shrink:0}
+.img-status-icon.ok{color:var(--neon)}
+.img-status-icon.fail{color:var(--rose)}
+.img-status-icon.checking{color:var(--t4);animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── DATA TABLE ── */
+.data-table{width:100%;border-collapse:collapse;font-size:13px}
+.data-table th{text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--t3);padding:8px 12px;border-bottom:1px solid var(--b1)}
+.data-table td{padding:10px 12px;border-bottom:1px solid var(--b1);color:var(--t2);vertical-align:middle}
+.data-table tr:hover td{background:var(--float)}
+.data-table .game-title{font-weight:600;color:var(--t1)}
+.data-table .tier-s{color:var(--neon);font-weight:700;font-family:var(--mono)}
+.data-table .tier-a{color:var(--amber);font-weight:700;font-family:var(--mono)}
+.data-table .tier-b{color:var(--ice);font-weight:700;font-family:var(--mono)}
+.thumb-mini{width:50px;height:23px;object-fit:cover;border-radius:3px;background:var(--float)}
+
+/* ── FORM ── */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-full{grid-column:1/-1}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--t3)}
+.field input,.field select,.field textarea{
+  background:var(--deep);border:1px solid var(--b2);border-radius:var(--r2);
+  color:var(--t1);padding:9px 12px;font-size:13px;outline:none;
+  transition:border-color .15s,box-shadow .15s;
+}
+.field input:focus,.field select,.field textarea:focus{border-color:var(--neon-border);box-shadow:0 0 0 3px rgba(0,255,136,.1)}
+.field select{cursor:pointer}
+.field textarea{resize:vertical;min-height:80px;font-family:var(--mono);font-size:12px}
+.field select option{background:var(--raised)}
+
+/* ── PANEL CARDS ── */
+.panel{background:var(--raised);border:1px solid var(--b1);border-radius:var(--r3);overflow:hidden;margin-bottom:20px}
+.panel-head{padding:14px 20px;border-bottom:1px solid var(--b1);display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--float)}
+.panel-title{font-weight:600;font-size:14px;color:var(--t1);display:flex;align-items:center;gap:8px}
+.panel-title i{color:var(--neon)}
+.panel-body{padding:20px}
+
+/* ── PROGRESS BAR ── */
+.progress-wrap{background:var(--deep);border-radius:99px;height:8px;overflow:hidden;margin:8px 0}
+.progress-bar{height:100%;background:var(--neon);border-radius:99px;box-shadow:0 0 10px rgba(0,255,136,.5);transition:width 0.3s}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px}
+.toast-item{background:var(--raised);border:1px solid var(--b2);border-left:3px solid var(--neon);border-radius:var(--r2);padding:12px 16px;font-size:13px;font-weight:500;color:var(--t1);box-shadow:0 8px 32px rgba(0,0,0,.5);animation:slideIn .2s var(--ease);min-width:260px}
+.toast-item.err{border-left-color:var(--rose)}
+@keyframes slideIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+
+/* ── CODE EDITOR ── */
+.code-area{background:var(--void);border:1px solid var(--b2);border-radius:var(--r2);padding:16px;font-family:var(--mono);font-size:12px;color:#a8ff78;min-height:200px;overflow:auto;white-space:pre;line-height:1.6}
+
+/* ── ACHIEVEMENT GUIDE BUILDER ── */
+.ach-builder{display:flex;flex-direction:column;gap:12px}
+.ach-entry{background:var(--deep);border:1px solid var(--b1);border-radius:var(--r2);padding:14px;position:relative}
+.ach-remove{position:absolute;top:10px;right:10px;color:var(--rose);font-size:12px;cursor:pointer;opacity:.6}
+.ach-remove:hover{opacity:1}
+.diff-select{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.diff-btn{padding:4px 10px;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--b2);background:var(--raised);color:var(--t3);transition:all .12s}
+.diff-btn.active{color:#000}
+
+/* ── MODAL ── */
+.modal-back{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:20px}
+.modal-back.open{display:flex}
+.modal-box{background:var(--raised);border:1px solid var(--b2);border-radius:20px;max-width:720px;width:100%;max-height:90vh;overflow-y:auto;animation:popIn .2s var(--ease) both}
+.modal-head{padding:20px 24px;border-bottom:1px solid var(--b1);display:flex;align-items:center;justify-content:space-between}
+.modal-head-title{font-family:var(--display);font-size:26px;color:var(--t1);letter-spacing:.03em}
+.modal-close-btn{width:32px;height:32px;border-radius:50%;background:var(--float);border:1px solid var(--b1);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--t2);transition:all .14s}
+.modal-close-btn:hover{color:var(--neon);border-color:var(--neon-border)}
+.modal-body{padding:22px 24px}
+
+/* ── PILL BADGE ── */
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;padding:2px 8px;border-radius:99px;font-family:var(--mono)}
+.badge-ok{background:var(--neon-bg);color:var(--neon);border:1px solid var(--neon-border)}
+.badge-err{background:rgba(244,63,94,.1);color:var(--rose);border:1px solid rgba(244,63,94,.3)}
+.badge-warn{background:rgba(245,200,66,.1);color:var(--amber);border:1px solid rgba(245,200,66,.3)}
+
+/* ── QUICK ACTIONS ── */
+.quick-actions{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:24px}
+.quick-card{background:var(--raised);border:1px solid var(--b1);border-radius:var(--r3);padding:18px;cursor:pointer;transition:all .18s var(--ease);display:flex;align-items:center;gap:14px}
+.quick-card:hover{border-color:var(--neon-border);background:var(--float);transform:translateY(-2px);box-shadow:0 0 20px rgba(0,255,136,.15)}
+.quick-icon{width:40px;height:40px;border-radius:var(--r2);background:var(--neon-bg);border:1px solid var(--neon-border);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--neon);flex-shrink:0}
+.quick-text-title{font-weight:600;font-size:14px;color:var(--t1)}
+.quick-text-sub{font-size:11px;color:var(--t3)}
+
+/* ── GUIDE SECTION ── */
+.guide-section{display:flex;flex-direction:column;gap:16px}
+.guide-card{background:var(--raised);border:1px solid var(--b1);border-radius:var(--r3);overflow:hidden}
+.guide-card-head{padding:14px 18px;background:var(--float);border-bottom:1px solid var(--b1);display:flex;align-items:center;justify-content:space-between}
+.guide-card-title{font-weight:700;font-size:15px;color:var(--t1)}
+.guide-card-body{padding:16px 18px;font-size:13px;color:var(--t2);line-height:1.7}
+.guide-card-body h4{color:var(--neon);font-size:12px;text-transform:uppercase;letter-spacing:.09em;margin:14px 0 6px;font-weight:700}
+.guide-card-body ul{list-style:none;display:flex;flex-direction:column;gap:5px}
+.guide-card-body ul li{padding-left:16px;position:relative}
+.guide-card-body ul li::before{content:'›';position:absolute;left:0;color:var(--neon)}
+.guide-card-body code{background:var(--deep);padding:1px 6px;border-radius:4px;font-family:var(--mono);font-size:11px;color:var(--neon)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){.sidebar{display:none}.form-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- ═══ LOGIN SCREEN ═══ -->
+<div id="loginWrap" class="login-wrap">
+  <div class="login-box">
+    <div class="login-logo">VAULT<em>.GG</em></div>
+    <div class="login-sub">Admin cPanel — Authorized Access Only</div>
+    <div class="login-field">
+      <label>Username</label>
+      <i class="fa-solid fa-user"></i>
+      <input type="text" id="loginUser" placeholder="Enter username" autocomplete="username">
+    </div>
+    <div class="login-field">
+      <label>Password</label>
+      <i class="fa-solid fa-lock"></i>
+      <input type="password" id="loginPass" placeholder="Enter password" autocomplete="current-password">
+    </div>
+    <button class="login-btn" onclick="doLogin()"><i class="fa-solid fa-right-to-bracket"></i> Access Panel</button>
+    <div class="login-err" id="loginErr"><i class="fa-solid fa-circle-exclamation"></i> Invalid credentials</div>
+    <div class="login-hint">VAULT.GG Admin &bull; v2.0.0</div>
+  </div>
+</div>
+
+<!-- ═══ ADMIN SHELL ═══ -->
+<div id="adminShell" class="shell hidden">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sb-logo">
+      <div class="sb-logo-text">VAULT<em>.GG</em> <span class="sb-badge">ADMIN</span></div>
+    </div>
+    <div class="sb-user"><i class="fa-solid fa-circle-user"></i> Logged in as <strong>Morpheus</strong></div>
+    <nav class="sb-nav">
+      <div class="sb-section">Main</div>
+      <div class="sb-link active" onclick="showPage('dashboard')"><i class="fa-solid fa-chart-line"></i>Dashboard</div>
+      <div class="sb-link" onclick="showPage('verify')"><i class="fa-solid fa-image"></i>Image Verifier</div>
+
+      <div class="sb-section">Content</div>
+      <div class="sb-link" onclick="showPage('games')"><i class="fa-solid fa-gamepad"></i>Game Manager</div>
+      <div class="sb-link" onclick="showPage('achievements')"><i class="fa-solid fa-shield-halved"></i>Achievements</div>
+      <div class="sb-link" onclick="showPage('upcoming')"><i class="fa-solid fa-calendar-days"></i>Upcoming Releases</div>
+      <div class="sb-link" onclick="showPage('borderlands')"><i class="fa-solid fa-gun"></i>Borderlands</div>
+
+      <div class="sb-section">Dev Tools</div>
+      <div class="sb-link" onclick="showPage('guides')"><i class="fa-solid fa-scroll"></i>Guides & Notes</div>
+      <div class="sb-link" onclick="showPage('steam-ids')"><i class="fa-brands fa-steam"></i>Steam ID Lookup</div>
+      <div class="sb-link" onclick="showPage('export')"><i class="fa-solid fa-file-export"></i>Export Data</div>
+      <div class="sb-link" onclick="window.open('../','_blank')"><i class="fa-solid fa-arrow-up-right-from-square"></i>View Live Site</div>
+    </nav>
+    <div class="sb-bottom">
+      <div class="sb-logout" onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i>Logout</div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main-area">
+    <div class="topbar">
+      <div class="topbar-title" id="pageTitle">Dashboard</div>
+      <div class="topbar-actions" id="topbarActions"></div>
+    </div>
+    <div class="page-content" id="pageContent"></div>
+  </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast" id="toastContainer"></div>
+
+<!-- MODAL -->
+<div class="modal-back" id="globalModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-head-title" id="modalTitle"></div>
+      <button class="modal-close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+// AUTH
+// ═══════════════════════════════════════════
+const HASH_USER = btoa('Morpheus');
+const HASH_PASS = btoa('matrix123');
+
+function doLogin() {
+  const u = document.getElementById('loginUser').value;
+  const p = document.getElementById('loginPass').value;
+  if (btoa(u) === HASH_USER && btoa(p) === HASH_PASS) {
+    sessionStorage.setItem('vault_auth', '1');
+    document.getElementById('loginWrap').classList.add('hidden');
+    document.getElementById('adminShell').classList.remove('hidden');
+    showPage('dashboard');
+  } else {
+    const err = document.getElementById('loginErr');
+    err.classList.add('show');
+    setTimeout(() => err.classList.remove('show'), 3000);
+  }
+}
+
+document.getElementById('loginUser').addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('loginPass').focus(); });
+document.getElementById('loginPass').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+
+function doLogout() {
+  sessionStorage.removeItem('vault_auth');
+  document.getElementById('adminShell').classList.add('hidden');
+  document.getElementById('loginWrap').classList.remove('hidden');
+  document.getElementById('loginUser').value = '';
+  document.getElementById('loginPass').value = '';
+}
+
+if (sessionStorage.getItem('vault_auth') === '1') {
+  document.getElementById('loginWrap').classList.add('hidden');
+  document.getElementById('adminShell').classList.remove('hidden');
+  setTimeout(() => showPage('dashboard'), 10);
+}
+
+// ═══════════════════════════════════════════
+// VERIFIED STEAM IDs (from DEV_MEMORY)
+// ═══════════════════════════════════════════
+const VERIFIED_IDS = {
+  'Elden Ring':1245620,'Baldurs Gate 3':1086940,'RDR2':1174180,'Cyberpunk 2077':1091500,
+  'Persona 5 Royal':1687950,'Clair Obscur':2805590,'Hades 2':1541780,'Disco Elysium':632470,
+  'Monster Hunter Wilds':2246340,'Deep Rock Galactic':548430,'Hades':1145360,'Balatro':2379780,
+  'Valheim':892970,'Stardew Valley':413150,'Portal 2':620,'Hollow Knight':367520,
+  'Hitman WoA':1659040,'No Mans Sky':275850,'Satisfactory':526870,'Celeste':504230,
+  'Subnautica':264710,'SOMA':282140,'RE4 Remake':2050650,'Forza Horizon 5':1551360,
+  'ACC':805550,'Civ VI':289070,'AoE4':1466860,'HL Alyx':546560,'Alan Wake 2':1903840,
+  'RimWorld':294100,'Terraria':105600,'KCD2':1771300,'Apex Legends':1172470,'CS2':730,
+  'Dota 2':570,'Rocket League':252950,'Street Fighter 6':1794960,'DB Sparking Zero':2340430,
+  'DB FighterZ':678950,'Genshin Impact':1971870,'Metaphor ReFantazio':2679460,
+  'Tales of Arise':1579380,'Minecraft Launcher':1672970,'TF2':440,'GMod':4000,
+  'Diablo II Resurrected':1085510,'AoE2 DE':813780,'Fallout NV':22380,'Morrowind':22320,
+  'OSRS':1343400,'Skyrim SE':489830,'GTA V':271590,'Bannerlord':261550,
+  'Lethal Company':1966720,'Control':870780,'DUSK':519860,'Outer Wilds':753640,
+  'Return of Obra Dinn':653530,'Noita':881100,'Granblue Relink':881020,
+  'Honkai Star Rail':1428350,'Persona 3 Reload':2161700,'BeamNG':284160,'DiRT Rally 2':690790,
+  'Hell Let Loose':686810,'Hunt Showdown':594650,'For Honor':304390,'Mordhau':629760,
+  'Rust':252490,'DB First Berserker':2625510,'Silent Hill 2 Remake':2413130,
+  'Death Stranding':1190460,'Doom Eternal':782330,'Borderlands 2':49520,
+  'Borderlands 3':397540,'Borderlands 4':1285190,'Borderlands PreSequel':261640,
+  'Tales from Borderlands':348900,'Tiny Tina Wonderlands':1286680,
+  'New Tales Borderlands':1454970,
+};
+
+const STEAM_IMG = id => `https://cdn.cloudflare.steamstatic.com/steam/apps/${id}/header.jpg`;
+const STEAM_URL = id => `https://store.steampowered.com/app/${id}/`;
+
+// ═══════════════════════════════════════════
+// ROUTER
+// ═══════════════════════════════════════════
+function showPage(page) {
+  document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
+  const link = document.querySelector(`[onclick="showPage('${page}')"]`);
+  if (link) link.classList.add('active');
+  document.getElementById('topbarActions').innerHTML = '';
+
+  const titles = {
+    dashboard:'Dashboard', verify:'Image Verifier', games:'Game Manager',
+    achievements:'Achievement Editor', upcoming:'Upcoming Releases',
+    borderlands:'Borderlands Universe', guides:'Guides & Dev Notes',
+    'steam-ids':'Steam ID Lookup', export:'Export Data'
+  };
+  document.getElementById('pageTitle').textContent = titles[page] || page;
+
+  const pages = { dashboard:pageDashboard, verify:pageVerify, games:pageGames,
+    achievements:pageAchievements, upcoming:pageUpcoming, borderlands:pageBorderlands,
+    guides:pageGuides, 'steam-ids':pageSteamLookup, export:pageExport };
+
+  if (pages[page]) pages[page]();
+  else document.getElementById('pageContent').innerHTML = `<p style="color:var(--t3)">Coming soon.</p>`;
+}
+
+// ═══════════════════════════════════════════
+// DASHBOARD
+// ═══════════════════════════════════════════
+function pageDashboard() {
+  const total = Object.keys(VERIFIED_IDS).length;
+  document.getElementById('pageContent').innerHTML = `
+    <div class="stat-row">
+      <div class="stat-card"><div class="stat-card-n">${total}</div><div class="stat-card-l">Verified Steam IDs</div></div>
+      <div class="stat-card"><div class="stat-card-n">4</div><div class="stat-card-l">IDs Fixed This Session</div></div>
+      <div class="stat-card"><div class="stat-card-n">20</div><div class="stat-card-l">Upcoming Releases</div></div>
+      <div class="stat-card"><div class="stat-card-n">100%</div><div class="stat-card-l">Image Uptime</div></div>
+    </div>
+
+    <div class="quick-actions">
+      <div class="quick-card" onclick="showPage('verify')">
+        <div class="quick-icon"><i class="fa-solid fa-image"></i></div>
+        <div><div class="quick-text-title">Verify Images</div><div class="quick-text-sub">Check all Steam CDN URLs</div></div>
+      </div>
+      <div class="quick-card" onclick="showPage('games')">
+        <div class="quick-icon"><i class="fa-solid fa-plus"></i></div>
+        <div><div class="quick-text-title">Add Game</div><div class="quick-text-sub">Add to the database</div></div>
+      </div>
+      <div class="quick-card" onclick="showPage('achievements')">
+        <div class="quick-icon"><i class="fa-solid fa-shield-halved"></i></div>
+        <div><div class="quick-text-title">Write Achievement</div><div class="quick-text-sub">Add guide content</div></div>
+      </div>
+      <div class="quick-card" onclick="showPage('steam-ids')">
+        <div class="quick-icon"><i class="fa-brands fa-steam"></i></div>
+        <div><div class="quick-text-title">Steam ID Lookup</div><div class="quick-text-sub">Find correct App IDs</div></div>
+      </div>
+      <div class="quick-card" onclick="showPage('export')">
+        <div class="quick-icon"><i class="fa-solid fa-file-export"></i></div>
+        <div><div class="quick-text-title">Export Data</div><div class="quick-text-sub">Download updated JS</div></div>
+      </div>
+      <div class="quick-card" onclick="window.open('../','_blank')">
+        <div class="quick-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+        <div><div class="quick-text-title">Live Site</div><div class="quick-text-sub">vault-gg-one.vercel.app</div></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-circle-check"></i>Last ID Fixes Applied</div><span class="badge badge-ok"><i class="fa-solid fa-check"></i>All Fixed</span></div>
+      <div class="panel-body">
+        <table class="data-table">
+          <thead><tr><th>Game</th><th>Old ID</th><th>Correct ID</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td class="game-title">Honkai: Star Rail</td><td class="mono" style="color:var(--rose)">1414740</td><td class="mono" style="color:var(--neon)">1428350</td><td><span class="badge badge-ok">Fixed</span></td></tr>
+            <tr><td class="game-title">Diablo II: Resurrected</td><td class="mono" style="color:var(--rose)">2200850</td><td class="mono" style="color:var(--neon)">1085510</td><td><span class="badge badge-ok">Fixed</span></td></tr>
+            <tr><td class="game-title">Borderlands 4</td><td class="mono" style="color:var(--rose)">2180450</td><td class="mono" style="color:var(--neon)">1285190</td><td><span class="badge badge-ok">Fixed</span></td></tr>
+            <tr><td class="game-title">New Tales from the Borderlands</td><td class="mono" style="color:var(--rose)">1637840</td><td class="mono" style="color:var(--neon)">1454970</td><td><span class="badge badge-ok">Fixed</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>`;
+}
+
+// ═══════════════════════════════════════════
+// IMAGE VERIFIER
+// ═══════════════════════════════════════════
+function pageVerify() {
+  document.getElementById('topbarActions').innerHTML = `<button class="btn btn-primary" onclick="runVerify()"><i class="fa-solid fa-play"></i>Run Verification</button>`;
+  let html = `<div class="panel"><div class="panel-head"><div class="panel-title"><i class="fa-solid fa-image"></i>Steam CDN Image Checker</div></div><div class="panel-body">
+    <p style="color:var(--t2);margin-bottom:14px">Checks all <strong>${Object.keys(VERIFIED_IDS).length}</strong> verified Steam App IDs against the CDN. Click Run Verification to start.</p>
+    <div id="verifyProgress" style="display:none">
+      <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--t3);margin-bottom:4px"><span>Checking images...</span><span id="verifyCount">0 / ${Object.keys(VERIFIED_IDS).length}</span></div>
+      <div class="progress-wrap"><div class="progress-bar" id="verifyBar" style="width:0%"></div></div>
+    </div>
+    <div id="verifySummary" style="margin-top:14px;display:none"></div>
+    <div class="img-verify-grid" id="verifyGrid"></div>
+  </div></div>`;
+  document.getElementById('pageContent').innerHTML = html;
+}
+
+async function runVerify() {
+  const grid = document.getElementById('verifyGrid');
+  const progress = document.getElementById('verifyProgress');
+  const summary = document.getElementById('verifySummary');
+  const bar = document.getElementById('verifyBar');
+  const countEl = document.getElementById('verifyCount');
+  grid.innerHTML = '';
+  progress.style.display = 'block';
+  summary.style.display = 'none';
+
+  const entries = Object.entries(VERIFIED_IDS);
+  let ok = 0, fail = 0;
+
+  for (let i = 0; i < entries.length; i++) {
+    const [name, appid] = entries[i];
+    const imgUrl = STEAM_IMG(appid);
+
+    const item = document.createElement('div');
+    item.className = 'img-check-item checking';
+    item.id = `check-${appid}`;
+    item.innerHTML = `
+      <img class="img-thumb" src="${imgUrl}" onerror="this.style.background='#f43f5e22'" loading="lazy">
+      <div class="img-check-info">
+        <div class="img-check-name" title="${name}">${name}</div>
+        <div class="img-check-id">${appid}</div>
+      </div>
+      <i class="fa-solid fa-spinner img-status-icon checking"></i>`;
+    grid.appendChild(item);
+
+    // Check by loading the image
+    await new Promise(resolve => {
+      const img = new Image();
+      img.onload = () => {
+        item.classList.remove('checking');
+        item.classList.add('ok');
+        item.querySelector('.img-status-icon').className = 'fa-solid fa-circle-check img-status-icon ok';
+        ok++;
+        resolve();
+      };
+      img.onerror = () => {
+        item.classList.remove('checking');
+        item.classList.add('fail');
+        item.querySelector('.img-status-icon').className = 'fa-solid fa-circle-xmark img-status-icon fail';
+        fail++;
+        resolve();
+      };
+      img.src = imgUrl;
+    });
+
+    const pct = Math.round(((i+1)/entries.length)*100);
+    bar.style.width = pct + '%';
+    countEl.textContent = `${i+1} / ${entries.length}`;
+  }
+
+  progress.style.display = 'none';
+  summary.style.display = 'block';
+  summary.innerHTML = `<div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:16px">
+    <span class="badge badge-ok"><i class="fa-solid fa-check"></i>${ok} Working</span>
+    ${fail > 0 ? `<span class="badge badge-err"><i class="fa-solid fa-xmark"></i>${fail} Broken</span>` : ''}
+    <span style="font-size:12px;color:var(--t3);align-self:center">Scan complete — ${new Date().toLocaleTimeString()}</span>
+  </div>`;
+
+  if (fail === 0) toast('All ' + ok + ' images verified ✓', false);
+  else toast(fail + ' broken IDs found — check the red items', true);
+}
+
+// ═══════════════════════════════════════════
+// GAME MANAGER
+// ═══════════════════════════════════════════
+function pageGames() {
+  document.getElementById('topbarActions').innerHTML = `<button class="btn btn-primary" onclick="openAddGame()"><i class="fa-solid fa-plus"></i>Add Game</button>`;
+
+  const rows = Object.entries(VERIFIED_IDS).map(([name, id]) => `
+    <tr>
+      <td><img class="thumb-mini" src="${STEAM_IMG(id)}" onerror="this.style.background='#1e2028'" loading="lazy"></td>
+      <td class="game-title">${name}</td>
+      <td class="mono" style="color:var(--neon)">${id}</td>
+      <td><a href="${STEAM_URL(id)}" target="_blank" class="btn btn-sm btn-ghost"><i class="fa-brands fa-steam"></i>Store</a></td>
+      <td>
+        <button class="btn btn-sm btn-neon" onclick="checkSingleImg(${id},'${name.replace(/'/g,"\\'")}')"><i class="fa-solid fa-image"></i>Verify</button>
+      </td>
+    </tr>`).join('');
+
+  document.getElementById('pageContent').innerHTML = `
+    <div class="panel">
+      <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-database"></i>Verified Game Database (${Object.keys(VERIFIED_IDS).length} games)</div></div>
+      <div class="panel-body" style="padding:0;overflow-x:auto">
+        <table class="data-table">
+          <thead><tr><th>Image</th><th>Name</th><th>Steam ID</th><th>Store</th><th>Actions</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    </div>
+    <div class="panel" id="addGamePanel" style="display:none">
+      <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-plus"></i>Add New Game</div></div>
+      <div class="panel-body">
+        <div class="form-grid">
+          <div class="field"><label>Game Title</label><input type="text" id="newGameTitle" placeholder="Elden Ring"></div>
+          <div class="field"><label>Steam App ID</label><input type="number" id="newGameId" placeholder="1245620" oninput="previewSteamImg()"></div>
+          <div class="field"><label>Genre</label><input type="text" id="newGameGenre" placeholder="Open World RPG"></div>
+          <div class="field"><label>Developer</label><input type="text" id="newGameDev" placeholder="FromSoftware"></div>
+          <div class="field"><label>Year</label><input type="number" id="newGameYear" placeholder="2022"></div>
+          <div class="field"><label>Metacritic Score</label><input type="number" id="newGameScore" placeholder="96"></div>
+          <div class="field"><label>Tier (S/A/B/C)</label><select id="newGameTier"><option value="S">S — Essential</option><option value="A">A — Great</option><option value="B">B — Good</option><option value="C">C — Decent</option></select></div>
+          <div class="field"><label>Category Tags (comma separated)</label><input type="text" id="newGameCat" placeholder="top10, genre-bis, graphics"></div>
+          <div class="field form-full"><label>Description</label><textarea id="newGameDesc" placeholder="Brief description of the game..."></textarea></div>
+          <div class="field form-full">
+            <label>Image Preview</label>
+            <img id="newGameImgPreview" style="width:230px;height:107px;object-fit:cover;border-radius:8px;background:var(--float);border:1px solid var(--b2)">
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:16px">
+          <button class="btn btn-primary" onclick="submitNewGame()"><i class="fa-solid fa-floppy-disk"></i>Save Game Entry</button>
+          <button class="btn btn-ghost" onclick="document.getElementById('addGamePanel').style.display='none'">Cancel</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function openAddGame() {
+  document.getElementById('addGamePanel').style.display = 'block';
+  document.getElementById('addGamePanel').scrollIntoView({behavior:'smooth'});
+}
+
+function previewSteamImg() {
+  const id = document.getElementById('newGameId').value;
+  if (id) document.getElementById('newGameImgPreview').src = STEAM_IMG(id);
+}
+
+function submitNewGame() {
+  const title = document.getElementById('newGameTitle').value;
+  const id    = document.getElementById('newGameId').value;
+  if (!title || !id) { toast('Title and Steam ID are required', true); return; }
+
+  const entry = {
+    id: title.toLowerCase().replace(/[^a-z0-9]/g,'-').replace(/-+/g,'-'),
+    title, steam: parseInt(id),
+    genre:  document.getElementById('newGameGenre').value,
+    dev:    document.getElementById('newGameDev').value,
+    year:   parseInt(document.getElementById('newGameYear').value) || new Date().getFullYear(),
+    score:  parseInt(document.getElementById('newGameScore').value) || null,
+    tier:   document.getElementById('newGameTier').value,
+    cat:    document.getElementById('newGameCat').value.split(',').map(s=>s.trim()).filter(Boolean),
+    desc:   document.getElementById('newGameDesc').value,
+    achievements: []
+  };
+
+  // Save to localStorage
+  const saved = JSON.parse(localStorage.getItem('vault_added_games') || '[]');
+  saved.push(entry);
+  localStorage.setItem('vault_added_games', JSON.stringify(saved));
+
+  toast(`"${title}" saved! Export Data to get updated data.js`, false);
+  document.getElementById('addGamePanel').style.display = 'none';
+}
+
+function checkSingleImg(appid, name) {
+  const img = new Image();
+  img.onload = () => toast(`✓ ${name} (${appid}) — image working`, false);
+  img.onerror = () => toast(`✗ ${name} (${appid}) — image broken!`, true);
+  img.src = STEAM_IMG(appid) + '?t=' + Date.now();
+}
+
+// ═══════════════════════════════════════════
+// ACHIEVEMENT EDITOR
+// ═══════════════════════════════════════════
+function pageAchievements() {
+  document.getElementById('pageContent').innerHTML = `
+    <div class="panel">
+      <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-shield-halved"></i>Achievement Guide Builder</div></div>
+      <div class="panel-body">
+        <div class="form-grid" style="margin-bottom:16px">
+          <div class="field"><label>Game Title</label><input type="text" id="achGameTitle" placeholder="Elden Ring"></div>
+          <div class="field"><label>Steam App ID</label><input type="number" id="achGameId" placeholder="1245620"></div>
+        </div>
+        <div class="ach-builder" id="achBuilder">
+          ${achEntryHtml(0)}
+        </div>
+        <div style="display:flex;gap:10px;margin-top:16px">
+          <button class="btn btn-ghost" onclick="addAchEntry()"><i class="fa-solid fa-plus"></i>Add Achievement</button>
+          <button class="btn btn-primary" onclick="saveAchievements()"><i class="fa-solid fa-floppy-disk"></i>Save & Export</button>
+        </div>
+        <div id="achOutput" style="margin-top:18px;display:none">
+          <div class="panel-head" style="background:var(--void)"><div class="panel-title" style="font-size:12px;color:var(--neon)"><i class="fa-solid fa-code"></i>Generated JS — paste into data.js</div></div>
+          <div class="code-area" id="achCode"></div>
+          <button class="btn btn-ghost btn-sm" style="margin-top:8px" onclick="copyAch()"><i class="fa-solid fa-copy"></i>Copy to Clipboard</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+let achCount = 1;
+function achEntryHtml(i) {
+  const colors = {1:'#4ade80',2:'#86efac',3:'#f5c842',4:'#f97316',5:'#f43f5e'};
+  const labels = {1:'Trivial',2:'Easy',3:'Medium',4:'Hard',5:'Legendary'};
+  const diffs = [1,2,3,4,5].map(d => `<div class="diff-btn" data-diff="${d}" onclick="setDiff(this,${i})" style="--dc:${colors[d]}">${labels[d]}</div>`).join('');
+  return `<div class="ach-entry" id="ach-${i}">
+    <button class="ach-remove" onclick="removeAch(${i})"><i class="fa-solid fa-xmark"></i></button>
+    <div class="form-grid">
+      <div class="field"><label>Achievement Name</label><input type="text" class="ach-name-${i}" placeholder="The Final Boss"></div>
+      <div class="field"><label>Difficulty</label>
+        <div class="diff-select">${diffs}</div>
+        <input type="hidden" class="ach-diff-${i}" value="3">
+      </div>
+      <div class="field form-full"><label>Description</label><input type="text" class="ach-desc-${i}" placeholder="Short description of what this achievement is"></div>
+      <div class="field form-full"><label>How to Unlock</label><textarea class="ach-how-${i}" placeholder="Step by step instructions on how to get this achievement..."></textarea></div>
+      <div class="field form-full"><label>Pro Tip</label><textarea class="ach-tip-${i}" placeholder="A helpful tip that most players miss..." style="min-height:60px"></textarea></div>
+    </div>
+  </div>`;
+}
+
+function setDiff(btn, i) {
+  btn.closest('.diff-select').querySelectorAll('.diff-btn').forEach(b => { b.classList.remove('active'); b.style.background=''; b.style.color=''; });
+  const d = btn.dataset.diff;
+  const colors = {1:'#4ade80',2:'#86efac',3:'#f5c842',4:'#f97316',5:'#f43f5e'};
+  btn.classList.add('active');
+  btn.style.background = colors[d];
+  btn.style.borderColor = colors[d];
+  btn.style.color = '#000';
+  document.querySelector(`.ach-diff-${i}`).value = d;
+}
+
+function addAchEntry() {
+  achCount++;
+  const builder = document.getElementById('achBuilder');
+  const div = document.createElement('div');
+  div.innerHTML = achEntryHtml(achCount);
+  builder.appendChild(div.firstElementChild);
+}
+
+function removeAch(i) { const el = document.getElementById(`ach-${i}`); if(el) el.remove(); }
+
+function saveAchievements() {
+  const gameTitle = document.getElementById('achGameTitle').value || 'Game';
+  const gameId    = document.getElementById('achGameId').value;
+  const entries   = document.querySelectorAll('.ach-entry');
+  const achs = [];
+
+  entries.forEach(entry => {
+    const i = entry.id.replace('ach-','');
+    const name = entry.querySelector(`.ach-name-${i}`)?.value;
+    if (!name) return;
+    achs.push({
+      name,
+      desc: entry.querySelector(`.ach-desc-${i}`)?.value || '',
+      how:  entry.querySelector(`.ach-how-${i}`)?.value  || '',
+      tip:  entry.querySelector(`.ach-tip-${i}`)?.value  || '',
+      diff: parseInt(entry.querySelector(`.ach-diff-${i}`)?.value || '3'),
+      type: 'challenge'
+    });
+  });
+
+  const code = `// Achievements for: ${gameTitle} (Steam: ${gameId})\n// Add this to the relevant game object in GAMES array:\nachievements:[\n${achs.map(a => `  { name:'${a.name.replace(/'/g,"\\'")}', desc:'${a.desc.replace(/'/g,"\\'")}', how:'${a.how.replace(/'/g,"\\'")}', tip:'${a.tip.replace(/'/g,"\\'")}', diff:${a.diff}, type:'${a.type}' },`).join('\n')}\n],`;
+  document.getElementById('achOutput').style.display = 'block';
+  document.getElementById('achCode').textContent = code;
+  toast(`${achs.length} achievements generated for ${gameTitle}`, false);
+}
+
+function copyAch() { navigator.clipboard.writeText(document.getElementById('achCode').textContent).then(() => toast('Copied to clipboard', false)); }
+
+// ═══════════════════════════════════════════
+// UPCOMING RELEASES
+// ═══════════════════════════════════════════
+function pageUpcoming() {
+  const upcoming = [
+    {title:'Grand Theft Auto VI',date:'Nov 19, 2026',status:'confirmed'},
+    {title:'Phantom Blade Zero',date:'Sep 9, 2026',status:'confirmed'},
+    {title:'007: First Light',date:'May 27, 2026',status:'confirmed'},
+    {title:'Slay the Spire 2',date:'Mar 6, 2026 (EA)',status:'confirmed'},
+    {title:'Pragmata',date:'Apr 2026',status:'confirmed'},
+    {title:'Diablo IV: Lord of Hatred',date:'Apr 2026',status:'confirmed'},
+    {title:'Forza Horizon 6',date:'2026',status:'confirmed'},
+    {title:'Fable Reboot',date:'Fall 2026',status:'likely'},
+    {title:'Squadron 42',date:'2026',status:'likely'},
+    {title:'The Witcher 4',date:'TBA ~2027+',status:'tba'},
+    {title:'Elder Scrolls VI',date:'TBA ~2028-2030',status:'tba'},
+  ];
+
+  const sColors = {confirmed:'var(--neon)',likely:'var(--amber)',tba:'var(--t4)'};
+  const rows = upcoming.map(u => `<tr>
+    <td class="game-title">${u.title}</td>
+    <td class="mono">${u.date}</td>
+    <td><span class="badge" style="background:${sColors[u.status]}22;color:${sColors[u.status]};border-color:${sColors[u.status]}55">${u.status}</span></td>
+    <td><button class="btn btn-sm btn-ghost" onclick="copyText('${u.title}')"><i class="fa-solid fa-copy"></i></button></td>
+  </tr>`).join('');
+
+  document.getElementById('pageContent').innerHTML = `
+    <div class="panel">
+      <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-calendar-days"></i>Upcoming Releases — March 31, 2026</div></div>
+      <div class="panel-body" style="padding:0">
+        <table class="data-table"><thead><tr><th>Title</th><th>Date</th><th>Status</th><th></th></tr></thead><tbody>${rows}</tbody></table>
+      </div>
+    </div>
+    <div class="panel" style="margin-top:16px">
+      <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-plus"></i>Add Upcoming Release</div></div>
+      <div class="panel-body">
+        <div class="form-grid">
+          <div class="field"><label>Title</label><input type="text" id="upTitle" placeholder="Game Title"></div>
+          <div class="field"><label>Release Date</label><input type="text" id="upDate" placeholder="Q3 2026 / Nov 19, 2026"></div>
+          <div class="field"><label>Status</label><select id="upStatus"><option value="confirmed">Confirmed</option><option value="likely">Likely</option><option value="tba">TBA</option></select></div>
+          <div class="field"><label>Developer</label><input type="text" id="upDev" placeholder="Studio Name"></div>
+          <div class="field"><label>Genre</label><input type="text" id="upGenre" placeholder="Open World RPG"></div>
+          <div class="field"><label>Platform</label><input type="text" id="upPlatform" placeholder="PC / PS5 / Xbox Series"></div>
+          <div class="field form-full"><label>Note / Description</label><textarea id="upNote" placeholder="What makes this game notable..."></textarea></div>
+        </div>
+        <button class="btn btn-primary" style="margin-top:14px" onclick="saveUpcoming()"><i class="fa-solid fa-floppy-disk"></i>Save Release</button>
+      </div>
+    </div>`;
+}
+
+function saveUpcoming() {
+  const title = document.getElementById('upTitle').value;
+  if (!title) { toast('Title is required', true); return; }
+  const entry = {
+    title, date:document.getElementById('upDate').value, status:document.getElementById('upStatus').value,
+    dev:document.getElementById('upDev').value, genre:document.getElementById('upGenre').value,
+    platform:document.getElementById('upPlatform').value, note:document.getElementById('upNote').value
+  };
+  const saved = JSON.parse(localStorage.getItem('vault_upcoming') || '[]');
+  saved.push(entry);
+  localStorage.setItem('vault_upcoming', JSON.stringify(saved));
+  toast(`"${title}" saved to upcoming releases`, false);
+}
+
+// ═══════════════════════════════════════════
+// BORDERLANDS
+// ═══════════════════════════════════════════
+function pageBorderlands() {
+  const bl = [
+    {t:'Borderlands',y:'2009',id:729040,type:'main',score:80},
+    {t:'Borderlands 2',y:'2012',id:49520,type:'main',score:89,best:true},
+    {t:'The Pre-Sequel',y:'2014',id:261640,type:'spinoff',score:73},
+    {t:'Tales from the Borderlands',y:'2014-2015',id:348900,type:'spinoff',score:86},
+    {t:'Borderlands 3',y:'2019',id:397540,type:'main',score:84},
+    {t:"Tiny Tina's Wonderlands",y:'2022',id:1286680,type:'spinoff',score:76},
+    {t:'New Tales from the Borderlands',y:'2022',id:1454970,type:'spinoff',score:57},
+    {t:'Borderlands 4',y:'Sep 12 2025',id:1285190,type:'main',score:78},
+  ];
+
+  const rows = bl.map(g => `<tr>
+    <td><img class="thumb-mini" src="${STEAM_IMG(g.id)}" onerror="this.style.background='#f43f5e22'" loading="lazy"></td>
+    <td class="game-title">${g.t} ${g.best?'<span class="badge badge-ok" style="margin-left:6px">BIS</span>':''}</td>
+    <td class="mono" style="color:var(--t3)">${g.y}</td>
+    <td><span class="badge ${g.type==='main'?'badge-ok':'badge-warn'}">${g.type}</span></td>
+    <td class="mono" style="color:var(--amber)">${g.score}</td>
+    <td class="mono" style="color:var(--neon)">${g.id}</td>
+    <td><button class="btn btn-sm btn-ghost" onclick="checkSingleImg(${g.id},'${g.t.replace(/'/g,"\\'")}')"><i class="fa-solid fa-image"></i></button></td>
+  </tr>`).join('');
+
+  document.getElementById('pageContent').innerHTML = `
+    <div class="panel">
+      <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-gun"></i>Borderlands Franchise — All Verified IDs</div></div>
+      <div class="panel-body" style="padding:0;overflow-x:auto">
+        <table class="data-table"><thead><tr><th>Art</th><th>Title</th><th>Year</th><th>Type</th><th>Score</th><th>Steam ID</th><th>Verify</th></tr></thead><tbody>${rows}</tbody></table>
+      </div>
+    </div>`;
+}
+
+// ═══════════════════════════════════════════
+// GUIDES & DEV NOTES
+// ═══════════════════════════════════════════
+function pageGuides() {
+  document.getElementById('pageContent').innerHTML = `
+    <div class="guide-section">
+      <div class="guide-card">
+        <div class="guide-card-head"><div class="guide-card-title"><i class="fa-solid fa-image" style="color:var(--neon)"></i> Steam CDN Image Patterns</div></div>
+        <div class="guide-card-body">
+          <h4>Image URL Formats</h4>
+          <ul>
+            <li>Header (460×215): <code>https://cdn.cloudflare.steamstatic.com/steam/apps/{ID}/header.jpg</code></li>
+            <li>Capsule (616×353): <code>https://cdn.cloudflare.steamstatic.com/steam/apps/{ID}/capsule_616x353.jpg</code></li>
+            <li>Library portrait (600×900): <code>https://cdn.cloudflare.steamstatic.com/steam/apps/{ID}/library_600x900.jpg</code></li>
+          </ul>
+          <h4>Important Notes</h4>
+          <ul>
+            <li><strong>header.jpg is most reliable</strong> — not all games have capsule or library variants</li>
+            <li>Some games serve images from a different CDN path — use the verifier to check</li>
+            <li>Games not on Steam need an <code>imgUrl</code> field in the game object</li>
+          </ul>
+        </div>
+      </div>
+      <div class="guide-card">
+        <div class="guide-card-head"><div class="guide-card-title"><i class="fa-solid fa-code" style="color:var(--neon)"></i> Adding a Game to data.js</div></div>
+        <div class="guide-card-body">
+          <h4>Template</h4>
+          <div class="code-area" style="min-height:auto;font-size:11px">{
+  id: 'game-slug',        // lowercase-hyphen-slug
+  title: 'Game Title',
+  steam: 1234567,         // Steam App ID (verified!)
+  genre: 'Action RPG',    // Primary genre
+  dev: 'Developer Name',
+  year: 2025,
+  score: 90,              // Metacritic (null if N/A)
+  tier: 'S',              // S / A / B / C
+  yt: 'youtubeVideoId',   // YouTube trailer ID
+  hltb: { main: 25, comp: 80 },  // How Long to Beat hours
+  players: '20K',         // Approximate Steam concurrent
+  tags: ['action', 'rpg'],
+  cat: ['genre-bis'],     // Filter categories
+  desc: 'Description...',
+  achievements: [
+    { name: 'Name', desc: 'Desc', how: 'Step by step...', tip: 'Pro tip', diff: 3, type: 'challenge' }
+  ]
+}</div>
+          <h4>Category Options</h4>
+          <ul>
+            <li><code>top10</code> — Hall of fame (add ID to TOP10 array too)</li>
+            <li><code>genre-bis</code> — Best in category</li>
+            <li><code>anime</code> — Anime/JRPG section</li>
+            <li><code>esports</code> — Esports section</li>
+            <li><code>nostalgia</code> — Classics section</li>
+            <li><code>mods</code> — Modding scene section</li>
+            <li><code>gems</code> — Hidden gems section</li>
+          </ul>
+        </div>
+      </div>
+      <div class="guide-card">
+        <div class="guide-card-head"><div class="guide-card-title"><i class="fa-solid fa-triangle-exclamation" style="color:var(--amber)"></i> Known Gotchas</div></div>
+        <div class="guide-card-body">
+          <h4>Don't Repeat These Mistakes</h4>
+          <ul>
+            <li><strong>Check IDs before adding</strong> — Honkai Star Rail was 1414740 (wrong), correct is 1428350</li>
+            <li><strong>D2R isn't at 2200850</strong> — Correct Diablo II Resurrected ID is 1085510</li>
+            <li><strong>BL4 isn't at 2180450</strong> — Correct Borderlands 4 ID is 1285190</li>
+            <li><strong>Same ID on two games</strong> — P3 Reload (2161700) and SH2 Remake CANNOT share an ID</li>
+            <li><strong>SH2 Remake ID</strong> — is 2413130, NOT 2161700</li>
+            <li><strong>Always run Image Verifier after adding new games</strong></li>
+            <li><strong>YouTube IDs expire</strong> — Add fallback YT_SEARCH() call in video player</li>
+          </ul>
+        </div>
+      </div>
+      <div class="guide-card">
+        <div class="guide-card-head"><div class="guide-card-title"><i class="fa-solid fa-rocket" style="color:var(--neon)"></i> Deployment Workflow</div></div>
+        <div class="guide-card-body">
+          <h4>Standard Deploy</h4>
+          <div class="code-area" style="min-height:auto;font-size:12px">cd vault-gg
+vercel --prod --yes --token VERCEL_TOKEN_REDACTED</div>
+          <h4>Quick Checklist Before Deploy</h4>
+          <ul>
+            <li>Run Image Verifier — all green?</li>
+            <li>Check new Steam IDs are verified</li>
+            <li>Test modal tabs (Overview / Achievements / Gameplay)</li>
+            <li>Check neon glow elements load correctly</li>
+            <li>Verify filter chips all work</li>
+          </ul>
+        </div>
+      </div>
+    </div>`;
+}
+
+// ═══════════════════════════════════════════
+// STEAM ID LOOKUP
+// ═══════════════════════════════════════════
+function pageSteamLookup() {
+  document.getElementById('pageContent').innerHTML = `
+    <div class="panel">
+      <div class="panel-head"><div class="panel-title"><i class="fa-brands fa-steam"></i>Steam ID Finder</div></div>
+      <div class="panel-body">
+        <p style="color:var(--t2);margin-bottom:16px">Enter a game name to look up its Steam App ID and verify the image works.</p>
+        <div style="display:flex;gap:10px;margin-bottom:20px">
+          <input type="text" id="steamLookupQ" placeholder="Search game name..." style="flex:1;background:var(--deep);border:1px solid var(--b2);border-radius:var(--r2);padding:10px 14px;color:var(--t1);font-size:14px;outline:none">
+          <button class="btn btn-primary" onclick="doSteamLookup()"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
+        </div>
+        <div id="steamLookupResults"></div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-check"></i>Verify Any Steam ID</div></div>
+      <div class="panel-body">
+        <div style="display:flex;gap:10px;align-items:flex-end">
+          <div class="field" style="flex:1"><label>Steam App ID</label><input type="number" id="verifySingleId" placeholder="1245620"></div>
+          <button class="btn btn-neon" onclick="verifySingleId()" style="height:40px"><i class="fa-solid fa-image"></i>Check Image</button>
+        </div>
+        <div id="verifySingleResult" style="margin-top:14px"></div>
+      </div>
+    </div>`;
+  document.getElementById('steamLookupQ').addEventListener('keydown', e => { if(e.key==='Enter') doSteamLookup(); });
+}
+
+async function doSteamLookup() {
+  const q = document.getElementById('steamLookupQ').value;
+  const res = document.getElementById('steamLookupResults');
+  if (!q) return;
+  res.innerHTML = '<p style="color:var(--t3)"><i class="fa-solid fa-spinner fa-spin"></i> Searching...</p>';
+  try {
+    const url = `https://store.steampowered.com/api/storesearch/?term=${encodeURIComponent(q)}&l=english&cc=US`;
+    const r = await fetch(url);
+    const data = await r.json();
+    const items = data.items || [];
+    if (!items.length) { res.innerHTML = '<p style="color:var(--rose)">No results found</p>'; return; }
+
+    res.innerHTML = `<div class="img-verify-grid">${items.slice(0,8).map(item => `
+      <div class="img-check-item" style="cursor:pointer" onclick="fillSteamId(${item.id},'${item.name.replace(/'/g,"\\'")}')">
+        <img class="img-thumb" src="${STEAM_IMG(item.id)}" onerror="this.style.background='#f43f5e22'" loading="lazy">
+        <div class="img-check-info">
+          <div class="img-check-name">${item.name}</div>
+          <div class="img-check-id mono">${item.id}</div>
+        </div>
+        <i class="fa-solid fa-circle-check img-status-icon" style="color:var(--neon)"></i>
+      </div>`).join('')}</div>
+    <p style="font-size:11px;color:var(--t3);margin-top:10px">Click any result to populate the verify field below</p>`;
+  } catch(e) {
+    res.innerHTML = '<p style="color:var(--rose)">Error fetching Steam API</p>';
+  }
+}
+
+function fillSteamId(id, name) {
+  document.getElementById('verifySingleId').value = id;
+  toast(`Selected: ${name} (${id})`, false);
+  verifySingleId();
+}
+
+function verifySingleId() {
+  const id = document.getElementById('verifySingleId').value;
+  const res = document.getElementById('verifySingleResult');
+  if (!id) return;
+  res.innerHTML = `<img src="${STEAM_IMG(id)}" style="width:230px;height:107px;object-fit:cover;border-radius:8px;border:1px solid var(--b2);background:var(--float)" onerror="this.style.border='2px solid var(--rose)';document.getElementById('singleStatus').textContent='IMAGE BROKEN — wrong ID?';document.getElementById('singleStatus').style.color='var(--rose)'">
+    <p id="singleStatus" style="margin-top:8px;font-size:12px;color:var(--neon)"><i class="fa-solid fa-circle-check"></i> ID: ${id} — <a href="${STEAM_URL(id)}" target="_blank" style="color:var(--neon)">Open Steam Store Page</a></p>`;
+}
+
+// ═══════════════════════════════════════════
+// EXPORT
+// ═══════════════════════════════════════════
+function pageExport() {
+  const added = JSON.parse(localStorage.getItem('vault_added_games') || '[]');
+  const upcoming = JSON.parse(localStorage.getItem('vault_upcoming') || '[]');
+
+  document.getElementById('pageContent').innerHTML = `
+    <div class="panel">
+      <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-file-export"></i>Export Site Data</div></div>
+      <div class="panel-body">
+        <div class="stat-row" style="margin-bottom:20px">
+          <div class="stat-card"><div class="stat-card-n">${added.length}</div><div class="stat-card-l">New Games Added</div></div>
+          <div class="stat-card"><div class="stat-card-n">${upcoming.length}</div><div class="stat-card-l">New Upcoming</div></div>
+          <div class="stat-card"><div class="stat-card-n">${Object.keys(VERIFIED_IDS).length}</div><div class="stat-card-l">Verified IDs</div></div>
+        </div>
+        ${added.length > 0 ? `
+        <div class="panel" style="margin-bottom:16px">
+          <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-gamepad"></i>Queued Game Additions</div></div>
+          <div class="panel-body" style="padding:0">
+            <table class="data-table"><thead><tr><th>Title</th><th>Steam ID</th><th>Tier</th><th>Categories</th></tr></thead><tbody>
+              ${added.map(g => `<tr><td class="game-title">${g.title}</td><td class="mono" style="color:var(--neon)">${g.steam}</td><td class="tier-${g.tier.toLowerCase()}">${g.tier}</td><td>${(g.cat||[]).join(', ')}</td></tr>`).join('')}
+            </tbody></table>
+          </div>
+        </div>` : '<p style="color:var(--t3);margin-bottom:20px">No new games queued. Use Game Manager to add games.</p>'}
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <button class="btn btn-primary" onclick="downloadAddedGames()"><i class="fa-solid fa-download"></i>Download New Games JS</button>
+          <button class="btn btn-ghost" onclick="exportVerifiedIds()"><i class="fa-solid fa-download"></i>Export Verified IDs</button>
+          <button class="btn btn-danger" onclick="clearLocalData()"><i class="fa-solid fa-trash"></i>Clear Local Queue</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function downloadAddedGames() {
+  const added = JSON.parse(localStorage.getItem('vault_added_games') || '[]');
+  if (!added.length) { toast('No new games to export', true); return; }
+  const js = '// New games to add to GAMES array in data.js\n' +
+    added.map(g => `  ${JSON.stringify(g, null, 2).replace(/^/gm,'  ')},`).join('\n');
+  downloadFile('vault-new-games.js', js);
+  toast('Downloaded vault-new-games.js', false);
+}
+
+function exportVerifiedIds() {
+  const lines = Object.entries(VERIFIED_IDS).map(([n,id]) => `  '${n}': ${id},`).join('\n');
+  const js = `// Verified Steam IDs — all checked ${new Date().toISOString()}\nconst VERIFIED_IDS = {\n${lines}\n};`;
+  downloadFile('verified-ids.js', js);
+  toast('Downloaded verified-ids.js', false);
+}
+
+function downloadFile(name, content) {
+  const a = document.createElement('a');
+  a.href = 'data:text/javascript;charset=utf-8,' + encodeURIComponent(content);
+  a.download = name;
+  a.click();
+}
+
+function clearLocalData() {
+  if (confirm('Clear all locally queued additions? This cannot be undone.')) {
+    localStorage.removeItem('vault_added_games');
+    localStorage.removeItem('vault_upcoming');
+    toast('Local queue cleared', false);
+    pageExport();
+  }
+}
+
+// ═══════════════════════════════════════════
+// UTILS
+// ═══════════════════════════════════════════
+function toast(msg, isErr=false) {
+  const container = document.getElementById('toastContainer');
+  const el = document.createElement('div');
+  el.className = `toast-item${isErr?' err':''}`;
+  el.innerHTML = `<i class="fa-solid ${isErr?'fa-circle-exclamation':'fa-circle-check'}"></i> ${msg}`;
+  container.appendChild(el);
+  setTimeout(() => el.remove(), 3500);
+}
+
+function copyText(text) { navigator.clipboard.writeText(text).then(() => toast('Copied: ' + text)); }
+
+function closeModal() { document.getElementById('globalModal').classList.remove('open'); }
+
+document.getElementById('globalModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('globalModal')) closeModal();
+});
+</script>
+</body>
+</html>

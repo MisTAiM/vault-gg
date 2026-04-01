@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Nostalgia Vault & Mod Legends — VAULT.GG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="nostalgia"><nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">VAULT<em>.GG</em></a>
+    <ul class="nav-links">
+      <li><a class="nav-link" href="index.html#top10">Top 10</a></li>
+      <li><a class="nav-link" href="index.html#browse">Browse</a></li>
+      <li><a class="nav-link" href="esports.html">Esports</a></li>
+      <li><a class="nav-link" href="upcoming.html">Upcoming</a></li>
+      <li><a class="nav-link" href="guides.html">Guides</a></li>
+      <li><a class="nav-link" href="borderlands.html">Borderlands</a></li>
+      <li><a class="nav-link active" href="nostalgia.html">Classics</a></li>
+    </ul>
+    <div class="nav-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="search" id="searchInput" placeholder="Search games…" autocomplete="off">
+    </div>
+  </div>
+</nav>
+<div style="background:linear-gradient(to bottom,var(--raised),var(--void));padding:64px 0 0">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <h1 class="page-title">Nostalgia <span>Vault</span></h1>
+        <p class="sec-sub">Classics that refuse to die — still active in 2025/2026</p>
+      </div>
+    </div>
+    <div class="game-grid" id="nostalgiaGrid"></div>
+    <div style="height:60px"></div>
+    <div class="sec-head">
+      <div>
+        <h2 class="sec-title">Mod <span>Legends</span></h2>
+        <p class="sec-sub">Games transformed by their communities — the greatest modding scenes on PC</p>
+      </div>
+    </div>
+    <div class="game-grid" id="modsGrid"></div>
+  </div>
+</div>
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <a class="footer-logo" href="index.html">VAULT<em>.GG</em></a>
+      <p class="footer-copy">Personal PC gaming encyclopedia. Images verified via Steam API. Data current March 31, 2026.</p>
+      <nav class="footer-links">
+        <a href="index.html"><i class="fa-solid fa-house"></i>Home</a>
+        <a href="guides.html"><i class="fa-solid fa-scroll"></i>Guides</a>
+        <a href="upcoming.html"><i class="fa-solid fa-calendar"></i>Upcoming</a>
+        <a href="borderlands.html"><i class="fa-solid fa-gun"></i>Borderlands</a>
+        <a href="admin/index.html"><i class="fa-solid fa-gear"></i>Admin</a>
+      </nav>
+    </div>
+  </div>
+</footer><!-- VIDEO MODAL -->
+<div class="video-modal" id="videoModal">
+  <div class="video-header">
+    <div class="video-title" id="videoTitle"></div>
+    <button class="video-close" onclick="closeVideo()"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="video-wrap"><iframe id="videoFrame" src="" frameborder="0" allowfullscreen allow="autoplay;encrypted-media"></iframe></div>
+</div>
+<!-- GAME MODAL -->
+<div class="modal-back" id="modal" onclick="closeModal()">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <img class="modal-img" id="modalImg" src="" alt="" onerror="this.style.display='none'">
+    <div class="modal-body">
+      <div class="modal-top">
+        <div><div class="modal-genre-tag" id="modalGenre"></div><h2 class="modal-title-text" id="modalTitle"></h2></div>
+        <button class="modal-close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-tabs">
+        <button class="modal-tab active" data-tab="overview" onclick="setModalTab('overview')"><i class="fa-solid fa-circle-info"></i>Overview</button>
+        <button class="modal-tab" id="tabAchievements" data-tab="achievements" onclick="setModalTab('achievements')"><i class="fa-solid fa-shield-halved"></i>Achievements</button>
+        <button class="modal-tab" id="tabVideo" data-tab="video" onclick="setModalTab('video')"><i class="fa-solid fa-play"></i>Gameplay</button>
+        <button class="modal-tab" id="tabScreenshots" data-tab="screenshots" onclick="setModalTab('screenshots')" style="display:none"><i class="fa-solid fa-images"></i>Gallery</button>
+        <button class="modal-tab" id="tabMods" data-tab="mods" onclick="setModalTab('mods')" style="display:none"><i class="fa-solid fa-puzzle-piece"></i>Mods</button>
+        <button class="modal-tab" id="tabPrices" data-tab="prices" onclick="setModalTab('prices')" style="display:none"><i class="fa-solid fa-tag"></i>Prices</button>
+      </div>
+      <div id="modalTabBody"></div>
+    </div>
+  </div>
+</div>
+<script src="js/data.js"></script>
+<script src="js/live.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

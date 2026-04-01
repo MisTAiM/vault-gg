@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Game — VAULT.GG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* Game hero */
+.game-hero{position:relative;height:440px;overflow:hidden;margin-bottom:0}
+.game-hero-img{width:100%;height:100%;object-fit:cover;filter:brightness(.25) saturate(1.2);position:relative;z-index:1}
+.game-hero-overlay{position:absolute;inset:0;
+  background:linear-gradient(105deg,rgba(7,8,10,.98) 0%,rgba(7,8,10,.65) 55%,transparent 80%),
+             linear-gradient(to top,rgba(7,8,10,.95) 0%,transparent 55%)}
+.game-hero-content{position:absolute;bottom:0;left:0;padding:0 44px 44px;max-width:700px}
+.game-hero-tag{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--neon);background:var(--neon-bg);
+  border:1px solid var(--neon-border);padding:4px 12px;border-radius:99px;margin-bottom:14px;
+  box-shadow:var(--neon-glow-sm)}
+.game-hero-title{font-family:var(--display);font-size:clamp(40px,5vw,72px);line-height:.94;
+  color:var(--t1);letter-spacing:.02em;margin-bottom:12px}
+.game-hero-meta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.game-hero-score{font-family:var(--mono);font-size:13px;color:var(--amber);
+  display:flex;align-items:center;gap:5px}
+.game-hero-dev{font-family:var(--mono);font-size:13px;color:var(--t3)}
+.game-hero-btns{display:flex;gap:10px;flex-wrap:wrap}
+/* Content grid */
+.content-area{max-width:1380px;margin:0 auto;padding:48px 28px}
+.detail-grid{display:grid;grid-template-columns:1fr 300px;gap:40px;align-items:start}
+.section-heading{font-family:var(--display);font-size:30px;color:var(--t1);
+  letter-spacing:.03em;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.section-heading i{color:var(--neon)}
+.game-desc-text{font-size:15px;color:var(--t2);line-height:1.8;margin-bottom:40px}
+.game-meta-card{background:var(--card);border:1px solid var(--b1);border-radius:var(--r3);
+  padding:20px;display:flex;flex-direction:column;gap:14px;position:sticky;top:70px}
+.game-meta-row{display:flex;flex-direction:column;gap:3px}
+.game-meta-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--t3)}
+.game-meta-val{font-size:14px;font-weight:600;color:var(--t1)}
+.game-meta-val.green{color:var(--neon)}
+.game-meta-val.gold{color:var(--amber)}
+.game-meta-divider{height:1px;background:var(--b1)}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:900px){
+  .game-hero-content{padding:0 24px 32px}
+  .detail-grid{grid-template-columns:1fr}
+  .game-meta-card{position:static}
+  .related-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body data-page="game">
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">VAULT<em>.GG</em></a>
+    <ul class="nav-links">
+      <li><a class="nav-link" href="index.html#top10">Top 10</a></li>
+      <li><a class="nav-link" href="index.html#browse">Browse</a></li>
+      <li><a class="nav-link" href="esports.html">Esports</a></li>
+      <li><a class="nav-link" href="upcoming.html">Upcoming</a></li>
+      <li><a class="nav-link" href="guides.html">Guides</a></li>
+      <li><a class="nav-link" href="borderlands.html">Borderlands</a></li>
+      <li><a class="nav-link" href="genres/">Genres</a></li>
+      <li><a class="nav-link" href="admin/index.html">Admin</a></li>
+    </ul>
+    <div class="nav-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="search" id="searchInput" placeholder="Search games…" autocomplete="off"
+             onkeydown="if(event.key==='Enter'&&this.value){window.location='index.html?search='+encodeURIComponent(this.value);}">
+    </div>
+  </div>
+</nav>
+
+<!-- HERO (populated by JS) -->
+<div class="game-hero" id="gameHero" style="position:relative">
+  <!-- Background art (full width, blurred) — set by live.js from Steam API -->
+  <div id="gameHeroBg" style="position:absolute;inset:0;background-size:cover;background-position:center;filter:blur(2px) brightness(.35) saturate(1.3);transform:scale(1.05)"></div>
+  <img class="game-hero-img" id="gameHeroImg" src="" alt="" style="opacity:0">
+  <div class="game-hero-overlay"></div>
+  <div class="game-hero-content">
+    <div class="game-hero-tag" id="gameTag"></div>
+    <h1 class="game-hero-title" id="gameTitle">Loading…</h1>
+    <div class="game-hero-meta" id="gameMeta"></div>
+    <div class="game-hero-btns" id="gameBtns"></div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content-area">
+  <div class="detail-grid">
+    <!-- LEFT: main content -->
+    <div>
+      <div class="section-heading"><i class="fa-solid fa-scroll"></i>About this game</div>
+      <p class="game-desc-text" id="gameDesc"></p>
+
+      <div class="section-heading"><i class="fa-solid fa-shield-halved"></i>Achievement Guide</div>
+      <div id="gameAchievements"></div>
+
+      <div class="section-heading" style="margin-top:40px"><i class="fa-solid fa-tag"></i>Where to Buy</div>
+      <div id="gamePrices" style="margin-bottom:40px"></div>
+
+      <!-- Speedrun World Record -->
+      <div id="speedrunWRSection" style="margin-bottom:32px">
+        <div class="section-heading" style="margin-bottom:12px"><i class="fa-solid fa-stopwatch" style="color:var(--neon)"></i>Speedrun WR</div>
+        <div id="speedrunWR"></div>
+      </div>
+
+      <!-- Steam News -->
+      <div id="gameNewsSectionWrapper" style="margin-bottom:32px">
+        <div class="section-heading" style="margin-bottom:12px"><i class="fa-solid fa-newspaper" style="color:var(--neon)"></i>Latest Updates</div>
+        <div id="gameNewsContainer"></div>
+      </div>
+
+      <div class="section-heading"><i class="fa-solid fa-gamepad"></i>You Might Also Like</div>
+      <div class="related-grid" id="gameRelated"></div>
+    </div>
+
+    <!-- RIGHT: meta sidebar -->
+    <div>
+      <div class="game-meta-card" id="gameSidebar"></div>
+
+      <!-- Live CheapShark Prices -->
+      <div style="margin-top:16px">
+        <div style="font-family:var(--display);font-size:20px;color:var(--t1);letter-spacing:.03em;margin-bottom:4px">
+          <i class="fa-solid fa-tag" style="color:var(--neon)"></i> Live Prices
+        </div>
+        <!-- Price History (All-time low vs now) -->
+        <div id="priceHistory"></div>
+        <div id="livePricesContainer" style="margin-top:10px"></div>
+      </div>
+
+      <!-- SteamSpy Reviews -->
+      <div style="margin-top:16px;background:var(--card);border:1px solid var(--b1);border-radius:var(--r3);padding:16px">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:8px">
+          <i class="fa-solid fa-thumbs-up"></i> Steam Reviews
+        </div>
+        <div id="steamReviews"><div style="color:var(--t3);font-size:12px"><i class="fa-solid fa-spinner fa-spin"></i> Loading…</div></div>
+      </div>
+
+      <!-- Live Players -->
+      <div style="margin-top:12px;text-align:center" id="livePlayerCountWrapper">
+        <div id="livePlayerCount"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer" style="margin-top:60px">
+  <div class="wrap">
+    <div class="footer-inner">
+      <a class="footer-logo" href="index.html">VAULT<em>.GG</em></a>
+      <p class="footer-copy">Detailed game data, achievement guides, and gameplay videos. Data current as of March 31, 2026.</p>
+      <nav class="footer-links">
+        <a href="index.html"><i class="fa-solid fa-house"></i>Home</a>
+        <a href="guides.html"><i class="fa-solid fa-scroll"></i>Guides</a>
+        <a href="upcoming.html"><i class="fa-solid fa-calendar"></i>Upcoming</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<!-- VIDEO MODAL -->
+<div class="video-modal" id="videoModal">
+  <div class="video-header">
+    <div class="video-title" id="videoTitle"></div>
+    <button class="video-close" onclick="closeVideo()"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="video-wrap"><iframe id="videoFrame" src="" frameborder="0" allowfullscreen allow="autoplay;encrypted-media"></iframe></div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/live.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
