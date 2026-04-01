@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Baldur's Gate 3 Guide — VAULT.GG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.guide-hero{background:linear-gradient(135deg,#0a0814 0%,#120820 50%,#0a0814 100%);
+  border-bottom:1px solid rgba(100,60,200,.2);padding:72px 0 48px;position:relative;overflow:hidden}
+.guide-hero::before{content:'';position:absolute;inset:0;
+  background:url('https://cdn.cloudflare.steamstatic.com/steam/apps/1086940/page_bg_generated_v6b.jpg') center/cover;
+  opacity:.15;filter:saturate(1.3) blur(2px)}
+.guide-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:28px;padding-top:12px;
+  border-bottom:1px solid var(--b1);position:sticky;top:56px;background:var(--void);z-index:10}
+.gtab{padding:9px 18px;border-radius:var(--r2) var(--r2) 0 0;background:transparent;
+  border:1px solid transparent;color:var(--t3);cursor:pointer;font-size:13px;font-weight:600;
+  transition:all .15s;display:flex;align-items:center;gap:7px}
+.gtab:hover{background:var(--float);color:var(--t2)}
+.gtab.active{background:var(--card);border-color:var(--b1);border-bottom-color:var(--void);
+  color:#a78bfa;margin-bottom:-1px}
+.guide-section{display:none}.guide-section.active{display:block}
+.credit-bar{background:var(--raised);border:1px solid var(--b1);border-radius:var(--r2);
+  padding:9px 14px;font-size:11.5px;color:var(--t3);display:flex;align-items:center;gap:8px;margin-bottom:20px}
+.boss-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.boss-card{background:var(--card);border:1px solid var(--b1);border-radius:var(--r3);overflow:hidden;cursor:pointer;transition:all .2s}
+.boss-card:hover{border-color:rgba(100,60,200,.5);transform:translateY(-2px)}
+.boss-img-wrap{aspect-ratio:3/4;background:var(--deep);overflow:hidden}
+.boss-img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .3s}
+.boss-card:hover .boss-img{transform:scale(1.05)}
+.class-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.class-card{background:var(--card);border:1px solid var(--b1);border-radius:var(--r3);padding:20px 22px;cursor:pointer;transition:all .2s}
+.class-card:hover{border-color:rgba(100,60,200,.4)}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="../index.html" style="display:flex;align-items:center;text-decoration:none">
+      <img src="../logo.svg" alt="VAULT.GG" height="28" onerror="this.style.display='none'">
+    </a>
+    <ul class="nav-links">
+      <li><a class="nav-link" href="../index.html">Home</a></li>
+      <li><a class="nav-link active" href="../guides.html">Guides</a></li>
+      <li><a class="nav-link" href="../recommender.html">AI Picks</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="guide-hero">
+  <div class="wrap" style="position:relative;z-index:1">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
+      <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1086940/library_600x900.jpg"
+        style="width:80px;height:120px;object-fit:cover;border-radius:var(--r2);box-shadow:0 0 30px rgba(0,0,0,.6)" alt="BG3">
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:rgba(160,120,255,.7);margin-bottom:6px">VAULT.GG GAME GUIDE</div>
+        <h1 style="font-family:var(--display);font-size:clamp(36px,5vw,68px);letter-spacing:.02em;color:#e8e0f8;line-height:.9;text-shadow:0 0 40px rgba(100,60,200,.4)">
+          BALDUR'S<br><span style="color:#a78bfa">GATE 3</span>
+        </h1>
+        <div style="margin-top:10px;font-size:13px;color:rgba(232,224,248,.5)">Larian Studios · 2023 · Patch 7 · PC (Steam/GOG)</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:20px;flex-wrap:wrap">
+      <div style="font-size:13px;color:rgba(232,224,248,.6)"><i class="fa-solid fa-thumbs-up" style="color:#4ade80"></i> Overwhelmingly Positive · 96 Metacritic</div>
+      <div style="font-size:13px;color:rgba(232,224,248,.6)"><i class="fa-solid fa-clock" style="color:#60a5fa"></i> 100h average · 300h+ 100% completion</div>
+      <div style="font-size:13px;color:rgba(232,224,248,.6)"><i class="fa-solid fa-dice-d20" style="color:#a78bfa"></i> D&D 5e ruleset</div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap" style="padding-top:0">
+  <div class="guide-tabs">
+    <button class="gtab active" onclick="showTab('bosses')"><i class="fa-solid fa-skull"></i>Bosses</button>
+    <button class="gtab" onclick="showTab('classes')"><i class="fa-solid fa-dice-d20"></i>Classes (D&D 5e)</button>
+    <button class="gtab" onclick="showTab('spells')"><i class="fa-solid fa-wand-sparkles"></i>Spells</button>
+    <button class="gtab" onclick="showTab('tips')"><i class="fa-solid fa-lightbulb"></i>Essential Tips</button>
+    <button class="gtab" onclick="showTab('builds')"><i class="fa-solid fa-fire"></i>Top Builds</button>
+  </div>
+
+  <!-- BOSSES -->
+  <div class="guide-section active" id="sec-bosses">
+    <div class="credit-bar">
+      <i class="fa-solid fa-circle-info" style="color:#a78bfa"></i>
+      Boss images via <strong>bg3.wiki</strong> (CC BY-SA 4.0 — bg3.wiki contributors). 
+      BG3 has no fixed boss order — some can be skipped or resolved peacefully.
+    </div>
+    <div class="boss-grid" id="bossGrid">
+      <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--t3)">
+        <i class="fa-solid fa-spinner fa-spin fa-2x" style="color:#a78bfa;display:block;margin-bottom:12px"></i>Loading bosses from bg3.wiki…
+      </div>
+    </div>
+  </div>
+
+  <!-- CLASSES -->
+  <div class="guide-section" id="sec-classes">
+    <div class="credit-bar">
+      <i class="fa-solid fa-circle-info" style="color:#a78bfa"></i>
+      Class data via <strong>dnd5eapi.co</strong> (Open Game License) — BG3 uses D&D 5e ruleset with Larian modifications.
+    </div>
+    <div class="class-grid" id="classGrid">
+      <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--t3)">
+        <i class="fa-solid fa-spinner fa-spin fa-2x" style="color:#a78bfa;display:block;margin-bottom:12px"></i>Loading D&D 5e class data…
+      </div>
+    </div>
+  </div>
+
+  <!-- SPELLS -->
+  <div class="guide-section" id="sec-spells">
+    <div class="credit-bar">
+      <i class="fa-solid fa-circle-info" style="color:#a78bfa"></i>
+      Spell data from <strong>dnd5eapi.co</strong> (Open Game License). BG3 implements the core D&D 5e spell list.
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px" id="spellLevelFilter">
+      <button style="padding:6px 14px;border-radius:99px;font-size:12px;font-weight:600;background:rgba(100,60,200,.2);border:1px solid rgba(100,60,200,.3);color:#a78bfa;cursor:pointer" onclick="filterSpellLevel(0,this)">Cantrips</button>
+      ${[1,2,3,4,5,6,7,8,9].map(l=>`<button style="padding:6px 14px;border-radius:99px;font-size:12px;font-weight:600;background:var(--float);border:1px solid var(--b1);color:var(--t3);cursor:pointer" onclick="filterSpellLevel(${l},this)">Level ${l}</button>`).join('')}
+    </div>
+    <div id="spellGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px">
+      <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--t3)">
+        <i class="fa-solid fa-spinner fa-spin fa-2x" style="color:#a78bfa;display:block;margin-bottom:12px"></i>Loading spells…
+      </div>
+    </div>
+  </div>
+
+  <!-- TIPS -->
+  <div class="guide-section" id="sec-tips">
+    <div id="tipsContent"></div>
+  </div>
+
+  <!-- BUILDS -->
+  <div class="guide-section" id="sec-builds">
+    <div id="buildsContent"></div>
+  </div>
+
+  <div style="height:80px"></div>
+</div>
+
+<script>
+const PROXY = '/api/guide';
+const cache = {};
+
+async function fetch2(url) {
+  if (cache[url]) return cache[url];
+  const r = await fetch(url); const d = await r.json();
+  cache[url] = d; return d;
+}
+
+let loaded = {};
+function showTab(id) {
+  document.querySelectorAll('.guide-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.gtab').forEach(t => t.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  if (!loaded[id]) { loaded[id] = true; renderSection(id); }
+}
+
+// BOSSES — bg3.wiki via proxy
+async function renderBosses() {
+  const grid = document.getElementById('bossGrid');
+  try {
+    const d = await fetch2(`${PROXY}?game=wiki&wiki=bg3&action=query&list=categorymembers&cmtitle=Category:Bosses&cmlimit=30&format=json`);
+    const pages = d.query?.categorymembers || [];
+    
+    // Get images for each boss in parallel
+    const bossData = await Promise.allSettled(pages.slice(0,24).map(async p => {
+      const imgD = await fetch2(`${PROXY}?game=wiki&wiki=bg3&action=query&titles=${encodeURIComponent(p.title)}&prop=pageimages&pithumbsize=400&format=json`);
+      const imgPages = imgD.query?.pages || {};
+      const imgPage = Object.values(imgPages)[0] || {};
+      return { name: p.title, image: imgPage.thumbnail?.source || '' };
+    }));
+    
+    const bosses = bossData.filter(r => r.status === 'fulfilled').map(r => r.value);
+    
+    grid.innerHTML = bosses.map(b => `
+      <div class="boss-card">
+        <div class="boss-img-wrap">
+          ${b.image 
+            ? `<img class="boss-img" src="${b.image}" alt="${b.name}" loading="lazy" onerror="this.parentElement.innerHTML='<div style=height:200px;background:var(--deep);display:flex;align-items:center;justify-content:center;font-size:48px>👹</div>'">`
+            : `<div style="height:200px;background:linear-gradient(135deg,var(--deep),#160c2a);display:flex;align-items:center;justify-content:center;font-size:48px">👹</div>`}
+        </div>
+        <div style="padding:12px 14px">
+          <div style="font-weight:700;font-size:13.5px;color:var(--t1);line-height:1.3">${b.name}</div>
+          <div style="margin-top:6px">
+            <a href="https://bg3.wiki/wiki/${encodeURIComponent(b.name.replace(/ /g,'_'))}" target="_blank" rel="noopener"
+              style="font-size:11px;color:#a78bfa;text-decoration:none;display:flex;align-items:center;gap:4px">
+              <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:9px"></i>Full guide on bg3.wiki
+            </a>
+          </div>
+        </div>
+      </div>`).join('');
+  } catch(e) {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--rose)">${e.message}</div>`;
+  }
+}
+
+// CLASSES — D&D 5e API via proxy
+async function renderClasses() {
+  const grid = document.getElementById('classGrid');
+  try {
+    const d = await fetch2(`${PROXY}?game=dnd5e&endpoint=classes`);
+    const classRefs = d.results || [];
+    
+    const CLASS_ICONS = {barbarian:'💪',bard:'🎵',cleric:'✝️',druid:'🌿',fighter:'⚔️',
+      monk:'🥋',paladin:'🛡️',ranger:'🏹',rogue:'🗡️',sorcerer:'🔮',warlock:'😈',wizard:'🧙'};
+    const CLASS_COLORS = {barbarian:'#fb923c',bard:'#f472b6',cleric:'#fde68a',druid:'#4ade80',
+      fighter:'#60a5fa',monk:'#34d399',paladin:'#fbbf24',ranger:'#86efac',
+      rogue:'#c084fc',sorcerer:'#f87171',warlock:'#8b5cf6',wizard:'#a78bfa'};
+    
+    const details = await Promise.allSettled(classRefs.map(c => 
+      fetch2(`${PROXY}?game=dnd5e&endpoint=${c.url.replace('/api/2014/','')}`)));
+    
+    const classes = details.filter(r => r.status === 'fulfilled').map(r => r.value);
+    
+    grid.innerHTML = classes.map(c => {
+      const color = CLASS_COLORS[c.index] || '#a78bfa';
+      const icon = CLASS_ICONS[c.index] || '⚔️';
+      const savingThrows = c.saving_throws?.map(s => s.name).join(', ') || '—';
+      const subclasses = c.subclasses?.map(s => s.name).join(', ') || '';
+      
+      return `<div class="class-card" style="border-left:3px solid ${color}">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+          <span style="font-size:32px">${icon}</span>
+          <div>
+            <div style="font-family:var(--display);font-size:28px;color:var(--t1);letter-spacing:.03em">${c.name}</div>
+            <div style="font-size:11px;color:var(--t3)">Hit Die: <strong style="color:${color}">${c.hit_die ? 'd'+c.hit_die : '?'}</strong> · Primary: ${savingThrows}</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;font-size:12px">
+          <div style="background:var(--deep);border-radius:var(--r1);padding:8px 10px">
+            <div style="color:var(--t3);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">Saves</div>
+            <div style="color:${color};font-weight:600">${savingThrows}</div>
+          </div>
+          <div style="background:var(--deep);border-radius:var(--r1);padding:8px 10px">
+            <div style="color:var(--t3);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">Proficiencies</div>
+            <div style="color:var(--t2);font-weight:600">${c.proficiencies?.length || 0} total</div>
+          </div>
+        </div>
+        ${subclasses ? `<div style="font-size:11.5px;color:var(--t3)"><strong style="color:var(--t2)">BG3 Subclasses:</strong> ${subclasses}</div>` : ''}
+        <a href="https://bg3.wiki/wiki/${c.name}" target="_blank" rel="noopener"
+          style="display:inline-flex;align-items:center;gap:5px;margin-top:12px;font-size:12px;color:${color};text-decoration:none">
+          <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:10px"></i>Full ${c.name} guide
+        </a>
+      </div>`;
+    }).join('');
+  } catch(e) {
+    grid.innerHTML = `<div style="grid-column:1/-1;color:var(--rose);padding:20px">${e.message}</div>`;
+  }
+}
+
+// SPELLS — D&D 5e API
+let allSpells = [], currentLevel = null;
+async function loadSpells() {
+  const d = await fetch2(`${PROXY}?game=dnd5e&endpoint=spells`);
+  return d.results || [];
+}
+
+async function renderSpells(level=null) {
+  const grid = document.getElementById('spellGrid');
+  grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px;color:var(--t3)"><i class="fa-solid fa-spinner fa-spin" style="color:#a78bfa"></i> Loading spells…</div>';
+  
+  if (!allSpells.length) allSpells = await loadSpells();
+  
+  const spellsToShow = level === null ? allSpells.slice(0,40) : allSpells;
+  
+  // Load details for first batch
+  const details = await Promise.allSettled(
+    spellsToShow.slice(0,40).map(s => fetch2(`${PROXY}?game=dnd5e&endpoint=${s.url.replace('/api/2014/','')}`)
+  ));
+  
+  const spells = details.filter(r => r.status === 'fulfilled').map(r => r.value)
+    .filter(s => level === null || s.level === level);
+  
+  const SCHOOL_COLORS = {Evocation:'#f87171',Conjuration:'#60a5fa',Abjuration:'#4ade80',
+    Enchantment:'#f472b6',Transmutation:'#fb923c',Divination:'#fde68a',Illusion:'#c084fc',Necromancy:'#a3a3a3'};
+  
+  grid.innerHTML = spells.map(s => {
+    const color = SCHOOL_COLORS[s.school?.name] || '#a78bfa';
+    return `<div style="background:var(--card);border:1px solid var(--b1);border-radius:var(--r2);padding:14px;transition:border-color .15s"
+      onmouseover="this.style.borderColor='${color}50'" onmouseout="this.style.borderColor='var(--b1)'">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+        <div style="font-weight:700;font-size:13.5px;color:var(--t1)">${s.name}</div>
+        <span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;background:${color}15;color:${color};border:1px solid ${color}30;white-space:nowrap;margin-left:8px">${s.level === 0 ? 'Cantrip' : 'L' + s.level}</span>
+      </div>
+      <div style="font-size:11px;color:var(--t3);margin-bottom:8px;display:flex;gap:10px;flex-wrap:wrap">
+        <span><i class="fa-solid fa-school" style="font-size:9px;color:${color}"></i> ${s.school?.name||'?'}</span>
+        <span><i class="fa-solid fa-ruler" style="font-size:9px"></i> ${s.range||'?'}</span>
+        ${s.casting_time ? `<span><i class="fa-solid fa-clock" style="font-size:9px"></i> ${s.casting_time}</span>` : ''}
+        ${s.duration ? `<span><i class="fa-solid fa-hourglass" style="font-size:9px"></i> ${s.duration}</span>` : ''}
+      </div>
+      ${s.desc?.[0] ? `<div style="font-size:12px;color:var(--t2);line-height:1.6">${s.desc[0].slice(0,120)}…</div>` : ''}
+      ${s.damage?.damage_type ? `<div style="margin-top:7px;font-size:11.5px;color:#f87171"><i class="fa-solid fa-bolt" style="font-size:9px"></i> ${s.damage.damage_type.name} damage</div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+function filterSpellLevel(level, el) {
+  document.querySelectorAll('#spellLevelFilter button').forEach(b => {
+    b.style.background = 'var(--float)'; b.style.color = 'var(--t3)'; b.style.borderColor = 'var(--b1)';
+  });
+  el.style.background = 'rgba(100,60,200,.2)'; el.style.color = '#a78bfa'; el.style.borderColor = 'rgba(100,60,200,.3)';
+  currentLevel = level;
+  renderSpells(level);
+}
+
+// TIPS
+function renderTips() {
+  const tips = [
+    { cat: 'Character Creation', color: '#a78bfa', icon: '🎭', items: [
+      'Choose Wizard for versatility — access to almost every spell in the game',
+      'Warlock gets short-rest spell slots, great for frequent combats',
+      'Paladin Oaths don\'t lock you in early — Oath of Devotion is safe for beginners',
+      'Constitution of 14+ is recommended for every class to maintain concentration spells',
+      'Custom Lineage: take the Feat at level 1 for Ability Score Improvement advantages',
+    ]},
+    { cat: 'Combat Fundamentals', color: '#60a5fa', icon: '⚔️', items: [
+      'High ground gives +2 to attack rolls. Always take elevated positions',
+      'Push enemies off ledges with Shove — it\'s a bonus action and doesn\'t cost spell slots',
+      'Grease + any fire spell = burning enemies + environmental damage for free',
+      'Concentration spells can be broken — Resilient: Constitution feat prevents this',
+      'Disguise Self lets you avoid many combats entirely through dialogue options',
+    ]},
+    { cat: 'Exploration', color: '#4ade80', icon: '🗺️', items: [
+      'Long Rest often — camp supplies are abundant. Don\'t save them too aggressively',
+      'Save before major conversations. Many have permanent consequences',
+      'Detect Thoughts (level 2 spell) unlocks extra dialogue options with NPCs',
+      'Karlach, Astarion, Shadowheart, Gale all have critical quest content in Act 1 — talk to them',
+      'The Underdark can be reached through Zhentarim Hideout or Goblin Camp — both reward exploration',
+    ]},
+    { cat: 'Act Structure', color: '#fde68a', icon: '📖', items: [
+      'Act 1 is the longest and most content-dense. Take your time — 40+ hours minimum',
+      'Before leaving Act 1: complete Halsin\'s questline or you miss him permanently',
+      'Act 2: Moonrise Towers has a hidden time pressure — resolve Last Light Inn quests first',
+      'Act 3: Companion personal quests all converge here. They\'re essential for endings',
+      'Multiple endings exist — different companions resolve differently based on your choices',
+    ]},
+  ];
+  document.getElementById('tipsContent').innerHTML = `<div style="max-width:900px;display:grid;grid-template-columns:repeat(auto-fill,minmax(400px,1fr));gap:16px">
+    ${tips.map(t => `<div style="background:var(--card);border:1px solid ${t.color}20;border-left:3px solid ${t.color};border-radius:var(--r3);padding:20px 22px">
+      <div style="font-size:14px;font-weight:700;color:${t.color};margin-bottom:12px;display:flex;align-items:center;gap:8px">
+        <span style="font-size:20px">${t.icon}</span>${t.cat}
+      </div>
+      ${t.items.map(i => `<div style="display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid var(--b1);font-size:13px;color:var(--t2);line-height:1.6">
+        <i class="fa-solid fa-check" style="color:${t.color};font-size:10px;margin-top:4px;flex-shrink:0"></i>${i}</div>`).join('')}
+    </div>`).join('')}
+  </div>`;
+}
+
+// BUILDS
+function renderBuilds() {
+  const builds = [
+    { name:'Gloomstalker Assassin', class:'Ranger 5 / Rogue 3', icon:'🏹', color:'#c084fc',
+      desc:'Highest burst damage in BG3. Gloomstalker gets an extra attack in round 1, Assassin automatically crits on surprised enemies. Deals 200+ damage round 1.',
+      stats:'DEX 18, WIS 14, CON 14', 
+      tips:['Level 5 Ranger, 3 Rogue, then continue Ranger', 'Alert feat for permanent initiative bonus', 'Dual wield hand crossbows for bonus action attacks'] },
+    { name:'Swords Bard', class:'Bard (College of Swords)', icon:'🎵', color:'#f472b6',
+      desc:'Best face character + strong combatant. Full spell list, Slashing Flourishes for crowd control, and Dual Wielding for sustained damage.',
+      stats:'CHA 18, DEX 16, CON 14',
+      tips:['Slashing Flourish can hit multiple enemies', 'Jack of All Trades adds half proficiency to every skill', 'Magical Secrets at level 6 — take Spirit Guardians + Counterspell'] },
+    { name:'Necromancer Wizard', class:'Wizard (School of Necromancy)', icon:'💀', color:'#a3a3a3',
+      desc:'Raise an army of undead that do your fighting. Animate Dead can maintain up to 9 undead at once. Late game you literally cannot die.',
+      stats:'INT 20, CON 16, DEX 14',
+      tips:['Animate Dead is the win condition — spam it', 'Grim Harvest restores spell slots on enemy death', 'Undead Thralls makes your undead stronger than vanilla'] },
+    { name:'Paladin Warlock (Padlock)', class:'Paladin 5 / Warlock 7', icon:'⚡', color:'#fbbf24',
+      desc:'The "Padlock" is BG3\'s most abused multiclass. Warlock spell slots recharge on short rest and fuel Paladin\'s Divine Smite for obscene burst damage.',
+      stats:'CHA 20, STR 16, CON 14',
+      tips:['Pact of the Blade: your weapon uses CHA instead of STR', 'Short rest between every combat to recharge smite slots', 'Eldritch Blast for ranged + Smite for melee = full coverage'] },
+  ];
+  document.getElementById('buildsContent').innerHTML = `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px">
+    ${builds.map(b => `<div style="background:var(--card);border:1px solid ${b.color}30;border-left:3px solid ${b.color};border-radius:var(--r3);padding:20px 22px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <span style="font-size:28px">${b.icon}</span>
+        <div>
+          <div style="font-family:var(--display);font-size:24px;color:var(--t1)">${b.name}</div>
+          <div style="font-size:11px;color:${b.color};font-weight:600">${b.class}</div>
+        </div>
+      </div>
+      <p style="font-size:13px;color:var(--t2);line-height:1.7;margin-bottom:14px">${b.desc}</p>
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:6px">Key Stats</div>
+      <div style="font-size:12px;color:${b.color};font-family:var(--mono);margin-bottom:14px">${b.stats}</div>
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:8px">Tips</div>
+      ${b.tips.map(t=>`<div style="font-size:12.5px;color:var(--t2);padding:5px 0;border-bottom:1px solid var(--b1);display:flex;gap:7px">
+        <i class="fa-solid fa-circle-dot" style="color:${b.color};font-size:9px;margin-top:3px;flex-shrink:0"></i>${t}</div>`).join('')}
+    </div>`).join('')}
+  </div>`;
+}
+
+async function renderSection(id) {
+  if (id === 'bosses') await renderBosses();
+  else if (id === 'classes') await renderClasses();
+  else if (id === 'spells') await renderSpells(0);
+  else if (id === 'tips') renderTips();
+  else if (id === 'builds') renderBuilds();
+}
+
+document.addEventListener('DOMContentLoaded', () => { renderBosses(); });
+</script>
+</body>
+</html>

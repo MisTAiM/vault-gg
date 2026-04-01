@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Elden Ring Guide — VAULT.GG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.guide-hero{background:linear-gradient(135deg,#0a0404 0%,#1a0808 40%,#0d0a0a 100%);
+  border-bottom:1px solid rgba(255,100,50,.15);padding:72px 0 48px;position:relative;overflow:hidden}
+.guide-hero::before{content:'';position:absolute;inset:0;
+  background:url('https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/page_bg_generated_v6b.jpg') center/cover;
+  opacity:.12;filter:saturate(1.5) blur(1px)}
+.guide-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:32px;padding:0 0 2px;
+  border-bottom:1px solid var(--b1);position:sticky;top:56px;background:var(--void);z-index:10;padding-top:12px}
+.gtab{padding:9px 18px;border-radius:var(--r2) var(--r2) 0 0;background:transparent;
+  border:1px solid transparent;color:var(--t3);cursor:pointer;font-size:13px;font-weight:600;
+  transition:all .15s;display:flex;align-items:center;gap:7px}
+.gtab:hover{background:var(--float);color:var(--t2)}
+.gtab.active{background:var(--card);border-color:var(--b1);border-bottom-color:var(--void);
+  color:var(--neon);margin-bottom:-1px}
+.gtab i{font-size:12px}
+.guide-section{display:none}
+.guide-section.active{display:block}
+/* Boss gallery */
+.boss-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:16px}
+.boss-card{background:var(--card);border:1px solid var(--b1);border-radius:var(--r3);overflow:hidden;
+  cursor:pointer;transition:all .2s var(--ease)}
+.boss-card:hover{border-color:rgba(255,80,40,.5);transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,80,40,.1)}
+.boss-img-wrap{position:relative;aspect-ratio:1;background:linear-gradient(135deg,#1a0808,#0d0505);overflow:hidden}
+.boss-img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+.boss-card:hover .boss-img{transform:scale(1.05)}
+.boss-no-img{width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+  font-size:48px;opacity:.2}
+.boss-info{padding:12px 14px}
+.boss-name{font-weight:700;font-size:14px;color:var(--t1);margin-bottom:4px;line-height:1.3}
+.boss-loc{font-size:11px;color:var(--t3);margin-bottom:6px;display:flex;align-items:center;gap:4px}
+.boss-drops{display:flex;flex-wrap:wrap;gap:4px}
+.boss-drop{font-size:10px;padding:2px 7px;background:rgba(255,80,40,.1);
+  border:1px solid rgba(255,80,40,.2);border-radius:3px;color:rgba(255,140,80,.9)}
+/* Boss expand modal */
+.boss-modal{display:none;position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.92);
+  align-items:center;justify-content:center;padding:20px}
+.boss-modal.open{display:flex}
+.boss-modal-box{background:var(--raised);border:1px solid rgba(255,80,40,.3);
+  border-radius:var(--r4);max-width:700px;width:100%;max-height:90vh;overflow-y:auto;
+  box-shadow:0 0 60px rgba(255,80,40,.15)}
+/* Weapon grid */
+.weapon-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px}
+.weapon-card{background:var(--card);border:1px solid var(--b1);border-radius:var(--r2);
+  padding:12px;display:flex;gap:10px;align-items:flex-start;cursor:pointer;transition:border-color .15s}
+.weapon-card:hover{border-color:var(--neon-border)}
+.weapon-icon{width:48px;height:48px;border-radius:var(--r1);object-fit:contain;
+  background:var(--deep);padding:4px;flex-shrink:0}
+.weapon-info{flex:1;min-width:0}
+.weapon-name{font-weight:600;font-size:13px;color:var(--t1);margin-bottom:3px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.weapon-atk{font-size:11px;color:var(--neon);font-family:var(--mono)}
+/* Class grid */
+.class-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:16px}
+.class-card{background:var(--card);border:1px solid var(--b1);border-radius:var(--r3);overflow:hidden;
+  cursor:pointer;transition:all .2s}
+.class-card:hover{border-color:var(--amber);transform:translateY(-2px)}
+.class-img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top}
+.class-body{padding:14px}
+.class-name{font-family:var(--display);font-size:22px;color:var(--t1);margin-bottom:8px}
+.class-stat{display:flex;justify-content:space-between;font-size:11.5px;padding:3px 0;
+  border-bottom:1px solid var(--b1)}
+.class-stat:last-child{border:none}
+.stat-label{color:var(--t3);font-weight:600;text-transform:uppercase;letter-spacing:.05em;font-size:10px}
+.stat-val{font-family:var(--mono);color:var(--t1);font-weight:600}
+/* Spell grid */
+.spell-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-top:16px}
+.spell-card{background:var(--card);border:1px solid var(--b1);border-radius:var(--r2);
+  padding:12px;text-align:center;cursor:pointer;transition:all .15s}
+.spell-card:hover{border-color:rgba(100,100,255,.5);transform:translateY(-2px)}
+.spell-icon{width:56px;height:56px;object-fit:contain;background:var(--deep);
+  border-radius:var(--r1);padding:4px;margin:0 auto 8px}
+.spell-name{font-weight:600;font-size:12.5px;color:var(--t1);margin-bottom:4px;line-height:1.3}
+.spell-cost{font-size:11px;color:var(--ice);font-family:var(--mono)}
+/* Search */
+.guide-search{background:var(--card);border:1px solid var(--b1);border-radius:var(--r2);
+  padding:9px 14px;font-size:14px;color:var(--t1);width:280px;outline:none;
+  transition:border-color .15s}
+.guide-search:focus{border-color:var(--neon-border);box-shadow:0 0 0 2px var(--neon-bg)}
+.guide-search::placeholder{color:var(--t3)}
+/* Filter chips */
+.filter-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
+.fchip{padding:5px 13px;border-radius:99px;font-size:12px;font-weight:600;
+  background:var(--float);border:1px solid var(--b1);color:var(--t3);cursor:pointer;transition:all .15s}
+.fchip:hover{background:var(--hover);color:var(--t2)}
+.fchip.on{background:var(--neon-bg);border-color:var(--neon-border);color:var(--neon)}
+/* Credits bar */
+.credit-bar{background:var(--raised);border:1px solid var(--b1);border-radius:var(--r2);
+  padding:9px 14px;font-size:11.5px;color:var(--t3);display:flex;align-items:center;gap:8px;
+  margin-bottom:20px}
+/* Lightbox */
+.lb{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.96);
+  align-items:center;justify-content:center;cursor:pointer}
+.lb.open{display:flex}
+.lb img{max-width:92vw;max-height:88vh;border-radius:8px;object-fit:contain}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="../index.html" style="display:flex;align-items:center;text-decoration:none">
+      <img src="../logo.svg" alt="VAULT.GG" height="28" onerror="this.style.display='none'">
+    </a>
+    <ul class="nav-links">
+      <li><a class="nav-link" href="../index.html">Home</a></li>
+      <li><a class="nav-link active" href="../guides.html">Guides</a></li>
+      <li><a class="nav-link" href="../genres/">Genres</a></li>
+      <li><a class="nav-link" href="../recommender.html">AI Picks</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="guide-hero">
+  <div class="wrap" style="position:relative;z-index:1">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
+      <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/capsule_616x353.jpg"
+        style="width:120px;border-radius:var(--r2);box-shadow:0 0 30px rgba(0,0,0,.5)" alt="Elden Ring">
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.15em;
+          color:rgba(255,140,80,.7);margin-bottom:6px">
+          <i class="fa-solid fa-scroll"></i> VAULT.GG GAME GUIDE
+        </div>
+        <h1 style="font-family:var(--display);font-size:clamp(44px,6vw,80px);letter-spacing:.02em;
+          color:#f5e8d0;line-height:.9;text-shadow:0 0 40px rgba(255,100,40,.3)">
+          ELDEN<br><span style="color:#ff7a3d;text-shadow:0 0 20px rgba(255,100,40,.6)">RING</span>
+        </h1>
+        <div style="margin-top:10px;font-size:13px;color:rgba(245,232,208,.6)">
+          FromSoftware · 2022 · Data current April 2026 · PC (Steam)
+        </div>
+      </div>
+    </div>
+    <!-- Live stats bar -->
+    <div style="display:flex;gap:20px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:7px;font-size:13px;color:rgba(245,232,208,.7)">
+        <i class="fa-solid fa-users" style="color:#ff7a3d"></i>
+        <span id="livePlayerCount" style="font-family:var(--mono);font-weight:700"></span> playing now
+      </div>
+      <div style="display:flex;align-items:center;gap:7px;font-size:13px;color:rgba(245,232,208,.7)">
+        <i class="fa-solid fa-thumbs-up" style="color:#4ade80"></i>
+        Very Positive · 94 Metacritic
+      </div>
+      <div style="display:flex;align-items:center;gap:7px;font-size:13px;color:rgba(245,232,208,.7)">
+        <i class="fa-solid fa-clock" style="color:#60a5fa"></i>
+        ~55h main story · 130h+ full completion
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GUIDE TABS -->
+<div class="wrap" style="padding-top:0">
+  <div class="guide-tabs">
+    <button class="gtab active" onclick="showTab('bosses')"><i class="fa-solid fa-skull"></i>Bosses (106)</button>
+    <button class="gtab" onclick="showTab('classes')"><i class="fa-solid fa-user-shield"></i>Starting Classes</button>
+    <button class="gtab" onclick="showTab('weapons')"><i class="fa-solid fa-sword"></i>Weapons</button>
+    <button class="gtab" onclick="showTab('sorceries')"><i class="fa-solid fa-wand-sparkles"></i>Sorceries</button>
+    <button class="gtab" onclick="showTab('incantations')"><i class="fa-solid fa-sun"></i>Incantations</button>
+    <button class="gtab" onclick="showTab('spirits')"><i class="fa-solid fa-ghost"></i>Spirit Ashes</button>
+    <button class="gtab" onclick="showTab('walkthrough')"><i class="fa-solid fa-map"></i>Walkthrough</button>
+    <button class="gtab" onclick="showTab('builds')"><i class="fa-solid fa-fire"></i>Meta Builds</button>
+  </div>
+
+  <!-- BOSSES -->
+  <div class="guide-section active" id="sec-bosses">
+    <div class="credit-bar">
+      <i class="fa-solid fa-circle-info" style="color:var(--neon)"></i>
+      Boss data via <strong>eldenring.fanapis.com</strong> — Community API, updated for current patch.
+      Boss images © FromSoftware / Bandai Namco. Click any boss for full details.
+    </div>
+    <div class="filter-row">
+      <input class="guide-search" id="bossSearch" placeholder="Search bosses…" oninput="filterBosses(this.value)">
+      <button class="fchip on" onclick="filterBossByRegion('all',this)">All</button>
+      <button class="fchip" onclick="filterBossByRegion('Limgrave',this)">Limgrave</button>
+      <button class="fchip" onclick="filterBossByRegion('Liurnia',this)">Liurnia</button>
+      <button class="fchip" onclick="filterBossByRegion('Altus',this)">Altus Plateau</button>
+      <button class="fchip" onclick="filterBossByRegion('Mountaintops',this)">Mountaintops</button>
+      <button class="fchip" onclick="filterBossByRegion('Leyndell',this)">Leyndell</button>
+    </div>
+    <div class="boss-grid" id="bossGrid">
+      <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--t3)">
+        <i class="fa-solid fa-spinner fa-spin fa-2x" style="color:#ff7a3d;display:block;margin-bottom:12px"></i>
+        Loading 106 bosses from FromSoftware universe…
+      </div>
+    </div>
+  </div>
+
+  <!-- CLASSES -->
+  <div class="guide-section" id="sec-classes">
+    <div class="credit-bar">
+      <i class="fa-solid fa-circle-info" style="color:var(--neon)"></i>
+      Starting class data via <strong>eldenring.fanapis.com</strong>. All stats reflect base values pre-level.
+    </div>
+    <p style="color:var(--t2);font-size:14px;line-height:1.8;margin-bottom:20px;max-width:720px">
+      Your starting class determines your initial stat spread and equipment. <strong style="color:var(--amber)">All classes can do everything</strong> — it just affects early-game efficiency. Choose based on your intended build, not playstyle limitations.
+    </p>
+    <div class="class-grid" id="classGrid">
+      <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--t3)">
+        <i class="fa-solid fa-spinner fa-spin fa-2x" style="color:#ff7a3d;display:block;margin-bottom:12px"></i>
+        Loading starting classes…
+      </div>
+    </div>
+  </div>
+
+  <!-- WEAPONS -->
+  <div class="guide-section" id="sec-weapons">
+    <div class="credit-bar">
+      <i class="fa-solid fa-circle-info" style="color:var(--neon)"></i>
+      307 weapons cataloged via <strong>eldenring.fanapis.com</strong>. All attack values at base upgrade level. Click any weapon for full stats.
+    </div>
+    <div class="filter-row">
+      <input class="guide-search" id="weaponSearch" placeholder="Search weapons…" oninput="filterWeapons(this.value)">
+      <button class="fchip on" onclick="filterWeaponType('all',this)">All</button>
+      <button class="fchip" onclick="filterWeaponType('Ax',this)">Axes</button>
+      <button class="fchip" onclick="filterWeaponType('Sword',this)">Swords</button>
+      <button class="fchip" onclick="filterWeaponType('Greatword',this)">Greatswords</button>
+      <button class="fchip" onclick="filterWeaponType('Dagger',this)">Daggers</button>
+      <button class="fchip" onclick="filterWeaponType('Bow',this)">Bows</button>
+      <button class="fchip" onclick="filterWeaponType('Spear',this)">Spears</button>
+      <button class="fchip" onclick="filterWeaponType('Staff',this)">Staves</button>
+    </div>
+    <div class="weapon-grid" id="weaponGrid">
+      <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--t3)">
+        <i class="fa-solid fa-spinner fa-spin fa-2x" style="color:#ff7a3d;display:block;margin-bottom:12px"></i>
+        Loading weapon database…
+      </div>
+    </div>
+  </div>
+
+  <!-- SORCERIES -->
+  <div class="guide-section" id="sec-sorceries">
+    <div class="credit-bar">
+      <i class="fa-solid fa-circle-info" style="color:var(--neon)"></i>
+      71 sorceries via <strong>eldenring.fanapis.com</strong>. FP = Focus Points cost. Slots = memory slots required.
+    </div>
+    <div class="filter-row">
+      <input class="guide-search" id="sorcSearch" placeholder="Search sorceries…" oninput="filterSpells('sorceries',this.value)">
+      <button class="fchip on" onclick="filterSpellSlots('sorceries','all',this)">All</button>
+      <button class="fchip" onclick="filterSpellSlots('sorceries','1',this)">1 Slot</button>
+      <button class="fchip" onclick="filterSpellSlots('sorceries','2',this)">2 Slots</button>
+      <button class="fchip" onclick="filterSpellSlots('sorceries','3',this)">3+ Slots</button>
+    </div>
+    <div class="spell-grid" id="sorcGrid">
+      <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--t3)">
+        <i class="fa-solid fa-spinner fa-spin fa-2x" style="display:block;margin-bottom:12px"></i>Loading…
+      </div>
+    </div>
+  </div>
+
+  <!-- INCANTATIONS -->
+  <div class="guide-section" id="sec-incantations">
+    <div class="credit-bar">
+      <i class="fa-solid fa-circle-info" style="color:var(--neon)"></i>
+      98 incantations via <strong>eldenring.fanapis.com</strong>. Requires Sacred Seal to cast.
+    </div>
+    <div class="filter-row">
+      <input class="guide-search" id="incantSearch" placeholder="Search incantations…" oninput="filterSpells('incantations',this.value)">
+      <button class="fchip on" onclick="filterSpellSlots('incantations','all',this)">All</button>
+      <button class="fchip" onclick="filterSpellSlots('incantations','1',this)">1 Slot</button>
+      <button class="fchip" onclick="filterSpellSlots('incantations','2',this)">2 Slots</button>
+      <button class="fchip" onclick="filterSpellSlots('incantations','3',this)">3+ Slots</button>
+    </div>
+    <div class="spell-grid" id="incantGrid">
+      <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--t3)">
+        <i class="fa-solid fa-spinner fa-spin fa-2x" style="display:block;margin-bottom:12px"></i>Loading…
+      </div>
+    </div>
+  </div>
+
+  <!-- SPIRITS -->
+  <div class="guide-section" id="sec-spirits">
+    <div class="credit-bar">
+      <i class="fa-solid fa-circle-info" style="color:var(--neon)"></i>
+      64 Spirit Ashes cataloged. Requires Spirit Calling Bell (found at Church of Elleh after meeting Melina).
+    </div>
+    <div class="spell-grid" id="spiritGrid">
+      <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--t3)">
+        <i class="fa-solid fa-spinner fa-spin fa-2x" style="display:block;margin-bottom:12px"></i>Loading…
+      </div>
+    </div>
+  </div>
+
+  <!-- WALKTHROUGH -->
+  <div class="guide-section" id="sec-walkthrough">
+    <div class="credit-bar">
+      <i class="fa-solid fa-circle-info" style="color:var(--neon)"></i>
+      Recommended order guide. Elden Ring is non-linear — this is the optimal path for first-time players.
+    </div>
+    <div id="walkthroughContent"></div>
+  </div>
+
+  <!-- BUILDS -->
+  <div class="guide-section" id="sec-builds">
+    <div class="credit-bar">
+      <i class="fa-solid fa-circle-info" style="color:var(--neon)"></i>
+      Meta builds for patch 1.13. All builds viable for NG and NG+.
+    </div>
+    <div id="buildsContent"></div>
+  </div>
+
+  <div style="height:80px"></div>
+</div>
+
+<!-- Lightbox -->
+<div class="lb" id="lightbox" onclick="this.classList.remove('open')">
+  <img id="lbImg" src="" alt="">
+</div>
+
+<!-- Boss Detail Modal -->
+<div class="boss-modal" id="bossModal" onclick="this.classList.remove('open')">
+  <div class="boss-modal-box" onclick="event.stopPropagation()">
+    <div id="bossModalContent"></div>
+  </div>
+</div>
+
+<script>
+const ER_API = '/api/guide?game=elden-ring';
+const cache = {};
+
+// ── Data Loading ───────────────────────────────────────────
+async function load(type, limit=100, page=0) {
+  const key = `${type}_${page}`;
+  if (cache[key]) return cache[key];
+  const r = await fetch(`${ER_API}&type=${type}&limit=${limit}&page=${page}`);
+  const d = await r.json();
+  cache[key] = d.data || [];
+  return cache[key];
+}
+
+// Load all pages of data
+async function loadAll(type, total=200) {
+  const all = [];
+  let page = 0;
+  while(all.length < total) {
+    const items = await load(type, 20, page);
+    if (!items.length) break;
+    all.push(...items);
+    page++;
+  }
+  return all;
+}
+
+// ── Tab System ─────────────────────────────────────────────
+let loaded = {};
+function showTab(id) {
+  document.querySelectorAll('.guide-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.gtab').forEach(t => t.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  if (!loaded[id]) { loaded[id] = true; renderSection(id); }
+}
+
+// ── BOSS RENDERING ─────────────────────────────────────────
+let allBosses = [];
+async function renderBosses(filter='', region='all') {
+  const grid = document.getElementById('bossGrid');
+  if (!allBosses.length) {
+    allBosses = await loadAll('bosses', 106);
+  }
+  
+  let bosses = allBosses;
+  if (filter) bosses = bosses.filter(b => b.name.toLowerCase().includes(filter.toLowerCase()));
+  if (region !== 'all') bosses = bosses.filter(b => (b.region||'').includes(region));
+  
+  if (!bosses.length) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--t3)">No bosses match your filter.</div>';
+    return;
+  }
+  
+  grid.innerHTML = bosses.map(b => `
+    <div class="boss-card" onclick="showBossDetail(${JSON.stringify(JSON.stringify(b))})">
+      <div class="boss-img-wrap">
+        ${b.image 
+          ? `<img class="boss-img" src="${b.image}" alt="${b.name}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=boss-no-img>⚔️</div>'">`
+          : `<div class="boss-no-img"><i class="fa-solid fa-skull" style="font-size:56px;color:rgba(255,80,40,.3)"></i></div>`}
+        ${b.healthPoints ? `<div style="position:absolute;bottom:6px;right:6px;background:rgba(0,0,0,.8);border:1px solid rgba(255,80,40,.3);border-radius:4px;padding:2px 8px;font-size:10px;font-family:var(--mono);color:rgba(255,140,80,.9)">HP ${b.healthPoints}</div>` : ''}
+      </div>
+      <div class="boss-info">
+        <div class="boss-name">${b.name}</div>
+        ${b.region ? `<div class="boss-loc"><i class="fa-solid fa-location-dot" style="font-size:9px"></i>${b.region}</div>` : ''}
+        ${b.drops?.length ? `<div class="boss-drops">${b.drops.slice(0,2).map(d=>`<span class="boss-drop">${d}</span>`).join('')}</div>` : ''}
+      </div>
+    </div>`).join('');
+}
+
+function showBossDetail(jsonStr) {
+  const b = JSON.parse(jsonStr);
+  const modal = document.getElementById('bossModal');
+  document.getElementById('bossModalContent').innerHTML = `
+    <div style="position:relative">
+      ${b.image ? `<img src="${b.image}" style="width:100%;height:260px;object-fit:cover;object-position:top" alt="${b.name}" onerror="this.style.display='none'">
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,var(--raised))"></div>` : ''}
+      <div style="padding:24px 26px">
+        <div style="font-family:var(--display);font-size:36px;color:#f5e8d0;margin-bottom:4px;letter-spacing:.03em">${b.name}</div>
+        ${b.region ? `<div style="font-size:12px;color:rgba(255,140,80,.7);margin-bottom:14px"><i class="fa-solid fa-location-dot"></i> ${b.region}${b.location ? ' · ' + b.location : ''}</div>` : ''}
+        ${b.description ? `<p style="font-size:13.5px;color:var(--t2);line-height:1.8;margin-bottom:16px;font-style:italic">"${b.description}"</p>` : ''}
+        ${b.healthPoints ? `<div style="display:flex;gap:8px;align-items:center;margin-bottom:12px">
+          <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--t3)">Health</span>
+          <span style="font-family:var(--mono);color:rgba(255,140,80,.9);font-weight:700">${b.healthPoints}</span>
+        </div>` : ''}
+        ${b.drops?.length ? `<div style="margin-top:14px">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--t3);margin-bottom:8px">Drops</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            ${b.drops.map(d=>`<span style="font-size:12px;padding:4px 10px;background:rgba(255,80,40,.1);border:1px solid rgba(255,80,40,.2);border-radius:4px;color:rgba(255,140,80,.9)">${d}</span>`).join('')}
+          </div>
+        </div>` : ''}
+        <button onclick="document.getElementById('bossModal').classList.remove('open')" 
+          style="margin-top:20px;padding:8px 20px;background:var(--float);border:1px solid var(--b2);border-radius:var(--r1);color:var(--t2);cursor:pointer;font-size:13px">
+          <i class="fa-solid fa-xmark"></i> Close
+        </button>
+      </div>
+    </div>`;
+  modal.classList.add('open');
+}
+
+function filterBosses(q) { renderBosses(q); }
+function filterBossByRegion(r, el) {
+  document.querySelectorAll('#sec-bosses .fchip').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+  renderBosses(document.getElementById('bossSearch').value, r);
+}
+
+// ── CLASS RENDERING ────────────────────────────────────────
+async function renderClasses() {
+  const grid = document.getElementById('classGrid');
+  const classes = await load('classes', 20);
+  
+  const STAT_LABELS = {level:'Level',vigor:'Vigor',mind:'Mind',endurance:'Endurance',
+    strength:'Strength',dexterity:'Dexterity',intelligence:'Intelligence',
+    faith:'Faith',arcane:'Arcane'};
+  const STAT_COLORS = {vigor:'#ff6b6b',mind:'#60a5fa',endurance:'#4ade80',
+    strength:'#fb923c',dexterity:'#f59e0b',intelligence:'#a78bfa',faith:'#fde68a',arcane:'#e879f9'};
+  
+  grid.innerHTML = classes.map(c => {
+    const stats = c.stats || {};
+    const topStats = Object.entries(stats)
+      .filter(([k]) => k !== 'level')
+      .sort(([,a],[,b]) => parseInt(b)-parseInt(a));
+    
+    return `<div class="class-card">
+      ${c.image ? `<img class="class-img" src="${c.image}" alt="${c.name}" onerror="this.style.height='100px';this.style.background='var(--deep)'">` 
+        : `<div style="height:80px;background:linear-gradient(135deg,var(--deep),var(--card));display:flex;align-items:center;justify-content:center;font-size:32px">⚔️</div>`}
+      <div class="class-body">
+        <div class="class-name">${c.name}</div>
+        <div style="font-size:10px;color:var(--t3);margin-bottom:10px;font-weight:600">
+          Starting Level ${stats.level || '?'}
+        </div>
+        ${c.description ? `<div style="font-size:11.5px;color:var(--t3);line-height:1.6;margin-bottom:10px">${c.description.slice(0,120)}…</div>` : ''}
+        <div>
+          ${topStats.slice(0,6).map(([k,v]) => `
+            <div class="class-stat">
+              <span class="stat-label" style="color:${STAT_COLORS[k]||'var(--t3)'}">${STAT_LABELS[k]||k}</span>
+              <span class="stat-val" style="color:${parseInt(v)>=18?'var(--neon)':parseInt(v)>=14?'var(--amber)':'var(--t1)'}">${v}</span>
+            </div>`).join('')}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── WEAPON RENDERING ───────────────────────────────────────
+let allWeapons = [];
+async function renderWeapons(filter='', typeFilter='all') {
+  const grid = document.getElementById('weaponGrid');
+  if (!allWeapons.length) {
+    allWeapons = await loadAll('weapons', 307);
+  }
+  
+  let weapons = allWeapons;
+  if (filter) weapons = weapons.filter(w => w.name.toLowerCase().includes(filter.toLowerCase()));
+  if (typeFilter !== 'all') weapons = weapons.filter(w => (w.name+' '+(w.description||'')).includes(typeFilter));
+  
+  grid.innerHTML = weapons.slice(0,80).map(w => {
+    const phyAtk = w.attack?.find(a => a.name === 'Phy')?.amount || 0;
+    return `<div class="weapon-card" onclick="openLb('${w.image||''}')">
+      <img class="weapon-icon" src="${w.image||''}" alt="${w.name}" 
+        onerror="this.src='';this.style.display='none'">
+      <div class="weapon-info">
+        <div class="weapon-name">${w.name}</div>
+        <div class="weapon-atk"><i class="fa-solid fa-burst" style="font-size:9px"></i> ${phyAtk} Phys${w.attack?.find(a=>a.name==='Mag'&&a.amount>0) ? ' · '+w.attack.find(a=>a.name==='Mag').amount+' Mag' : ''}</div>
+        ${w.description ? `<div style="font-size:10.5px;color:var(--t3);margin-top:3px;line-height:1.4">${w.description.slice(0,70)}…</div>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function filterWeapons(q) { renderWeapons(q); }
+function filterWeaponType(t, el) {
+  document.querySelectorAll('#sec-weapons .fchip').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+  renderWeapons(document.getElementById('weaponSearch')?.value||'', t);
+}
+
+// ── SPELL RENDERING ────────────────────────────────────────
+let allSorceries=[], allIncantations=[], allSpirits=[];
+async function renderSpells(type) {
+  let data, grid, search;
+  if (type === 'sorceries') {
+    if (!allSorceries.length) allSorceries = await load('sorceries', 100);
+    data = allSorceries; grid = document.getElementById('sorcGrid');
+  } else if (type === 'incantations') {
+    if (!allIncantations.length) allIncantations = await load('incantations', 100);
+    data = allIncantations; grid = document.getElementById('incantGrid');
+  } else {
+    if (!allSpirits.length) allSpirits = await load('spirits', 100);
+    data = allSpirits; grid = document.getElementById('spiritGrid');
+  }
+  
+  const isSpirit = type === 'spirits';
+  grid.innerHTML = data.map(s => `
+    <div class="spell-card" style="${isSpirit?'border-color:rgba(100,100,255,.2)':''}">
+      ${s.image ? `<img class="spell-icon" src="${s.image}" alt="${s.name}" onerror="this.style.display='none'">` : ''}
+      <div class="spell-name">${s.name}</div>
+      ${isSpirit 
+        ? `<div class="spell-cost"><i class="fa-solid fa-droplet" style="color:#60a5fa;font-size:9px"></i> ${s.fpCost||'?'} FP · <i class="fa-solid fa-heart" style="color:#ff6b6b;font-size:9px"></i> ${s.hpCost||'?'} HP</div>`
+        : `<div class="spell-cost"><i class="fa-solid fa-droplet" style="color:#60a5fa;font-size:9px"></i> ${s.cost||'?'} FP · ${s.slots||'?'} slot${s.slots!==1?'s':''}</div>`}
+      ${s.description ? `<div style="font-size:10.5px;color:var(--t3);margin-top:5px;line-height:1.5;text-align:left">${s.description.slice(0,80)}…</div>` : ''}
+    </div>`).join('');
+}
+
+function filterSpells(type, q) {
+  // Filter displayed cards
+  const grid = document.getElementById(type === 'sorceries' ? 'sorcGrid' : 'incantGrid');
+  grid.querySelectorAll('.spell-card').forEach(card => {
+    const name = card.querySelector('.spell-name')?.textContent.toLowerCase() || '';
+    card.style.display = name.includes(q.toLowerCase()) ? '' : 'none';
+  });
+}
+
+function filterSpellSlots(type, slots, el) {
+  document.querySelectorAll(`#sec-${type} .fchip`).forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+}
+
+// ── WALKTHROUGH ────────────────────────────────────────────
+function renderWalkthrough() {
+  const steps = [
+    { area: 'Limgrave', icon: '🌿', order: 1, tip: 'Start here. Grace your way to Stormveil Castle.', bosses: ['Margit the Fell Omen','Godrick the Grafted','Soldier of Godrick'], tips: ['Get Torrent from Melina at the third Site of Grace','Explore all of Limgrave before Stormveil','Pick up the Twinblade near Dragon-Burnt Ruins'] },
+    { area: 'Weeping Peninsula', icon: '🌙', order: 2, tip: 'Optional but recommended. Castle Morne drops a great early weapon.', bosses: ['Leonine Misbegotten','Erdtree Avatar'], tips: ['Grab the Crucible Knight Armor set','Pick up the Bull-Goat Talisman from the Demi-Human Queen'] },
+    { area: 'Liurnia of the Lakes', icon: '🌊', order: 3, tip: 'Skip Stormveil via a path east of the castle if you want. Raya Lucaria is your goal.', bosses: ['Red Wolf of Radagon','Rennala Queen of the Full Moon'], tips: ['Academy Crystal Cave for Raya Lucaria shortcut','Talk to Sorceress Sellen for sorcery vendor','Grab Glintstone Pebble early — best basic sorcery'] },
+    { area: 'Caelid', icon: '☠️', order: 4, tip: 'HIGH difficulty. Consider coming back after Liurnia if you\'re struggling.', bosses: ['Starscourge Radahn','Commander O\'Neil','Decaying Ekzykes'], tips: ['The Swamp of Aeonia is brutal — bring Preserving Boluses','Sellia Crystal Tunnel has great early smithing stones','Radahn Festival opens after Ranni questline starts'] },
+    { area: 'Altus Plateau', icon: '🏔️', order: 5, tip: 'Two routes: Ruin-Strewn Precipice or combining two halves of the Grand Lift.', bosses: ['Godfrey, First Elden Lord (Golden)','Draconic Tree Sentinel'], tips: ['Volcano Manor questline starts here','Golden Lineage Evergaol contains an early Godfrey'] },
+    { area: 'Leyndell, Royal Capital', icon: '👑', order: 6, tip: 'Major story milestone. Multiple legacy dungeon paths.', bosses: ['Morgott, the Omen King','Draconic Tree Sentinel (pair)'], tips: ['Explore every avenue before fighting Morgott','Erdtree Sanctuary rooftop has a critical item'] },
+    { area: 'Mountaintops / Consecrated Snowfield', icon: '❄️', order: 7, tip: 'Haligtree access requires the secret Haligtree Medallion (both halves).', bosses: ['Fire Giant','Malenia, Blade of Miquella'], tips: ['Malenia has the highest health in the game — Mimic Tear helps enormously','Bring Preserving Boluses for Scarlet Rot buildup'] },
+    { area: 'Farum Azula / Ashen Capital', icon: '🌋', order: 8, tip: 'Point of no return after burning the Erdtree. Stock up first.', bosses: ['Maliketh the Black Blade','Hoarah Loux (Godfrey)','Radagon / Elden Beast'], tips: ['This is the final stretch — complete all side quests first','Elden Beast: ranged attacks work well, stay mobile'] },
+  ];
+  
+  document.getElementById('walkthroughContent').innerHTML = `
+    <div style="max-width:800px">
+      ${steps.map(s => `
+        <div style="background:var(--card);border:1px solid var(--b1);border-left:3px solid ${s.order<=3?'var(--neon)':s.order<=6?'var(--amber)':'var(--rose)'};border-radius:var(--r3);padding:20px 24px;margin-bottom:14px">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+            <div style="width:32px;height:32px;border-radius:50%;background:var(--neon-bg);border:1px solid var(--neon-border);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;font-weight:700;color:var(--neon);flex-shrink:0">${s.order}</div>
+            <div>
+              <span style="font-size:20px;margin-right:8px">${s.icon}</span>
+              <span style="font-family:var(--display);font-size:26px;letter-spacing:.03em;color:var(--t1)">${s.area}</span>
+            </div>
+          </div>
+          <p style="font-size:13.5px;color:var(--t2);line-height:1.7;margin-bottom:12px">${s.tip}</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+            <div>
+              <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,80,40,.7);margin-bottom:8px"><i class="fa-solid fa-skull"></i> Bosses</div>
+              ${s.bosses.map(b=>`<div style="font-size:12.5px;color:var(--t2);padding:3px 0;border-bottom:1px solid var(--b1)">${b}</div>`).join('')}
+            </div>
+            <div>
+              <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--neon);margin-bottom:8px"><i class="fa-solid fa-lightbulb"></i> Tips</div>
+              ${s.tips.map(t=>`<div style="font-size:12px;color:var(--t3);padding:3px 0;border-bottom:1px solid var(--b1)">${t}</div>`).join('')}
+            </div>
+          </div>
+        </div>`).join('')}
+    </div>`;
+}
+
+// ── BUILDS ────────────────────────────────────────────────
+function renderBuilds() {
+  const builds = [
+    {
+      name: 'Quality Bleed', icon: '🗡️', tier: 'S', patch: '1.13', 
+      desc: 'Rivers of Blood + Eleonora\'s Poleblade. Bleed proc every 3 hits. Best damage in game for most content including PvP.',
+      class: 'Bandit', stats: {vig:50, end:20, str:18, dex:55, arc:80},
+      weapons: ['Rivers of Blood', "Eleonora's Poleblade", 'White Mask'],
+      talismans: ['Lord of Blood\'s Exultation', 'Millicent\'s Prosthesis', 'Rotten Winged Sword Insignia', 'Shard of Alexander'],
+      color: '#ff4444'
+    },
+    {
+      name: 'Moonveil INT', icon: '⚡', tier: 'S', patch: '1.13',
+      desc: 'Moonveil + Scholar\'s Armament. Transient Moonlight is one of the best Ash of War skills. Excellent range and burst damage.',
+      class: 'Astrologer', stats: {vig:40, min:30, end:20, dex:18, int:80},
+      weapons: ['Moonveil', 'Carian Regal Scepter', 'Terra Magica'],
+      talismans: ['Magic Scorpion Charm', 'Starscourge Heirloom', 'Graven-Mass Talisman', 'Godfrey Icon'],
+      color: '#a78bfa'
+    },
+    {
+      name: 'Strength Colossal', icon: '🔨', tier: 'A', patch: '1.13',
+      desc: 'Greatsword + Colossus Slam. Raw physical damage with Endure poise. Stamina management is key. Great for NG+.',
+      class: 'Hero', stats: {vig:60, end:35, str:80, dex:14},
+      weapons: ['Greatsword', 'Grafted Blade Greatsword', 'Bloodhound\'s Step'],
+      talismans: ['Great-Jar\'s Arsenal', 'Bull-Goat\'s Talisman', 'Shard of Alexander', 'Erdtree\'s Favor +2'],
+      color: '#fb923c'
+    },
+    {
+      name: 'Faith Lightning', icon: '⚡', tier: 'A', patch: '1.13',
+      desc: 'Dragon Cult incantations + Erdtree Seal. Ancient Lightning Strike hits like a freight train. Excellent vs bosses with large hitboxes.',
+      class: 'Prophet', stats: {vig:50, min:25, end:25, str:12, faith:80},
+      weapons: ['Dragon Communion Seal', 'Golden Order Seal', 'Vyke\'s War Spear'],
+      talismans: ['Lightning Scorpion Charm', 'Faithful\'s Canvas Talisman', 'Ritual Sword Talisman', 'Pearldrake Talisman +2'],
+      color: '#fde68a'
+    },
+  ];
+  
+  document.getElementById('buildsContent').innerHTML = `
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px">
+      ${builds.map(b => `
+        <div style="background:var(--card);border:1px solid ${b.color}30;border-left:3px solid ${b.color};border-radius:var(--r3);padding:20px 22px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+            <span style="font-size:28px">${b.icon}</span>
+            <div>
+              <div style="font-family:var(--display);font-size:24px;color:var(--t1);letter-spacing:.03em">${b.name}</div>
+              <div style="display:flex;gap:6px;margin-top:2px">
+                <span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;background:${b.color}20;color:${b.color};border:1px solid ${b.color}40">TIER ${b.tier}</span>
+                <span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;background:var(--neon-bg);color:var(--neon);border:1px solid var(--neon-border)">Patch ${b.patch}</span>
+              </div>
+            </div>
+          </div>
+          <p style="font-size:13px;color:var(--t2);line-height:1.7;margin-bottom:14px">${b.desc}</p>
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:6px">Key Stats (Level 150)</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px">
+            ${Object.entries(b.stats).map(([k,v])=>`<span style="font-size:11px;font-family:var(--mono);padding:3px 8px;background:var(--float);border:1px solid var(--b1);border-radius:4px;color:var(--t2)">${k.toUpperCase()} ${v}</span>`).join('')}
+          </div>
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:6px">Weapons</div>
+          <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px">
+            ${b.weapons.map(w=>`<span style="font-size:12px;padding:3px 8px;background:${b.color}10;border:1px solid ${b.color}30;border-radius:4px;color:${b.color}">${w}</span>`).join('')}
+          </div>
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:6px">Talismans</div>
+          <div style="display:flex;flex-wrap:wrap;gap:5px">
+            ${b.talismans.map(t=>`<span style="font-size:11px;padding:2px 7px;background:var(--float);border:1px solid var(--b1);border-radius:4px;color:var(--t3)">${t}</span>`).join('')}
+          </div>
+        </div>`).join('')}
+    </div>`;
+}
+
+// ── Lightbox ────────────────────────────────────────────────
+function openLb(src) {
+  if (!src) return;
+  document.getElementById('lbImg').src = src;
+  document.getElementById('lightbox').classList.add('open');
+}
+
+// ── Section Router ─────────────────────────────────────────
+async function renderSection(id) {
+  if (id === 'bosses') await renderBosses();
+  else if (id === 'classes') await renderClasses();
+  else if (id === 'weapons') await renderWeapons();
+  else if (id === 'sorceries') await renderSpells('sorceries');
+  else if (id === 'incantations') await renderSpells('incantations');
+  else if (id === 'spirits') await renderSpells('spirits');
+  else if (id === 'walkthrough') renderWalkthrough();
+  else if (id === 'builds') renderBuilds();
+}
+
+// ── Live Player Count ───────────────────────────────────────
+async function loadLiveCount() {
+  try {
+    const r = await fetch('/api/players?appid=1245620');
+    const d = await r.json();
+    if (d.players) {
+      const n = d.players;
+      const fmt = n >= 1000 ? (n/1000).toFixed(1)+'K' : n;
+      const el = document.getElementById('livePlayerCount');
+      if (el) el.innerHTML = `<span style="color:#ff7a3d;font-weight:700;font-family:var(--mono)">${fmt}</span>`;
+    }
+  } catch {}
+}
+
+// ── Init ────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  renderBosses();  // Load bosses immediately
+  loadLiveCount();
+});
+</script>
+</body>
+</html>

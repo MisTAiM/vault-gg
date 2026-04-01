@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Hades Guide — VAULT.GG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.guide-hero{background:linear-gradient(135deg,#1a0505 0%,#2d0a0a 50%,#0a0505 100%);padding:72px 0 48px;position:relative;overflow:hidden;border-bottom:1px solid rgba(220,50,50,.15)}
+.guide-hero::before{content:'';position:absolute;inset:0;background:url('https://cdn.cloudflare.steamstatic.com/steam/apps/1145360/page_bg_generated_v6b.jpg') center/cover;opacity:.12}
+.guide-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:28px;padding-top:12px;border-bottom:1px solid var(--b1);position:sticky;top:56px;background:var(--void);z-index:10}
+.gtab{padding:9px 18px;border-radius:var(--r2) var(--r2) 0 0;background:transparent;border:1px solid transparent;color:var(--t3);cursor:pointer;font-size:13px;font-weight:600;transition:all .15s;display:flex;align-items:center;gap:7px}
+.gtab.active{background:var(--card);border-color:var(--b1);border-bottom-color:var(--void);color:#f87171;margin-bottom:-1px}
+.guide-section{display:none}.guide-section.active{display:block}
+.credit-bar{background:var(--raised);border:1px solid var(--b1);border-radius:var(--r2);padding:9px 14px;font-size:11.5px;color:var(--t3);display:flex;align-items:center;gap:8px;margin-bottom:20px}
+.god-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.god-card{background:var(--card);border:1px solid var(--b1);border-radius:var(--r3);overflow:hidden;cursor:pointer;transition:all .2s}
+.god-card:hover{transform:translateY(-2px);border-color:rgba(248,113,113,.4)}
+.god-img{width:100%;height:200px;object-fit:cover;object-position:top;transition:transform .3s}
+.god-card:hover .god-img{transform:scale(1.05)}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="../index.html" style="display:flex;align-items:center;text-decoration:none"><img src="../logo.svg" alt="VAULT.GG" height="28" onerror="this.style.display='none'"></a>
+    <ul class="nav-links">
+      <li><a class="nav-link" href="../index.html">Home</a></li>
+      <li><a class="nav-link active" href="../guides.html">Guides</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="guide-hero">
+  <div class="wrap" style="position:relative;z-index:1">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
+      <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1145360/library_600x900.jpg" style="width:80px;height:120px;object-fit:cover;border-radius:var(--r2)" alt="Hades">
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:rgba(248,113,113,.7);margin-bottom:6px">VAULT.GG GAME GUIDE</div>
+        <h1 style="font-family:var(--display);font-size:clamp(44px,6vw,80px);color:#fce8e8;line-height:.9;letter-spacing:.02em">HADES</h1>
+        <div style="margin-top:10px;font-size:13px;color:rgba(252,232,232,.5)">Supergiant Games · 2020 · Patch 1.38.6 · Overwhelmingly Positive</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap" style="padding-top:0">
+  <div class="guide-tabs">
+    <button class="gtab active" onclick="showTab('gods')"><i class="fa-solid fa-sun"></i>Gods & Boons</button>
+    <button class="gtab" onclick="showTab('bosses')"><i class="fa-solid fa-skull"></i>Bosses</button>
+    <button class="gtab" onclick="showTab('weapons')"><i class="fa-solid fa-sword"></i>Infernal Arms</button>
+    <button class="gtab" onclick="showTab('tips')"><i class="fa-solid fa-lightbulb"></i>Strategy Tips</button>
+  </div>
+
+  <div class="guide-section active" id="sec-gods">
+    <div class="credit-bar"><i class="fa-solid fa-circle-info" style="color:#f87171"></i>God images via <strong>hades.fandom.com</strong>. Boon data from Supergiant's official game. Click any god for their best boons.</div>
+    <div class="god-grid" id="godGrid"><div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--t3)"><i class="fa-solid fa-spinner fa-spin fa-2x" style="color:#f87171;display:block;margin-bottom:12px"></i>Loading gods from Hades fandom wiki…</div></div>
+  </div>
+
+  <div class="guide-section" id="sec-bosses">
+    <div class="credit-bar"><i class="fa-solid fa-circle-info" style="color:#f87171"></i>Boss images via <strong>hades.fandom.com</strong>.</div>
+    <div class="god-grid" id="bossGrid"><div style="text-align:center;padding:40px;color:var(--t3)"><i class="fa-solid fa-spinner fa-spin fa-2x" style="color:#f87171;display:block;margin-bottom:12px"></i>Loading…</div></div>
+  </div>
+
+  <div class="guide-section" id="sec-weapons">
+    <div id="weaponContent"></div>
+  </div>
+
+  <div class="guide-section" id="sec-tips">
+    <div id="tipsContent"></div>
+  </div>
+  <div style="height:80px"></div>
+</div>
+
+<script>
+const PROXY = '/api/guide';
+const cache = {};
+async function apiFetch(url) {
+  if (cache[url]) return cache[url];
+  const r = await fetch(url); const d = await r.json(); cache[url] = d; return d;
+}
+
+const HADES_GODS = [
+  { name:'Zeus', color:'#fde68a', desc:'Lightning-based boons — great for hitting multiple enemies with chain lightning. Best for staff and rail builds.', bestBoon:'Thunder Strike, Lightning Rod, High Voltage' },
+  { name:'Poseidon', color:'#60a5fa', desc:'Knock enemies into walls and off ledges. Tidal Dash is extremely strong. Excellent for crowd control.', bestBoon:'Tidal Dash, Flood Shot, Breaking Wave' },
+  { name:'Ares', color:'#f87171', desc:'Doom damage over time — powerful with fast-hitting weapons. Blade Rifts for AoE zones.', bestBoon:'Curse of Agony, Blade Dash, Black Metal' },
+  { name:'Aphrodite', color:'#f472b6', desc:'Weak debuff on enemies reduces damage they deal. Excellent survivability boons.', bestBoon:'Heartbreak Strike, Crush Shot, Sweet Surrender' },
+  { name:'Athena', color:'#e5e4e2', desc:'Deflect! Any attack you block gets sent back. Incredibly powerful on dash boons.', bestBoon:'Divine Dash, Holy Shield, Brilliant Riposte' },
+  { name:'Artemis', color:'#4ade80', desc:'Critical hit focused boons — percentage crits that scale with other boons. Pairs great with any build.', bestBoon:'True Shot, Pressure Points, Fully Loaded' },
+  { name:'Demeter', color:'#86efac', desc:'Chill and freeze enemies — slows them down and stacks to freeze. Strong in late game.', bestBoon:'Crystal Beam, Frost Strike, Blizzard Shot' },
+  { name:'Dionysus', color:'#c084fc', desc:'Hangover damage stacks on enemies. Slow but powerful DoT build. Very strong with fast hit rate.', bestBoon:'Festive Fog, Trippy Shot, Bad Influence' },
+];
+
+let loaded = {};
+function showTab(id) {
+  document.querySelectorAll('.guide-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.gtab').forEach(t => t.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  if (!loaded[id]) { loaded[id] = true; renderSection(id); }
+}
+
+async function renderGods() {
+  const grid = document.getElementById('godGrid');
+  // Load images from fandom wiki
+  const imageResults = await Promise.allSettled(HADES_GODS.map(async g => {
+    const d = await apiFetch(`${PROXY}?game=wiki&wiki=hades&action=query&titles=${encodeURIComponent(g.name)}&prop=pageimages&pithumbsize=300&format=json`);
+    const pages = d.query?.pages || {};
+    const page = Object.values(pages)[0] || {};
+    return { ...g, image: page.thumbnail?.source || '' };
+  }));
+  
+  const gods = imageResults.filter(r => r.status === 'fulfilled').map(r => r.value);
+  grid.innerHTML = gods.map(g => `
+    <div class="god-card" title="${g.bestBoon}">
+      ${g.image ? `<img class="god-img" src="${g.image}" alt="${g.name}" loading="lazy" onerror="this.style.display='none'">` : `<div style="height:200px;background:linear-gradient(135deg,var(--deep),${g.color}20);display:flex;align-items:center;justify-content:center;font-size:48px">⚡</div>`}
+      <div style="padding:12px 14px">
+        <div style="font-family:var(--display);font-size:22px;color:${g.color};margin-bottom:6px">${g.name}</div>
+        <div style="font-size:12px;color:var(--t2);line-height:1.6;margin-bottom:8px">${g.desc}</div>
+        <div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--t3);margin-bottom:4px">Best Boons</div>
+        <div style="font-size:12px;color:${g.color}">${g.bestBoon}</div>
+      </div>
+    </div>`).join('');
+}
+
+async function renderBosses() {
+  const grid = document.getElementById('bossGrid');
+  const HADES_BOSSES = [
+    {name:'Megaera', chamber:'Tartarus',desc:'First boss, fury sister. Attacks with whip combos and spawning rifts. Dodge diagonally to her attacks. Athena dash deflects her projectiles.',tip:'Phase 2 at 50% HP — she calls her sisters. Focus Megaera.'},
+    {name:'Alecto',chamber:'Tartarus (variant)',desc:'Second fury sister. More aggressive than Megaera with fire attacks. Similar strategy but requires faster dodging.',tip:'Same weakness as Megaera — Athena deflect is key.'},
+    {name:'Tisiphone',chamber:'Tartarus (variant)',desc:'Third fury sister. Mostly charges and rage attacks. Easiest fury due to more predictable pattern.',tip:'Stay near walls to limit her charge patterns.'},
+    {name:'Lernaean Bone Hydra',chamber:'Asphodel',desc:'Multi-headed hydra. Shoots flames and toxic bile. Destroy heads but not all at once — they respawn. Focus one head to clear it.',tip:'Poseidon boons help push hydra bombs away. Clear bomb areas first.'},
+    {name:'Theseus & Asterius',chamber:'Elysium',desc:'Dual boss — minotaur melee + Theseus with javelin and divine shield. Most complex fight in base game.',tip:'Kill Asterius first (more HP, constant pressure), then pick off Theseus. Stay mobile during divine phases.'},
+    {name:'Hades (final boss)',chamber:'Temple of Styx',desc:'Final boss. Multiple phases with extremely varied attacks. Most mechanically demanding encounter.',tip:'Need 10 clears for true ending. He gets easier as you unlock more permanent power via Mirror of Night.'},
+  ];
+  
+  const imgResults = await Promise.allSettled(HADES_BOSSES.map(async b => {
+    const d = await apiFetch(`${PROXY}?game=wiki&wiki=hades&action=query&titles=${encodeURIComponent(b.name)}&prop=pageimages&pithumbsize=400&format=json`);
+    const pages = d.query?.pages || {};
+    const page = Object.values(pages)[0] || {};
+    return { ...b, image: page.thumbnail?.source || '' };
+  }));
+  const bosses = imgResults.filter(r => r.status === 'fulfilled').map(r => r.value);
+  
+  grid.innerHTML = bosses.map(b => `
+    <div class="god-card" style="border-color:rgba(248,113,113,.2)">
+      ${b.image ? `<img class="god-img" src="${b.image}" alt="${b.name}" style="height:220px;object-fit:cover;object-position:top" loading="lazy" onerror="this.parentElement.innerHTML='<div style=height:80px;background:var(--deep)></div>'">` : ''}
+      <div style="padding:12px 14px">
+        <div style="font-family:var(--display);font-size:22px;color:#f87171;margin-bottom:2px">${b.name}</div>
+        <div style="font-size:11px;color:var(--t3);margin-bottom:8px"><i class="fa-solid fa-location-dot" style="font-size:9px"></i> ${b.chamber}</div>
+        <div style="font-size:12.5px;color:var(--t2);line-height:1.6;margin-bottom:8px">${b.desc}</div>
+        <div style="background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:var(--r1);padding:8px 10px;font-size:12px;color:rgba(248,113,113,.8)">
+          <i class="fa-solid fa-lightbulb" style="font-size:10px"></i> ${b.tip}
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function renderWeapons() {
+  const WEAPONS = [
+    {name:'Stygius (Sword)',aspects:['Zagreus','Nemesis','Poseidon','Arthur'],desc:'Balanced starter weapon. Fast special attack hits in AoE. Aspect of Arthur with Blessed Blade is S-tier.',icon:'⚔️',color:'#f87171',tier:'A',tip:'Aspect of Arthur: charged special hits entire screen. Combine with Artemis for crits.'},
+    {name:'Varatha (Spear)',aspects:['Zagreus','Achilles','Hades','Guan Yu'],desc:'Great ranged poke via Spin Attack. Aspect of Achilles gives a dash boost on special, enabling aggressive play.',icon:'🏹',color:'#fb923c',tier:'S',tip:'Aspect of Achilles + any good attack boon = top-tier run. Ares bonus on dash.'},
+    {name:'Shield of Chaos (Aegis)',aspects:['Zagreus','Chaos','Zeus','Beowulf'],desc:'Blocking grants temporary invulnerability. Aspect of Zeus + Zeus boons = constant chain lightning from throws.',icon:'🛡️',color:'#60a5fa',tier:'S',tip:'Aspect of Beowulf unlocks a burst throw that stuns. Best tank build in game.'},
+    {name:'Twin Fists (Malphon)',aspects:['Zagreus','Talos','Demeter','Gilgamesh'],desc:'Fastest hit rate = highest boon proc frequency. Aspect of Gilgamesh deals massive on-hit bonuses.',icon:'👊',color:'#c084fc',tier:'A',tip:'Pair with Dionysus or Ares for maximum DoT stacking. High mobility build.'},
+    {name:'Adamant Rail (Exagryph)',aspects:['Zagreus','Eris','Hestia','Lucifer'],desc:'Ranged weapon — only true gun. Aspect of Eris doubles damage on buff stacks. Aspect of Lucifer fires laser.',icon:'🔫',color:'#4ade80',tier:'B+',tip:'Aspect of Lucifer with Demeter for freeze = unstoppable wave clear.'},
+    {name:'Eternal Spear (Coronacht)',aspects:['Zagreus','Chiron','Daedalus','Rama'],desc:'Bow — can charge for burst damage. Aspect of Chiron makes special track enemies. Extremely powerful at range.',icon:'🏹',color:'#fde68a',tier:'A',tip:'Aspect of Rama + Artemis boons + pressure points = 100% crit chance achievable.'},
+  ];
+  document.getElementById('weaponContent').innerHTML = `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px">
+    ${WEAPONS.map(w=>`<div style="background:var(--card);border:1px solid ${w.color}20;border-left:3px solid ${w.color};border-radius:var(--r3);padding:18px 20px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <div style="display:flex;align-items:center;gap:10px"><span style="font-size:26px">${w.icon}</span>
+        <div><div style="font-family:var(--display);font-size:22px;color:var(--t1)">${w.name}</div>
+        <div style="font-size:11px;color:${w.color}">Tier ${w.tier}</div></div></div>
+      </div>
+      <div style="font-size:11px;color:var(--t3);margin-bottom:8px"><strong>Aspects:</strong> ${w.aspects.join(' · ')}</div>
+      <p style="font-size:13px;color:var(--t2);line-height:1.7;margin-bottom:10px">${w.desc}</p>
+      <div style="background:${w.color}0a;border:1px solid ${w.color}20;border-radius:var(--r1);padding:8px 10px;font-size:12px;color:${w.color}">💡 ${w.tip}</div>
+    </div>`).join('')}
+  </div>`;
+}
+
+function renderTips() {
+  document.getElementById('tipsContent').innerHTML = `<div style="max-width:800px">
+    <div style="background:var(--card);border:1px solid var(--b1);border-left:3px solid #f87171;border-radius:var(--r3);padding:20px 24px;margin-bottom:14px">
+      <div style="font-size:14px;font-weight:700;color:#f87171;margin-bottom:12px">🔑 Core Mechanics You Must Understand</div>
+      ${['<strong>Darkness</strong> = permanent Mirror upgrades. Farm it always. Mirror is your power curve.',
+         '<strong>Keys</strong> = unlock new weapons. Prioritize buying all 6 weapons before spending elsewhere.',
+         '<strong>Nectar</strong> = give to gods/companions for Keepsakes. Keepsakes are powerful equippable items.',
+         '<strong>Ambrosia</strong> = max bond reward. Comes after 6 Nectars per character.',
+         'The <strong>Heat system</strong> (Pact of Punishment) unlocks more darkness rewards per run — turn it up slowly.',
+         '<strong>Duos</strong>: combining 2 god boons on same skill creates a Duo boon — often incredibly powerful.'].map(t=>`<div style="padding:8px 0;border-bottom:1px solid var(--b1);font-size:13px;color:var(--t2);line-height:1.6">${t}</div>`).join('')}
+    </div>
+    <div style="background:var(--card);border:1px solid var(--b1);border-left:3px solid #4ade80;border-radius:var(--r3);padding:20px 24px">
+      <div style="font-size:14px;font-weight:700;color:#4ade80;margin-bottom:12px">⚡ Best Early Keepsakes</div>
+      ${[['Skelly\'s Lucky Tooth 💀','Activates once per run when you would die — essential safety net while learning'],
+         ['Artemis\' Owl Pendant 🦉','Next Artemis boon is guaranteed — Pressure Points (crit chance) is top priority'],
+         ['Athena\'s Owl Pendant 🦉','Guarantee Divine Dash — the single best survival boon in the game'],
+         ['Cerberus\' Collar','Gain 30 temporary HP each chamber — massive early survivability'],
+         ['Thanatos\' Knack','Whenever Death appears in chamber, get coin reward + damage buff']].map(([k,v])=>`<div style="padding:8px 0;border-bottom:1px solid var(--b1);font-size:13px;color:var(--t2)"><strong style="color:#4ade80">${k}</strong> — ${v}</div>`).join('')}
+    </div>
+  </div>`;
+}
+
+async function renderSection(id) {
+  if (id === 'gods') await renderGods();
+  else if (id === 'bosses') await renderBosses();
+  else if (id === 'weapons') renderWeapons();
+  else if (id === 'tips') renderTips();
+}
+
+document.addEventListener('DOMContentLoaded', () => { renderGods(); });
+</script>
+</body>
+</html>
