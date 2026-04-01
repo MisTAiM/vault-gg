@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="css/style.css">
 <style>
 /* ── INDEX-ONLY STYLES ── */
-.hero{margin-top:56px;height:calc(100vh - 56px);min-height:540px;max-height:820px;position:relative;overflow:hidden}
+.hero{margin-top:0;height:calc(100vh - 56px);min-height:540px;max-height:820px;position:relative;overflow:hidden}
 #heroSlides{position:absolute;inset:0}
 .hero-slide{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .85s var(--ease)}
 .hero-slide.active{opacity:1;pointer-events:auto}
@@ -46,7 +46,9 @@
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-inner">
-    <div class="nav-logo" onclick="scrollToTop()" style="cursor:pointer">VAULT<em>.GG</em></div>
+    <div class="nav-logo" onclick="scrollToTop()" style="cursor:pointer;display:flex;align-items:center;gap:0">
+      <img src="logo.svg" alt="VAULT.GG" height="28" style="display:block" onerror="this.style.display='none'">
+    </div>
     <ul class="nav-links">
       <li><a class="nav-link" href="#top10">Top 10</a></li>
       <li><a class="nav-link" href="#browse">Browse</a></li>

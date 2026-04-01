@@ -54,7 +54,7 @@ const GAMES = [
   {
     id:'baldurs-gate-3', title:"Baldur's Gate 3", steam:1086940,
     genre:'Turn-Based RPG', dev:'Larian Studios', year:2023, score:96, tier:'S',
-    yt:'iuqXvKGv5GE',
+    yt:'okFSR8CCOPY',
     hltb:{ main:100, comp:200 }, players:'80K',
     tags:['turn-based','rpg','co-op','dnd'],
     cat:['top10','genre-bis'],
@@ -100,7 +100,7 @@ const GAMES = [
   {
     id:'persona-5-royal', title:'Persona 5 Royal', steam:1687950,
     genre:'JRPG', dev:'Atlus', year:2022, score:95, tier:'S',
-    yt:'Iy3FDTmDuVM',
+    yt:'SKpSpvFCZRw',
     hltb:{ main:100, comp:140 }, players:'8K',
     tags:['jrpg','turn-based','social-sim','anime'],
     cat:['top10','genre-bis','anime'],
@@ -114,7 +114,7 @@ const GAMES = [
   {
     id:'hades-2', title:'Hades 2', steam:1145350,
     genre:'Roguelike', dev:'Supergiant Games', year:2024, score:92, tier:'S',
-    yt:'H-5oTap_qw0',
+    yt:'txQKYcbIAHU',
     hltb:{ main:35, comp:150 }, players:'22K',
     tags:['roguelike','action','mythology','early-access'],
     cat:['top10','genre-bis'],
@@ -128,7 +128,7 @@ const GAMES = [
   {
     id:'disco-elysium', title:'Disco Elysium: The Final Cut', steam:632470,
     genre:'Narrative RPG', dev:'ZA/UM', year:2019, score:97, tier:'S',
-    yt:'4uTr0jyZzao',
+    yt:'nk_K5DM0UTk',
     hltb:{ main:24, comp:50 }, players:'3K',
     tags:['narrative','detective','rpg','no-combat'],
     cat:['top10','genre-bis'],
@@ -142,7 +142,7 @@ const GAMES = [
   {
     id:'monster-hunter-wilds', title:'Monster Hunter Wilds', steam:2246340,
     genre:'Action RPG', dev:'Capcom', year:2025, score:90, tier:'S',
-    yt:'Lne04fT1sYk',
+    yt:'a_wNFT4j6qI',
     hltb:{ main:40, comp:200 }, players:'90K',
     tags:['action-rpg','co-op','monster-hunting'],
     cat:['top10','genre-bis'],
@@ -155,7 +155,7 @@ const GAMES = [
   {
     id:'deep-rock-galactic', title:'Deep Rock Galactic', steam:548430,
     genre:'Co-op', dev:'Ghost Ship Games', year:2020, score:90, tier:'S',
-    yt:'3FCoSBpCWNE',
+    yt:'5eUzjWeLU80',
     hltb:{ main:30, comp:500 }, players:'18K',
     tags:['co-op','fps','dwarves','pve'],
     cat:['top10','genre-bis'],
@@ -170,7 +170,7 @@ const GAMES = [
   {
     id:'clair-obscur', title:'Clair Obscur: Expedition 33', steam:1903340,
     genre:'Turn-Based RPG', dev:'Sandfall Interactive', year:2025, score:95, tier:'S',
-    yt:'8pG_8I0CNRI',
+    yt:'-qgOZDRDynw',
     hltb:{ main:35, comp:80 }, players:'55K',
     tags:['jrpg','turn-based','ue5','french'],
     cat:['top10','genre-bis'],
@@ -198,7 +198,7 @@ const GAMES = [
   {
     id:'balatro', title:'Balatro', steam:2379780,
     genre:'Deckbuilder', dev:'LocalThunk', year:2024, score:94, tier:'S',
-    yt:'m0cQ2BKg8tY',
+    yt:'VUyP21iQ_-g',
     hltb:{ main:12, comp:200 }, players:'28K',
     tags:['deckbuilder','roguelike','poker'],
     cat:['genre-bis'],
@@ -211,7 +211,7 @@ const GAMES = [
   {
     id:'valheim', title:'Valheim', steam:892970,
     genre:'Survival', dev:'Iron Gate Studio', year:2021, score:88, tier:'A',
-    yt:'TzKSlc07n8s',
+    yt:'liQLtCLq3tc',
     hltb:{ main:50, comp:200 }, players:'14K',
     tags:['survival','co-op','viking'],
     cat:['genre-bis'],
@@ -250,7 +250,7 @@ const GAMES = [
   {
     id:'hollow-knight', title:'Hollow Knight', steam:367520,
     genre:'Metroidvania', dev:'Team Cherry', year:2017, score:90, tier:'S',
-    yt:'UA4hW9K22aM',
+    yt:'UAO2urG23S4',
     hltb:{ main:40, comp:75 }, players:'8K',
     tags:['metroidvania','indie','challenging'],
     cat:['genre-bis'],
@@ -263,7 +263,7 @@ const GAMES = [
   {
     id:'hitman-woa', title:'Hitman: World of Assassination', steam:1659040,
     genre:'Stealth', dev:'IO Interactive', year:2023, score:90, tier:'S',
-    yt:'DVTCZ4LCPek',
+    yt:'WB2BSbaRmgY',
     hltb:{ main:30, comp:250 }, players:'7K',
     tags:['stealth','sandbox','assassination'],
     cat:['genre-bis'],
@@ -276,7 +276,7 @@ const GAMES = [
   {
     id:'satisfactory', title:'Satisfactory', steam:526870,
     genre:'Builder', dev:'Coffee Stain Studios', year:2024, score:90, tier:'S',
-    yt:'tLFjA1SWMKc',
+    yt:'Jt4XOPiPJHs',
     hltb:{ main:80, comp:500 }, players:'20K',
     tags:['factory','builder','first-person'],
     cat:['genre-bis'],
@@ -302,7 +302,7 @@ const GAMES = [
   {
     id:'re4-remake', title:'Resident Evil 4 Remake', steam:2050650,
     genre:'Action Horror', dev:'Capcom', year:2023, score:93, tier:'S',
-    yt:'1LWphxLvMDE',
+    yt:'Id2EaldBaWw',
     hltb:{ main:15, comp:60 }, players:'12K',
     tags:['horror','action','third-person'],
     cat:['horror','genre-bis'],
@@ -329,7 +329,7 @@ const GAMES = [
   {
     id:'cs2', title:'Counter-Strike 2', steam:730,
     genre:'Tactical FPS', dev:'Valve', year:2023, score:88, tier:'S',
-    yt:'cD3TofBuiHs',
+    yt:'c80dVYcL69E',
     hltb:{ main:null, comp:null }, players:'850K',
     tags:['fps','tactical','competitive'],
     cat:['esports','genre-bis','nostalgia'],
@@ -343,7 +343,7 @@ const GAMES = [
     id:'league-of-legends', title:'League of Legends', steam:null,
     imgUrl:'https://cdn.cloudflare.steamstatic.com/steam/apps/1276800/header.jpg',
     genre:'MOBA', dev:'Riot Games', year:2009, score:null, tier:'S',
-    yt:'BGtROJeMzN0',
+    yt:'ZHhqwBwmRkI',
     hltb:{ main:null, comp:null }, players:'150K',
     tags:['moba','esports','free-to-play'],
     cat:['esports'],
@@ -354,7 +354,7 @@ const GAMES = [
   {
     id:'dota-2', title:'Dota 2', steam:570,
     genre:'MOBA', dev:'Valve', year:2013, score:null, tier:'S',
-    yt:'Fj4rCFN6jOY',
+    yt:'-cSFPIwMEq4',
     hltb:{ main:null, comp:null }, players:'500K',
     tags:['moba','esports','free-to-play'],
     cat:['esports'],
@@ -387,7 +387,7 @@ const GAMES = [
   {
     id:'street-fighter-6', title:'Street Fighter 6', steam:1364780,
     genre:'Fighting', dev:'Capcom', year:2023, score:92, tier:'S',
-    yt:'4J9gN5kDaqk',
+    yt:'4EnsDg6DCTE',
     hltb:{ main:15, comp:200 }, players:'12K',
     tags:['fighting','esports','competitive'],
     cat:['esports','genre-bis'],
@@ -402,7 +402,7 @@ const GAMES = [
   {
     id:'db-sparking-zero', title:'Dragon Ball: Sparking! Zero', steam:2340430,
     genre:'Anime Fighter', dev:'Bandai Namco', year:2024, score:82, tier:'A',
-    yt:'Qu59n_PNDQ4',
+    yt:'XTvBSY0YMyg',
     hltb:{ main:15, comp:100 }, players:'15K',
     tags:['anime','fighting','dragon-ball'],
     cat:['anime'],
@@ -412,7 +412,7 @@ const GAMES = [
   {
     id:'db-fighterz', title:'Dragon Ball FighterZ', steam:678950,
     genre:'Anime Fighter', dev:'Arc System Works', year:2018, score:87, tier:'S',
-    yt:'4wkEaKAvxh0',
+    yt:'BnyUyug0li8',
     hltb:{ main:10, comp:300 }, players:'5K',
     tags:['anime','fighting','cel-shaded'],
     cat:['anime','esports'],
@@ -422,7 +422,7 @@ const GAMES = [
   {
     id:'genshin-impact', title:'Genshin Impact', steam:null,
     genre:'Anime RPG', dev:'HoYoverse', year:2020, score:null, tier:'A',
-    yt:'r9bIyAlSuRo',
+    yt:'HLUY1nICQRY',
     hltb:{ main:60, comp:2000 }, players:'45K',
     imgUrl:null,
     tags:['anime','open-world','gacha'],
@@ -433,7 +433,7 @@ const GAMES = [
   {
     id:'metaphor-refantazio', title:'Metaphor: ReFantazio', steam:2679460,
     genre:'JRPG', dev:'Atlus', year:2024, score:94, tier:'S',
-    yt:'Ov8CPy2mfJE',
+    yt:'SjbgJaYi4NE',
     hltb:{ main:70, comp:120 }, players:'12K',
     tags:['anime','jrpg','dark-fantasy'],
     cat:['anime','genre-bis'],
@@ -443,7 +443,7 @@ const GAMES = [
   {
     id:'tales-of-arise', title:'Tales of Arise', steam:740130,
     genre:'Action JRPG', dev:'Bandai Namco', year:2021, score:87, tier:'A',
-    yt:'3a4GGmfj0C4',
+    yt:'ykWm2kOCpE4',
     hltb:{ main:45, comp:85 }, players:'3K',
     tags:['anime','action-rpg','jrpg'],
     cat:['anime'],
@@ -476,7 +476,7 @@ const GAMES = [
   {
     id:'gmod', title:"Garry's Mod", steam:4000,
     genre:'Sandbox', dev:'Facepunch Studios', year:2006, score:null, tier:'S',
-    yt:'bJKNNFjZ70Y',
+    yt:'kgXVLw6qpFM',
     hltb:{ main:null, comp:null }, players:'55K',
     tags:['sandbox','modding','multiplayer'],
     cat:['nostalgia','mods'],
@@ -486,7 +486,7 @@ const GAMES = [
   {
     id:'terraria', title:'Terraria', steam:105600,
     genre:'Survival', dev:'Re-Logic', year:2011, score:93, tier:'S',
-    yt:'oCpTMq4T4Ow',
+    yt:'H77Zfzy4LWw',
     hltb:{ main:25, comp:500 }, players:'30K',
     tags:['survival','2d','sandbox'],
     cat:['genre-bis','mods','nostalgia'],
@@ -496,7 +496,7 @@ const GAMES = [
   {
     id:'aoe2-de', title:'Age of Empires II: DE', steam:813780,
     genre:'RTS', dev:'Forgotten Empires', year:2019, score:84, tier:'A',
-    yt:'RNMTBXHqzIA',
+    yt:'N6kd1SYHW5k',
     hltb:{ main:40, comp:500 }, players:'35K',
     tags:['rts','historical','strategy'],
     cat:['nostalgia','esports'],
@@ -506,7 +506,7 @@ const GAMES = [
   {
     id:'fnv', title:'Fallout: New Vegas', steam:22380,
     genre:'Action RPG', dev:'Obsidian Entertainment', year:2010, score:84, tier:'S',
-    yt:'GDJqMonPvkk',
+    yt:'l-x-1fm2cq8',
     hltb:{ main:28, comp:130 }, players:'8K',
     tags:['rpg','open-world','post-apocalyptic'],
     cat:['nostalgia','mods'],
@@ -518,7 +518,7 @@ const GAMES = [
   {
     id:'skyrim', title:'The Elder Scrolls V: Skyrim SE', steam:489830,
     genre:'Open World RPG', dev:'Bethesda', year:2011, score:94, tier:'S',
-    yt:'JSRtSgEJpEg',
+    yt:'6umhTJQltak',
     hltb:{ main:35, comp:250 }, players:'35K',
     tags:['open-world','rpg','modding'],
     cat:['mods','nostalgia'],
@@ -538,7 +538,7 @@ const GAMES = [
   {
     id:'bannerlord', title:'Mount & Blade II: Bannerlord', steam:261550,
     genre:'Action RPG', dev:'TaleWorlds', year:2022, score:78, tier:'B',
-    yt:'YqgMoQ9wr-o',
+    yt:'q6oH5cW7PaA',
     hltb:{ main:40, comp:500 }, players:'18K',
     tags:['action-rpg','strategy','medieval','modding'],
     cat:['mods'],
@@ -548,7 +548,7 @@ const GAMES = [
   {
     id:'rimworld', title:'RimWorld', steam:294100,
     genre:'Strategy', dev:'Ludeon Studios', year:2018, score:85, tier:'A',
-    yt:'XM5aD2YbzKk',
+    yt:'3tDrxOASUog',
     hltb:{ main:null, comp:null }, players:'28K',
     tags:['strategy','colony-sim','modding'],
     cat:['genre-bis','mods'],
@@ -560,7 +560,7 @@ const GAMES = [
   {
     id:'disco-elysium-gem', title:'Disco Elysium: The Final Cut', steam:632470,
     genre:'Narrative RPG', dev:'ZA/UM', year:2019, score:97, tier:'S',
-    yt:'4uTr0jyZzao',
+    yt:'nk_K5DM0UTk',
     hltb:{ main:24, comp:50 }, players:'3K',
     tags:['narrative','detective','unique'],
     cat:['gems'],
@@ -569,7 +569,7 @@ const GAMES = [
   {
     id:'outer-wilds', title:'Outer Wilds', steam:753640,
     genre:'Exploration', dev:'Mobius Digital', year:2019, score:85, tier:'S',
-    yt:'d6egmEHgN8s',
+    yt:'d6LGnVCL1_A',
     hltb:{ main:15, comp:25 }, players:'2K',
     tags:['exploration','mystery','space','unique'],
     cat:['gems'],
@@ -603,7 +603,7 @@ const GAMES = [
   {
     id:'control', title:'Control', steam:870780,
     genre:'Action', dev:'Remedy Entertainment', year:2019, score:82, tier:'A',
-    yt:'4V2sYp2N4vI',
+    yt:'S3kRcurZv5E',
     hltb:{ main:12, comp:25 }, players:'4K',
     tags:['action','supernatural','immersive-sim'],
     cat:['gems'],
@@ -699,7 +699,7 @@ const PC_BUILDS = [
   {
     id:'doom-eternal', title:'DOOM Eternal', steam:782330,
     genre:'First-Person Shooter', dev:'id Software', year:2020, score:88, tier:'S',
-    yt:'_zDZBHFHMk4',
+    yt:'SfeUDj_53D0',
     hltb:{main:13,comp:35},
     players:'15K',
     tags:['FPS','Action','Demons','Fast-Paced','Gore'],
@@ -713,7 +713,7 @@ const PC_BUILDS = [
   {
     id:'titanfall-2', title:'Titanfall 2', steam:1237970,
     genre:'First-Person Shooter', dev:'Respawn Entertainment', year:2016, score:89, tier:'S',
-    yt:'3qaf-KkUEXU',
+    yt:'ktw2k3m7Qko',
     hltb:{main:6,comp:15},
     players:'3K',
     tags:['FPS','Mechs','Fast-Paced','Sci-fi','Parkour'],
@@ -726,7 +726,7 @@ const PC_BUILDS = [
   {
     id:'apex-legends', title:'Apex Legends', steam:1172470,
     genre:'Battle Royale FPS', dev:'Respawn Entertainment', year:2019, score:88, tier:'A',
-    yt:'3NuCFo8LKPA',
+    yt:'innmNewjkuk',
     players:'200K',
     tags:['Battle Royale','FPS','Free to Play','Hero Shooter','Team-Based'],
     cat:['fps','esports','competitive'],
@@ -736,7 +736,7 @@ const PC_BUILDS = [
   {
     id:'r6-siege', title:"Tom Clancy's Rainbow Six Siege", steam:359550,
     genre:'Tactical Shooter', dev:'Ubisoft Montreal', year:2015, score:79, tier:'A',
-    yt:'sHx5pKY0-gU',
+    yt:'9fBTWlE9qyg',
     players:'60K',
     tags:['Tactical','FPS','Competitive','PvP','Team-Based'],
     cat:['fps','esports','competitive'],
@@ -746,7 +746,7 @@ const PC_BUILDS = [
   {
     id:'l4d2', title:'Left 4 Dead 2', steam:550,
     genre:'Co-op Shooter', dev:'Valve', year:2009, score:89, tier:'S',
-    yt:'PpY_Nbs1TIg',
+    yt:'9XIle_kLHKU',
     hltb:{main:8,comp:35},
     players:'25K',
     tags:['Co-op','FPS','Zombies','Survival','Horror'],
@@ -760,7 +760,7 @@ const PC_BUILDS = [
   {
     id:'re-village', title:'Resident Evil Village', steam:1196590,
     genre:'Survival Horror', dev:'Capcom', year:2021, score:84, tier:'A',
-    yt:'tr9gCYzQ5hM',
+    yt:'26tay8lMZW4',
     hltb:{main:9,comp:22},
     players:'8K',
     tags:['Horror','Survival Horror','First-Person','Action','Gothic'],
@@ -774,7 +774,7 @@ const PC_BUILDS = [
   {
     id:'alien-isolation', title:'Alien: Isolation', steam:214490,
     genre:'Survival Horror', dev:'Creative Assembly', year:2014, score:79, tier:'S',
-    yt:'nJnEuTKjMXI',
+    yt:'7h0cgmvIrZw',
     hltb:{main:15,comp:28},
     players:'2K',
     tags:['Horror','Survival Horror','Sci-fi','Stealth','Atmospheric'],
@@ -787,7 +787,7 @@ const PC_BUILDS = [
   {
     id:'dead-space', title:'Dead Space', steam:1693980,
     genre:'Survival Horror', dev:'Motive Studio', year:2023, score:89, tier:'S',
-    yt:'H8bGbGheJY8',
+    yt:'ctQl9wa3ydE',
     hltb:{main:11,comp:22},
     players:'3K',
     tags:['Horror','Survival Horror','Sci-fi','Third Person','Gore'],
@@ -800,7 +800,7 @@ const PC_BUILDS = [
   {
     id:'soma', title:'SOMA', steam:282140,
     genre:'Psychological Horror', dev:'Frictional Games', year:2015, score:85, tier:'S',
-    yt:'dMv7WGPF1Q0',
+    yt:'BZTfi1jv-EE',
     hltb:{main:8,comp:12},
     tags:['Psychological Horror','Sci-fi','Story Rich','Atmospheric','Walking Simulator'],
     cat:['horror','gems'],
@@ -809,7 +809,7 @@ const PC_BUILDS = [
   {
     id:'phasmophobia', title:'Phasmophobia', steam:739630,
     genre:'Co-op Horror', dev:'Kinetic Games', year:2020, score:80, tier:'A',
-    yt:'gSX7sdFIslI',
+    yt:'sRa9oeo5KiY',
     hltb:{main:null,comp:null},
     players:'22K',
     tags:['Horror','Co-op','Multiplayer','Investigation','Psychological Horror'],
@@ -833,7 +833,7 @@ const PC_BUILDS = [
   {
     id:'total-war-wh3', title:'Total War: WARHAMMER III', steam:1142710,
     genre:'Real-Time Strategy', dev:'Creative Assembly', year:2022, score:82, tier:'A',
-    yt:'xFIqQqnfFGk',
+    yt:'HAr7yUlM0Po',
     hltb:{main:60,comp:250},
     players:'25K',
     tags:['Strategy','RTS','Fantasy','Turn-Based','Warhammer 40K'],
@@ -843,7 +843,7 @@ const PC_BUILDS = [
   {
     id:'ck3', title:'Crusader Kings III', steam:1158310,
     genre:'Grand Strategy', dev:'Paradox Development', year:2020, score:91, tier:'S',
-    yt:'3E3IxAyMPUM',
+    yt:'xjn66Cl3pMA',
     hltb:{main:50,comp:200},
     players:'18K',
     tags:['Grand Strategy','Medieval','RPG','Historical','Simulation'],
@@ -856,7 +856,7 @@ const PC_BUILDS = [
   {
     id:'xcom2', title:'XCOM 2', steam:268500,
     genre:'Turn-Based Tactics', dev:'Firaxis Games', year:2016, score:88, tier:'S',
-    yt:'FKEfJXn7dTI',
+    yt:'ZlF4_o3qALo',
     hltb:{main:37,comp:120},
     players:'8K',
     tags:['Tactical','Turn-Based','Strategy','Sci-fi','Perma Death'],
@@ -869,7 +869,7 @@ const PC_BUILDS = [
   {
     id:'into-the-breach', title:'Into the Breach', steam:590380,
     genre:'Turn-Based Strategy', dev:'Subset Games', year:2018, score:90, tier:'S',
-    yt:'UdXjSVhrL4Y',
+    yt:'oaiFvuWsfy8',
     hltb:{main:8,comp:40},
     players:'4K',
     tags:['Strategy','Turn-Based','Sci-fi','Roguelike','Minimalist'],
@@ -880,7 +880,7 @@ const PC_BUILDS = [
   {
     id:'dead-cells', title:'Dead Cells', steam:588650,
     genre:'Action Roguelite', dev:'Motion Twin', year:2018, score:91, tier:'S',
-    yt:'bkC5D-msCRU',
+    yt:'RvGaSPTcTxc',
     hltb:{main:20,comp:100},
     players:'8K',
     tags:['Roguelite','Metroidvania','Action','2D','Difficult'],
@@ -893,7 +893,7 @@ const PC_BUILDS = [
   {
     id:'slay-the-spire', title:'Slay the Spire', steam:646570,
     genre:'Roguelike Deckbuilder', dev:'MegaCrit', year:2019, score:95, tier:'S',
-    yt:'3C7V4EZDGNE',
+    yt:'9SZUtyYSOjQ',
     hltb:{main:20,comp:200},
     players:'30K',
     tags:['Roguelike','Card Game','Deckbuilding','Strategy','Turn-Based'],
@@ -906,7 +906,7 @@ const PC_BUILDS = [
   {
     id:'risk-of-rain-2', title:'Risk of Rain 2', steam:632360,
     genre:'Action Roguelite', dev:'Hopoo Games', year:2020, score:85, tier:'A',
-    yt:'N5FYxgAQBsc',
+    yt:'Qwgq_9EOCTg',
     hltb:{main:12,comp:120},
     players:'12K',
     tags:['Roguelite','Third Person','Action','Co-op','Loot'],
@@ -916,7 +916,7 @@ const PC_BUILDS = [
   {
     id:'vampire-survivors', title:'Vampire Survivors', steam:1794680,
     genre:'Roguelite', dev:'poncle', year:2022, score:93, tier:'S',
-    yt:'X39j9OEIC1o',
+    yt:'aS7JqyHdQQA',
     hltb:{main:8,comp:60},
     players:'15K',
     tags:['Roguelite','Bullet Hell','Auto Battler','2D','Indie'],
@@ -927,7 +927,7 @@ const PC_BUILDS = [
   {
     id:'cities-skylines', title:'Cities: Skylines', steam:255710,
     genre:'City Builder', dev:'Colossal Order', year:2015, score:85, tier:'A',
-    yt:'liobBXzZXSY',
+    yt:'7vlKoMi4Qr0',
     hltb:{main:50,comp:200},
     players:'30K',
     tags:['City Builder','Simulation','Building','Management','Moddable'],
@@ -937,7 +937,7 @@ const PC_BUILDS = [
   {
     id:'ksp', title:'Kerbal Space Program', steam:220200,
     genre:'Space Simulation', dev:'Squad', year:2015, score:88, tier:'S',
-    yt:'HBbyWgtPOkU',
+    yt:'aAa9Ao26gtM',
     hltb:{main:60,comp:300},
     players:'5K',
     tags:['Simulation','Space','Physics','Building','Sandbox'],
@@ -947,7 +947,7 @@ const PC_BUILDS = [
   {
     id:'planet-zoo', title:'Planet Zoo', steam:703080,
     genre:'Management Simulation', dev:'Frontier Developments', year:2019, score:80, tier:'A',
-    yt:'9dXBCzFtZLo',
+    yt:'gNg6-JVx_9M',
     hltb:{main:25,comp:150},
     players:'7K',
     tags:['Simulation','Management','Animals','Building','Sandbox'],
@@ -967,7 +967,7 @@ const PC_BUILDS = [
   {
     id:'subnautica', title:'Subnautica', steam:264710,
     genre:'Survival Adventure', dev:'Unknown Worlds', year:2018, score:87, tier:'S',
-    yt:'KlG2pS3BKDQ',
+    yt:'Rz2SNm8VguE',
     hltb:{main:29,comp:45},
     players:'12K',
     tags:['Survival','Exploration','Open World','Crafting','Sci-fi'],
@@ -980,7 +980,7 @@ const PC_BUILDS = [
   {
     id:'the-forest', title:'The Forest', steam:242760,
     genre:'Survival Horror', dev:'Endnight Games', year:2018, score:79, tier:'A',
-    yt:'R5J1KmhDXNo',
+    yt:'ay3tDjnBziY',
     hltb:{main:15,comp:35},
     players:'10K',
     tags:['Survival','Horror','Open World','Crafting','Building'],
@@ -990,7 +990,7 @@ const PC_BUILDS = [
   {
     id:'dont-starve-together', title:"Don't Starve Together", steam:322330,
     genre:'Survival', dev:'Klei Entertainment', year:2016, score:86, tier:'A',
-    yt:'RFILqBgblzM',
+    yt:'bVbyn7c1X6E',
     hltb:{main:30,comp:200},
     players:'18K',
     tags:['Survival','Co-op','Crafting','Dark Fantasy','Roguelike'],
@@ -1000,7 +1000,7 @@ const PC_BUILDS = [
   {
     id:'rust', title:'Rust', steam:252490,
     genre:'Open World Survival', dev:'Facepunch Studios', year:2018, score:79, tier:'A',
-    yt:'LGcagionlsw',
+    yt:'LGcECozNXEw',
     hltb:{main:null,comp:null},
     players:'65K',
     tags:['Survival','Open World','Crafting','PvP','Multiplayer'],
@@ -1024,7 +1024,7 @@ const PC_BUILDS = [
   {
     id:'lies-of-p', title:'Lies of P', steam:1627720,
     genre:'Action Soulslike', dev:'NEOWIZ / Round8', year:2023, score:80, tier:'A',
-    yt:'vOeFSMWgJmQ',
+    yt:'kXZoKdr-xeo',
     hltb:{main:30,comp:55},
     players:'5K',
     tags:['Soulslike','Action RPG','Dark Fantasy','Difficult','Story Rich'],
@@ -1034,7 +1034,7 @@ const PC_BUILDS = [
   {
     id:'black-myth-wukong', title:'Black Myth: Wukong', steam:2358720,
     genre:'Action RPG', dev:'Game Science', year:2024, score:82, tier:'A',
-    yt:'SLlpLpE6DGw',
+    yt:'O2nNljv0MOw',
     hltb:{main:28,comp:50},
     players:'35K',
     tags:['Action RPG','Soulslike','Mythology','Difficult','Cinematic'],
@@ -1045,7 +1045,7 @@ const PC_BUILDS = [
   {
     id:'ori-wisps', title:'Ori and the Will of the Wisps', steam:1057090,
     genre:'Metroidvania', dev:'Moon Studios', year:2020, score:93, tier:'S',
-    yt:'3NSuKlFGxpE',
+    yt:'-QFOJ_L6yFM',
     hltb:{main:11,comp:20},
     tags:['Metroidvania','Platformer','Story Rich','Beautiful','Atmospheric'],
     cat:['platformer','gems'],
@@ -1054,7 +1054,7 @@ const PC_BUILDS = [
   {
     id:'blasphemous', title:'Blasphemous', steam:774361,
     genre:'Soulslike Platformer', dev:'The Game Kitchen', year:2019, score:80, tier:'A',
-    yt:'pYYqn_OjZpc',
+    yt:'T3SxYMu5qGY',
     hltb:{main:18,comp:38},
     tags:['Metroidvania','Soulslike','Dark Fantasy','2D','Difficult'],
     cat:['platformer','soulslike'],
@@ -1063,7 +1063,7 @@ const PC_BUILDS = [
   {
     id:'super-meat-boy', title:'Super Meat Boy', steam:40800,
     genre:'Precision Platformer', dev:'Team Meat', year:2010, score:90, tier:'S',
-    yt:'AY7N0_QA5OA',
+    yt:'snaionoxjos',
     hltb:{main:7,comp:35},
     tags:['Platformer','Difficult','2D','Indie','Precision Platformer'],
     cat:['platformer','nostalgia'],
@@ -1073,7 +1073,7 @@ const PC_BUILDS = [
   {
     id:'tekken-8', title:'TEKKEN 8', steam:1778820,
     genre:'3D Fighter', dev:'Bandai Namco', year:2024, score:90, tier:'S',
-    yt:'0PbWvBaSJaE',
+    yt:'_MM4clV2qjE',
     hltb:{main:6,comp:100},
     players:'20K',
     tags:['Fighting','3D Fighter','Competitive','Arcade','Story Rich'],
@@ -1088,7 +1088,7 @@ const PC_BUILDS = [
   {
     id:'assetto-corsa', title:'Assetto Corsa', steam:244210,
     genre:'Racing Simulation', dev:'Kunos Simulazioni', year:2014, score:88, tier:'S',
-    yt:'Ku5LJVXDVIs',
+    yt:'CYncAnd31Q8',
     hltb:{main:null,comp:null},
     players:'18K',
     tags:['Racing','Simulation','Controller','Realistic','Automobile Sim'],
@@ -1099,7 +1099,7 @@ const PC_BUILDS = [
   {
     id:'dying-light-2', title:'Dying Light 2 Stay Human', steam:534380,
     genre:'Open World Action', dev:'Techland', year:2022, score:74, tier:'B',
-    yt:'H9AJXLyy4Io',
+    yt:'68bZ1LKKh7Q',
     hltb:{main:22,comp:80},
     players:'15K',
     tags:['Open World','Parkour','Zombies','Action','Survival'],
@@ -1109,7 +1109,7 @@ const PC_BUILDS = [
   {
     id:'starfield', title:'Starfield', steam:1716740,
     genre:'Space RPG', dev:'Bethesda', year:2023, score:83, tier:'B',
-    yt:'kXHh9CPnfZk',
+    yt:'Ek3I6_9c58E',
     hltb:{main:17,comp:150},
     players:'25K',
     tags:['RPG','Space','Exploration','Sci-fi','Open World'],
@@ -1146,6 +1146,9 @@ const PRICES = {
     fanaticalUrl:'https://www.fanatical.com/en/game/elden-ring',
     humbUrl:'https://www.humblebundle.com/store/elden-ring',
     gg:'https://gg.deals/game/elden-ring/',
+    g2aUrl:'https://www.g2a.com/search?query=elden+ring+steam',
+    kinguinUrl:'https://www.kinguin.net/listing?search=Elden+Ring',
+    enebaUrl:'https://www.eneba.com/store/?search=elden+ring',
   },
   'baldurs-gate-3': {
     steam:'$59.99', steamUrl:'https://store.steampowered.com/app/1086940/',
@@ -1153,6 +1156,9 @@ const PRICES = {
     fanaticalUrl:'https://www.fanatical.com/en/game/baldurs-gate-3',
     gg:'https://gg.deals/game/baldurs-gate-3/',
     gog:'$59.99', gogUrl:'https://www.gog.com/game/baldurs_gate_3',
+    g2aUrl:'https://www.g2a.com/search?query=baldurs+gate+3+steam',
+    kinguinUrl:'https://www.kinguin.net/listing?search=Baldur+Gate+3',
+    enebaUrl:'https://www.eneba.com/store/?search=baldurs+gate+3',
   },
   'rdr2': {
     steam:'$59.99', steamUrl:'https://store.steampowered.com/app/1174180/',
@@ -1169,6 +1175,9 @@ const PRICES = {
     gg:'https://gg.deals/game/cyberpunk-2077/',
     gog:'$39.99', gogUrl:'https://www.gog.com/game/cyberpunk_2077',
     note:'Frequently on deep discount. Watch for sub-$10 sales.',
+    g2aUrl:'https://www.g2a.com/search?query=cyberpunk+2077+steam',
+    kinguinUrl:'https://www.kinguin.net/listing?search=Cyberpunk+2077',
+    enebaUrl:'https://www.eneba.com/store/?search=cyberpunk+2077',
   },
   'persona-5-royal': {
     steam:'$59.99', steamUrl:'https://store.steampowered.com/app/1687950/',
@@ -1201,6 +1210,8 @@ const PRICES = {
     cdkeys:'~$45', cdkeysUrl:'https://www.cdkeys.com/monster-hunter-wilds-pc-steam',
     fanaticalUrl:'https://www.fanatical.com/en/game/monster-hunter-wilds',
     gg:'https://gg.deals/game/monster-hunter-wilds/',
+    g2aUrl:'https://www.g2a.com/search?query=monster+hunter+wilds+steam',
+    kinguinUrl:'https://www.kinguin.net/listing?search=Monster+Hunter+Wilds',
   },
   'deep-rock-galactic': {
     steam:'$29.99', steamUrl:'https://store.steampowered.com/app/548430/',
@@ -1429,6 +1440,8 @@ const PRICES = {
     cdkeys:'~$28', cdkeysUrl:'https://www.cdkeys.com/sekiro-shadows-die-twice-goty-edition-pc-steam',
     gg:'https://gg.deals/game/sekiro-shadows-die-twice/',
     note:'GOTY Edition includes all DLC. Worth every penny.',
+    g2aUrl:'https://www.g2a.com/search?query=sekiro+shadows+die+twice',
+    kinguinUrl:'https://www.kinguin.net/listing?search=Sekiro',
   },
   'lies-of-p': {
     steam:'$49.99', steamUrl:'https://store.steampowered.com/app/1627720/',
@@ -1441,6 +1454,8 @@ const PRICES = {
     cdkeys:'~$38', cdkeysUrl:'https://www.cdkeys.com/black-myth-wukong-pc-steam',
     gg:'https://gg.deals/game/black-myth-wukong/',
     note:'New release — limited discounts so far. Watch GG.deals for first sale.',
+    g2aUrl:'https://www.g2a.com/search?query=black+myth+wukong+steam',
+    kinguinUrl:'https://www.kinguin.net/listing?search=Black+Myth+Wukong',
   },
   'ori-wisps': {
     steam:'$29.99', steamUrl:'https://store.steampowered.com/app/1057090/',
@@ -1466,6 +1481,8 @@ const PRICES = {
     cdkeys:'~$32', cdkeysUrl:'https://www.cdkeys.com/tekken-8-pc-steam',
     fanaticalUrl:'https://www.fanatical.com/en/game/tekken-8',
     gg:'https://gg.deals/game/tekken-8/',
+    g2aUrl:'https://www.g2a.com/search?query=tekken+8+steam',
+    kinguinUrl:'https://www.kinguin.net/listing?search=Tekken+8',
   },
   'street-fighter-6': {
     steam:'$59.99', steamUrl:'https://store.steampowered.com/app/1364780/',

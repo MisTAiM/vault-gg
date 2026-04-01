@@ -578,6 +578,9 @@ function renderTab(tab) {
     if(p.fanaticalUrl) stores.push({name:'Fanatical',icon:'fa-bolt',color:'#ff6b35',trust:'reseller',price:'Check site',url:p.fanaticalUrl,badge:'OFFICIAL PARTNER',badgeColor:'#ff6b35'});
     if(p.humbUrl) stores.push({name:'Humble Bundle',icon:'fa-heart',color:'#cc2929',trust:'reseller',price:'Check site',url:p.humbUrl,badge:'CHARITY PORTION',badgeColor:'#cc2929'});
     if(p.gg) stores.push({name:'GG.deals (compare all)',icon:'fa-chart-line',color:'#00ff88',trust:'compare',price:'All stores',url:p.gg,badge:'PRICE TRACKER',badgeColor:'#00ff88'});
+    // Marketplace links (higher risk but often cheaper)
+    if(p.g2aUrl) stores.push({name:'G2A',icon:'fa-store',color:'#f0b429',trust:'marketplace',price:'Check site',url:p.g2aUrl,badge:'⚠ MARKETPLACE',badgeColor:'#f0b429'});
+    if(p.kinguinUrl) stores.push({name:'Kinguin',icon:'fa-store',color:'#e66c1e',trust:'marketplace',price:'Check site',url:p.kinguinUrl,badge:'⚠ MARKETPLACE',badgeColor:'#e66c1e'});
 
     html+=`<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">`;
     stores.forEach(s=>{

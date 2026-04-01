@@ -317,6 +317,12 @@ window.initLiveData = function(gameId, steamAppId) {
     const heroImg = document.getElementById('gameHeroImg');
     if (heroImg) applyNonSteamImage(gameId, heroImg);
   }
+  
+  // ProtonDB Linux compatibility
+  const protonEl = document.getElementById('protondbBadge');
+  if (protonEl && steamAppId && typeof loadProtonDB === 'function') {
+    loadProtonDB(steamAppId, protonEl);
+  }
 };
 
 // CSS: pulsing green dot for live player count
@@ -619,6 +625,27 @@ window.applyNonSteamImage = function(gameId, imgEl) {
     imgEl.src = url;
     imgEl.onerror = () => { imgEl.style.opacity = '0.4'; };
   }
+};
+
+
+// ── ProtonDB Linux Compatibility ─────────────────────────────
+window.loadProtonDB = async function(appid, containerEl) {
+  if (!appid || !containerEl) return;
+  try {
+    const d = await apiFetch(`${API_BASE}/api/protondb?appid=${appid}`, `pdb_${appid}`, 86400000);
+    if (!d || d.tier === 'unknown') return;
+    const COLORS = { platinum:'#e5e4e2', gold:'#ffd700', silver:'#c0c0c8', bronze:'#cd8040', borked:'#ff4444' };
+    const color = COLORS[d.tier] || '#666';
+    containerEl.innerHTML = `<a href="https://www.protondb.com/app/${appid}" target="_blank" rel="noopener"
+      style="display:inline-flex;align-items:center;gap:8px;background:rgba(${d.tier==='platinum'?'229,228,226':d.tier==='gold'?'255,215,0':'180,180,200'},.08);border:1px solid ${color}40;border-radius:var(--r2);padding:8px 12px;text-decoration:none;transition:box-shadow .15s"
+      onmouseover="this.style.boxShadow='0 0 12px ${color}40'" onmouseout="this.style.boxShadow=''">
+      <span style="font-family:var(--mono);font-size:16px">${d.icon||'🎮'}</span>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:${color};text-transform:uppercase;letter-spacing:.06em">Linux: ${d.label}</div>
+        <div style="font-size:10.5px;color:var(--t3)">${d.desc} · ${d.total||0} reports</div>
+      </div>
+    </a>`;
+  } catch(e) {}
 };
 
 console.log('[live.js] VAULT.GG Live Data API ready');

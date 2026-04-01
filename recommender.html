@@ -59,7 +59,9 @@
 <body>
 <nav class="nav">
   <div class="nav-inner">
-    <a class="nav-logo" href="index.html">VAULT<em>.GG</em></a>
+    <a class="nav-logo" href="index.html" style="display:flex;align-items:center;gap:0;text-decoration:none">
+      <img src="logo.svg" alt="VAULT.GG" height="28" style="display:block" onerror="this.style.display='none'">
+    </a>
     <ul class="nav-links">
       <li><a class="nav-link" href="index.html">Home</a></li>
       <li><a class="nav-link" href="genres/">Genres</a></li>
@@ -203,6 +205,7 @@
 </footer>
 
 <script src="js/data.js"></script>
+<script src="js/recommend-engine.js"></script>
 <script>
 const answers = {};
 
@@ -233,117 +236,32 @@ document.querySelectorAll('.choice-btn').forEach(btn => {
   });
 });
 
-function buildGameContext() {
-  // Build a compact game catalog for Claude
-  const catalog = GAMES.filter(g => g.id && g.title && g.genre).map(g => ({
-    id: g.id,
-    title: g.title,
-    genre: g.genre,
-    dev: g.dev,
-    year: g.year,
-    score: g.score,
-    tier: g.tier,
-    tags: g.tags ? g.tags.slice(0, 5) : [],
-    hltb: g.hltb,
-    desc: g.desc ? g.desc.slice(0, 80) : '',
-    multi: g.cat ? (g.cat.includes('esports') || g.cat.includes('competitive')) : false,
-    coop: g.cat ? g.cat.includes('esports') : false,
-    free: !g.steam && ['League of Legends','Valorant','CS2','Dota 2','Team Fortress 2','Apex Legends','Fortnite'].includes(g.title),
-    cat: g.cat || []
-  }));
-  
-  // Also build price context from PRICES if available
-  const priceContext = {};
-  if (typeof PRICES !== 'undefined') {
-    Object.entries(PRICES).forEach(([id, p]) => {
-      if (p.free) priceContext[id] = 'free';
-      else if (p.cdkeys) priceContext[id] = p.cdkeys;
-      else if (p.steam) priceContext[id] = p.steam;
-    });
-  }
-  
-  return { catalog, priceContext };
-}
+// buildGameContext removed — using local REC_ENGINE
 
-async function getRecommendations() {
+function getRecommendations() {
   if (Object.keys(answers).length < 5) return;
   
   document.getElementById('outputSection').style.display = 'block';
   document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth' });
   
-  const { catalog, priceContext } = buildGameContext();
+  // Use local engine — instant, no API needed, works offline
+  const outBody = document.getElementById('recOutputBody');
+  const dots = document.querySelector('.typing-dot');
   
-  const userProfile = `
-Mood: ${answers[1]}
-Session length: ${answers[2]}  
-Play style: ${answers[3]}
-Difficulty preference: ${answers[4]}
-Budget: ${answers[5]}
-`.trim();
-
-  const systemPrompt = `You are an expert PC gaming recommender for VAULT.GG — a curated gaming encyclopedia with 85+ handpicked titles. Your job is to give the user their PERFECT next 3 games based on their exact preferences right now.
-
-VAULT.GG GAME CATALOG (JSON):
-${JSON.stringify(catalog, null, 0)}
-
-APPROXIMATE PRICES (game ID → price string):
-${JSON.stringify(priceContext)}
-
-RULES:
-- Recommend EXACTLY 3 games from the catalog above
-- Each recommendation must match ALL the user's stated preferences
-- Be specific about WHY each game matches THIS user's exact mood/time/social/difficulty/budget combo
-- If they want free games, only suggest free ones
-- If they want short sessions, favor roguelikes, arcade games, or games you can save anywhere
-- Mention the approximate price (from the price context above, or "Free")
-- Be direct, confident, and specific — no hedging
-
-RESPONSE FORMAT (JSON only, no markdown):
-{
-  "picks": [
-    {
-      "gameId": "game-id-from-catalog",
-      "title": "Game Title",
-      "reason": "2-3 sentences explaining exactly why this game is perfect for THIS user's stated preferences right now. Be specific about what makes it match their mood, session length, social preference, difficulty level, and budget.",
-      "keyFact": "One punchy stat or fact (e.g. '97% positive reviews', '40h to complete', 'Currently $8 on Fanatical')",
-      "matchScore": 95
+  // Brief "thinking" animation then instant result
+  if (outBody) outBody.innerHTML = '<div style="text-align:center;padding:32px;color:var(--t3)"><i class="fa-solid fa-brain fa-bounce" style="color:var(--neon);font-size:32px;margin-bottom:14px;display:block"></i>Analyzing your preferences…</div>';
+  
+  setTimeout(function() {
+    try {
+      const result = REC_ENGINE.recommend(answers);
+      if (dots && dots.parentElement) dots.parentElement.innerHTML = '<i class="fa-solid fa-check" style="color:var(--neon)"></i>';
+      const subtitle = document.getElementById('outputSubtitle');
+      if (subtitle) subtitle.textContent = result.summary;
+      renderResults(result, '');
+    } catch(err) {
+      if (outBody) outBody.innerHTML = '<div style="padding:24px;text-align:center;color:var(--rose)"><i class="fa-solid fa-triangle-exclamation" style="font-size:28px;margin-bottom:10px;display:block"></i><div style="font-weight:600">Something went wrong</div><div style="font-size:12px;color:var(--t3);margin-top:6px">' + err.message + '</div><button class="btn btn-ghost btn-sm" style="margin-top:14px" onclick="resetQuiz()"><i class="fa-solid fa-rotate-left"></i> Try again</button></div>';
     }
-  ],
-  "summary": "One sentence personalized to the user about why these picks are right for them right now."
-}`;
-
-  const userMessage = `My gaming preferences right now:\n${userProfile}\n\nPlease recommend my perfect 3 games from the VAULT.GG catalog.`;
-
-  try {
-    // Call our Vercel proxy — never expose API key in client code
-    const response = await fetch('/api/recommend', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ system: systemPrompt, userMessage })
-    });
-
-    if (!response.ok) {
-      const errData = await response.json().catch(() => ({}));
-      throw new Error(errData.error || `Server error ${response.status}`);
-    }
-
-    const result = await response.json();
-    renderResults(result, userProfile);
-    
-  } catch (err) {
-    const bodyEl = document.getElementById('recOutputBody');
-    if (bodyEl) bodyEl.innerHTML = `
-      <div style="padding:24px;text-align:center;color:var(--rose)">
-        <i class="fa-solid fa-triangle-exclamation" style="font-size:32px;margin-bottom:12px;display:block"></i>
-        <div style="font-weight:600;margin-bottom:8px">Recommendation failed</div>
-        <div style="font-size:12.5px;color:var(--t3);background:var(--deep);padding:10px 14px;border-radius:8px;font-family:monospace">${err.message}</div>
-        <button class="btn btn-ghost btn-sm" style="margin-top:16px" onclick="resetQuiz()">
-          <i class="fa-solid fa-rotate-left"></i> Try again
-        </button>
-      </div>`;
-    const dots = document.querySelector('.typing-dot');
-    if (dots && dots.parentElement) dots.parentElement.style.display = 'none';
-  }
+  }, 800); // brief delay for UX
 }
 
 function renderResults(result, userProfile) {
