@@ -2,25 +2,242 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>cyberpunk-2077 Guide — VAULT.GG</title>
+<title>Cyberpunk 2077 Guide — VAULT.GG</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
 <link rel="stylesheet" href="../css/style.css">
+<style>
+.guide-hero{background:linear-gradient(135deg,#000408 0%,#001020 50%,#000408 100%);padding:72px 0 48px;position:relative;overflow:hidden;border-bottom:1px solid rgba(255,220,50,.15)}
+.guide-hero::before{content:'';position:absolute;inset:0;background:url('https://cdn.cloudflare.steamstatic.com/steam/apps/1091500/page_bg_generated_v6b.jpg') center/cover;opacity:.12}
+.gtab{padding:9px 18px;border-radius:var(--r2) var(--r2) 0 0;background:transparent;border:1px solid transparent;color:var(--t3);cursor:pointer;font-size:13px;font-weight:600;transition:all .15s;display:flex;align-items:center;gap:7px}
+.gtab.active{background:var(--card);border-color:var(--b1);border-bottom-color:var(--void);color:#fde68a;margin-bottom:-1px}
+.guide-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:28px;padding-top:12px;border-bottom:1px solid var(--b1);position:sticky;top:56px;background:var(--void);z-index:10}
+.guide-section{display:none}.guide-section.active{display:block}
+.credit-bar{background:var(--raised);border:1px solid var(--b1);border-radius:var(--r2);padding:9px 14px;font-size:11.5px;color:var(--t3);display:flex;align-items:center;gap:8px;margin-bottom:20px}
+.cyber-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.cyber-card{background:var(--card);border:1px solid var(--b1);border-radius:var(--r3);padding:16px 18px;transition:border-color .15s;cursor:pointer}
+.cyber-card:hover{border-color:rgba(255,220,50,.4)}
+</style>
 </head>
 <body>
 <nav class="nav">
   <div class="nav-inner">
     <a class="nav-logo" href="../index.html" style="display:flex;align-items:center;text-decoration:none"><img src="../logo.svg" alt="VAULT.GG" height="28" onerror="this.style.display='none'"></a>
-    <ul class="nav-links"><li><a class="nav-link" href="../guides.html">← All Guides</a></li></ul>
+    <ul class="nav-links">
+      <li><a class="nav-link" href="../index.html">Home</a></li>
+      <li><a class="nav-link active" href="../guides.html">Guides</a></li>
+    </ul>
   </div>
 </nav>
-<div style="padding:80px 0;text-align:center">
-  <div class="wrap">
-    <div style="font-family:var(--display);font-size:56px;color:var(--t1);margin-bottom:12px">cyberpunk-2077</div>
-    <p style="color:var(--t2);font-size:15px;margin-bottom:24px">Full guide coming soon — fetching data from community wikis and game APIs.</p>
-    <a href="../guides.html" class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i>Back to All Guides</a>
+<div class="guide-hero">
+  <div class="wrap" style="position:relative;z-index:1">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
+      <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1091500/library_600x900.jpg" style="width:80px;height:120px;object-fit:cover;border-radius:var(--r2)" alt="Cyberpunk 2077">
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:rgba(255,220,50,.7);margin-bottom:6px">VAULT.GG GAME GUIDE</div>
+        <h1 style="font-family:var(--display);font-size:clamp(36px,5vw,68px);color:#fde68a;line-height:.9;letter-spacing:.02em;text-shadow:0 0 30px rgba(255,220,50,.3)">CYBERPUNK<br>2077</h1>
+        <div style="margin-top:10px;font-size:13px;color:rgba(253,230,138,.5)">CD Projekt RED · Patch 2.2 · Phantom Liberty DLC · Data: cyberpunk.fandom.com</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:20px;flex-wrap:wrap">
+      <div style="font-size:13px;color:rgba(253,230,138,.6)"><i class="fa-solid fa-thumbs-up" style="color:#4ade80"></i> Very Positive · 86 Metacritic (post-2.0)</div>
+      <div style="font-size:13px;color:rgba(253,230,138,.6)"><i class="fa-solid fa-clock" style="color:#60a5fa"></i> ~25h main story · 100h+ 100%</div>
+    </div>
   </div>
 </div>
+
+<div class="wrap" style="padding-top:0">
+  <div class="guide-tabs">
+    <button class="gtab active" onclick="showTab('skilltrees')"><i class="fa-solid fa-brain"></i>Skill Trees</button>
+    <button class="gtab" onclick="showTab('cyberware')"><i class="fa-solid fa-microchip"></i>Cyberware</button>
+    <button class="gtab" onclick="showTab('builds')"><i class="fa-solid fa-fire"></i>Best Builds</button>
+    <button class="gtab" onclick="showTab('endings')"><i class="fa-solid fa-film"></i>All Endings</button>
+    <button class="gtab" onclick="showTab('tips')"><i class="fa-solid fa-lightbulb"></i>Tips</button>
+  </div>
+
+  <div class="guide-section active" id="sec-skilltrees">
+    <div class="credit-bar"><i class="fa-solid fa-circle-info" style="color:#fde68a"></i>Patch 2.2 skill data. Major rework from 2.0 — old guides are outdated. All perks refunded at Patch 2.0.</div>
+    <div id="skilltreeContent"></div>
+  </div>
+  <div class="guide-section" id="sec-cyberware">
+    <div class="credit-bar"><i class="fa-solid fa-circle-info" style="color:#fde68a"></i>Cyberware data via <strong>cyberpunk.fandom.com</strong> (CC BY-SA 3.0 contributors). Ripperdoc cost varies by street cred.</div>
+    <div id="cyberwareContent"></div>
+  </div>
+  <div class="guide-section" id="sec-builds">
+    <div id="buildsContent"></div>
+  </div>
+  <div class="guide-section" id="sec-endings">
+    <div id="endingsContent"></div>
+  </div>
+  <div class="guide-section" id="sec-tips">
+    <div id="tipsContent"></div>
+  </div>
+  <div style="height:80px"></div>
+</div>
+
+<script>
+const PROXY = '/api/guide';
+const cache = {};
+async function apiFetch(url) { if(cache[url])return cache[url]; const r=await fetch(url); const d=await r.json(); cache[url]=d; return d; }
+let loaded={};
+function showTab(id) {
+  document.querySelectorAll('.guide-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.gtab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  if(!loaded[id]){loaded[id]=true;renderSection(id);}
+}
+
+function renderSkillTrees() {
+  const trees = [
+    {name:'Body', color:'#f87171', icon:'💪', desc:'Shotguns, Blunt Weapons, Athletics. Required for breaking doors/walls and max carrying capacity.',
+     keyPerks:['Adrenaline Rush — kills restore health','Juggernaut — armor stacks while sprinting','Wrecking Ball — slam attacks stagger enemies','Epimorphosis — regen health without cover']},
+    {name:'Reflexes', color:'#60a5fa', icon:'⚡', desc:'Handguns, Blades, Athletics. Controls crit chance + dodge/dash. Essential for any fast build.',
+     keyPerks:['Slippery — dashing costs no stamina','Divine Intervention — time slow on dodge','Deathbolt — blades charge and release in burst','Jackpot — 25% chance to proc crit on precision shots']},
+    {name:'Technical Ability', color:'#fde68a', icon:'🔧', desc:'Tech weapons, Crafting, Engineering. Unlocks locked areas and weapon crafting.',
+     keyPerks:['Bolt — charged tech shots penetrate cover','Edgerunner — exceed cyberware capacity at health cost','Aggressive Tuning — all cyberware gains power','License to Chrome — 50% more cyberware capacity']},
+    {name:'Intelligence', color:'#a78bfa', icon:'🧠', desc:'Quickhacking, Breach Protocol. Controls RAM and hack propagation.',
+     keyPerks:['Hack Queue — queue multiple hacks simultaneously','Spillover — hacks spread to nearby enemies','Total Recall — quickhack cost refunded on kill','Subliminal Message — non-combat hacks undetected']},
+    {name:'Cool', color:'#4ade80', icon:'😎', desc:'Stealth, Assassination, Sniper Rifles. Critical chance and stealth kills.',
+     keyPerks:['Assassin — 100% extra crit damage from stealth','Ghost — silenced shots don\'t break stealth','Dagger Dealer — throw blades that explode','Neurotoxin — poison always crits']},
+  ];
+  document.getElementById('skilltreeContent').innerHTML = `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px">
+    ${trees.map(t=>`<div style="background:var(--card);border:1px solid ${t.color}20;border-left:3px solid ${t.color};border-radius:var(--r3);padding:18px 20px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <span style="font-size:28px">${t.icon}</span>
+        <div><div style="font-family:var(--display);font-size:26px;color:var(--t1)">${t.name}</div></div>
+      </div>
+      <p style="font-size:13px;color:var(--t2);line-height:1.7;margin-bottom:12px">${t.desc}</p>
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:${t.color};margin-bottom:8px">Key Perks</div>
+      ${t.keyPerks.map(p=>`<div style="font-size:12.5px;color:var(--t2);padding:5px 0;border-bottom:1px solid var(--b1);display:flex;gap:6px">
+        <i class="fa-solid fa-diamond" style="color:${t.color};font-size:8px;margin-top:4px;flex-shrink:0"></i>${p}</div>`).join('')}
+    </div>`).join('')}
+  </div>`;
+}
+
+async function renderCyberware() {
+  const el = document.getElementById('cyberwareContent');
+  el.innerHTML = '<div style="text-align:center;padding:30px;color:var(--t3)"><i class="fa-solid fa-spinner fa-spin" style="color:#fde68a"></i> Loading from cyberpunk.fandom.com…</div>';
+  
+  try {
+    const TYPES = {
+      'Frontal Cortex': {color:'#a78bfa', icon:'🧠', desc:'Intelligence implants — RAM, quickhack boosts'},
+      'Circulatory System': {color:'#f87171', icon:'❤️', desc:'Health, healing, survivability'},
+      'Immune System': {color:'#4ade80', icon:'🛡️', desc:'Resistances, toxin immunity'},
+      'Nervous System': {color:'#60a5fa', icon:'⚡', desc:'Reaction time, bullet deflection'},
+      'Integumentary System': {color:'#fb923c', icon:'🦾', desc:'Subdermal armor, blunt resistance'},
+      'Skeleton': {color:'#e5e4e2', icon:'💀', desc:'Carry weight, melee damage'},
+      'Arms': {color:'#fde68a', icon:'💪', desc:'Mantis Blades, Gorilla Arms, Monowire, Projectile Launch System'},
+      'Legs': {color:'#34d399', icon:'🦵', desc:'Double jump, charge jump, dash, speed'},
+    };
+    
+    el.innerHTML = `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px">
+      ${Object.entries(TYPES).map(([type, meta]) => `
+        <div style="background:var(--card);border:1px solid ${meta.color}20;border-left:3px solid ${meta.color};border-radius:var(--r3);padding:16px 18px">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <span style="font-size:22px">${meta.icon}</span>
+            <div style="font-family:var(--display);font-size:20px;color:${meta.color}">${type}</div>
+          </div>
+          <div style="font-size:13px;color:var(--t2)">${meta.desc}</div>
+          <a href="https://cyberpunk.fandom.com/wiki/${encodeURIComponent(type)}" target="_blank" rel="noopener"
+            style="display:inline-flex;align-items:center;gap:5px;margin-top:10px;font-size:12px;color:${meta.color};text-decoration:none">
+            <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:9px"></i>Full list on wiki
+          </a>
+        </div>`).join('')}
+    </div>
+    <div style="margin-top:20px;background:rgba(255,220,50,.06);border:1px solid rgba(255,220,50,.2);border-radius:var(--r3);padding:16px 20px">
+      <div style="font-weight:700;color:#fde68a;margin-bottom:8px">⚠️ Cyberware Capacity</div>
+      <div style="font-size:13px;color:var(--t2);line-height:1.7">Each implant costs capacity. Default max is 450 — boost with Technical Ability tree (Edgerunner perk: exceed limit at health cost). Cyberpsychosis triggers over capacity. Some perks add bonus capacity slots.</div>
+    </div>`;
+  } catch(e) {
+    el.innerHTML = `<div style="color:var(--rose)">${e.message}</div>`;
+  }
+}
+
+function renderBuilds() {
+  const builds = [
+    {name:'Sandevistan Blade', icon:'⚡', color:'#fde68a', patch:'2.2',
+     desc:'Equip Sandevistan OS (time slow), Mantis Blades arms, and max Reflexes. Enter time slow, slice 6 enemies before they can react. The definitive 2077 power fantasy.',
+     stats:'REF 20, BODY 18, TECH 15', key:['Sandevistan OS (best: Militech Apogee)','Mantis Blades (arms)','Reflexes: Deathbolt, Slippery','Cool: Assassin + Neurotoxin']},
+    {name:'Netrunner / Quickhack', icon:'🧠', color:'#a78bfa', patch:'2.2',
+     desc:'Max Intelligence, Overclock implant. Queue 8 hacks simultaneously. Full map awareness through cameras. Enemies die without you moving from cover. True hacker fantasy.',
+     stats:'INT 20, COOL 15, TECH 12', key:['Overclock OS','Spillover perk — chain hacks','Synapse Burnout — kill via brain fry','Subliminal Message — free hacks']},
+    {name:'Gorilla Tech', icon:'💥', color:'#f87171', patch:'2.2',
+     desc:'Gorilla Arms + Tech weapons. Punch doors open, charge tech shots through walls, max carry weight. Body spec with Edgerunner lets you exceed cyberware cap.',
+     stats:'BODY 20, TECH 20', key:['Gorilla Arms','Bolt perk — charged tech shots','Edgerunner — exceed cyberware cap','Juggernaut — tank damage while sprinting']},
+    {name:'Stealth Assassin', icon:'🗡️', color:'#4ade80', patch:'2.2',
+     desc:'Monowire arms, max Cool, silenced pistols. Invisible approach, one-shot kills, reload bonus from stealth. Perfect for story-focused players who want to feel lethal.',
+     stats:'COOL 20, REF 15', key:['Monowire arms','Dagger Dealer — throw blades','Ghost perk — silenced kills undetected','Neurotoxin — poison always crits']},
+  ];
+  document.getElementById('buildsContent').innerHTML = `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px">
+    ${builds.map(b=>`<div style="background:var(--card);border:1px solid ${b.color}30;border-left:3px solid ${b.color};border-radius:var(--r3);padding:20px 22px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <span style="font-size:28px">${b.icon}</span>
+        <div>
+          <div style="font-family:var(--display);font-size:24px;color:var(--t1)">${b.name}</div>
+          <div style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;display:inline-block;background:${b.color}15;border:1px solid ${b.color}30;color:${b.color}">Patch ${b.patch}</div>
+        </div>
+      </div>
+      <p style="font-size:13px;color:var(--t2);line-height:1.7;margin-bottom:12px">${b.desc}</p>
+      <div style="font-size:11px;font-family:var(--mono);color:${b.color};margin-bottom:12px">${b.stats}</div>
+      ${b.key.map(k=>`<div style="font-size:12.5px;color:var(--t2);padding:5px 0;border-bottom:1px solid var(--b1)"><i class="fa-solid fa-check" style="color:${b.color};font-size:9px;margin-right:6px"></i>${k}</div>`).join('')}
+    </div>`).join('')}
+  </div>`;
+}
+
+function renderEndings() {
+  const endings = [
+    {name:'The Devil', icon:'😈', req:"Side with Hanako and Arasaka", outcome:"V goes to Arasaka Tower with Hanako. Soulkiller extracts V's engram. V wakes up in space, given 6 months — return to Night City or explore beyond.", good:false, locked:false},
+    {name:'The Star', icon:'⭐', req:"Complete Panam's questline fully. Side with Aldecaldos against Arasaka", outcome:"Aldecaldos storm Arasaka Tower. V escapes with the Nomads. Most hopeful ending — V rides into the desert with family. Johnny gets a body.", good:true, locked:false},
+    {name:'The Sun', icon:'☀️', req:"Complete Rogue's arc and the Chippin' In quest. Select Rogue's plan", outcome:"Johnny takes V's body and storms Arasaka as Silverhand. Biggest action finale. V lives on but the ending is bittersweet.", good:true, locked:false},
+    {name:'Temperance (Secret)', icon:'🌟', req:"Complete Phantom Liberty. Reach Songbird's extraction. Choose her path.", outcome:"Songbird provides a cure. V is cured but loses all memories of Night City. Clean slate.", good:true, locked:'Phantom Liberty DLC required'},
+    {name:'The Tower (PL Secret)', icon:'🏰', req:"Phantom Liberty: let Reed capture Songbird at the end", outcome:"NUSA extracts and cures V. V returns to Night City, cured, but with nothing left.", good:true, locked:'Phantom Liberty DLC required'},
+    {name:'Refusing (Don\'t Fear The Reaper)', icon:'💀', req:"Start the final mission alone without calling anyone for help. Very hard.", outcome:"V storms Arasaka alone. Hardest version of the finale. Special ending where V fights through solo.", good:true, locked:'Hidden ending — don\'t call anyone'},
+  ];
+  document.getElementById('endingsContent').innerHTML = `<div style="max-width:800px">
+    <div style="background:rgba(255,220,50,.06);border:1px solid rgba(255,220,50,.2);border-radius:var(--r2);padding:12px 16px;margin-bottom:20px;font-size:13px;color:var(--t2)">
+      ⚠️ <strong style="color:#fde68a">Major spoilers below.</strong> All endings require completing Act 2 and the Nocturne Op55N1 mission. Completion of certain side quests determines which options appear.
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      ${endings.map(e=>`<div style="background:var(--card);border:1px solid ${e.good?'rgba(74,222,128,.2)':'rgba(248,113,113,.2)'};border-left:3px solid ${e.good?'#4ade80':'#f87171'};border-radius:var(--r3);padding:16px 20px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+          <span style="font-size:24px">${e.icon}</span>
+          <div>
+            <div style="font-family:var(--display);font-size:22px;color:var(--t1)">${e.name}</div>
+            <div style="font-size:11px;color:var(--t3)">Unlock: ${e.req}</div>
+          </div>
+          ${e.locked?`<span style="margin-left:auto;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;background:rgba(251,146,60,.15);border:1px solid rgba(251,146,60,.3);color:#fb923c;white-space:nowrap">${e.locked}</span>`:''}
+        </div>
+        <div style="font-size:13px;color:var(--t2);line-height:1.7">${e.outcome}</div>
+      </div>`).join('')}
+    </div>`;
+}
+
+function renderTips() {
+  document.getElementById('tipsContent').innerHTML = `<div style="max-width:800px;display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:14px">
+    ${[
+      {cat:'Night City Navigation',color:'#fde68a',icon:'🏙️',tips:['Fast travel is free and everywhere — use it aggressively','Skip time with the wait function — don\'t waste real time','Scan everything with Tab/L2 — tagged enemies show through walls','Iconic weapons drop from specific enemies — check every corpse']},
+      {cat:'Combat',color:'#f87171',icon:'⚔️',tips:['Headshots deal 3x damage — aim training matters a lot','Tech weapons charge through cover — huge advantage in late game','Environmental hacks (exploding objects, cameras) are free','Quickhack enemies with cameras near you for free intelligence']},
+      {cat:'Economy',color:'#4ade80',icon:'💰',tips:['Don\'t buy gear — loot everything and disassemble duplicates','Street cred unlocks better items at ripperdocs — do gigs first','Legendary cyberware becomes available at Street Cred 40+','Crafting is OP late game — max Technical early']},
+      {cat:'Side Content Priority',color:'#a78bfa',icon:'⭐',tips:['Johnny Silverhand memories (gold icons) unlock The Sun/Don\'t Fear endings','Panam and Rogue questlines essential for best endings','Gigs give Street Cred faster than main quests','River and Kerry questlines short but meaningful character content']},
+    ].map(t=>`<div style="background:var(--card);border:1px solid ${t.color}20;border-left:3px solid ${t.color};border-radius:var(--r3);padding:18px 20px">
+      <div style="font-size:14px;font-weight:700;color:${t.color};margin-bottom:12px"><span style="margin-right:8px">${t.icon}</span>${t.cat}</div>
+      ${t.tips.map(tip=>`<div style="font-size:13px;color:var(--t2);padding:6px 0;border-bottom:1px solid var(--b1);display:flex;gap:8px;line-height:1.6">
+        <i class="fa-solid fa-circle-dot" style="color:${t.color};font-size:9px;margin-top:4px;flex-shrink:0"></i>${tip}</div>`).join('')}
+    </div>`).join('')}
+  </div>`;
+}
+
+async function renderSection(id) {
+  if(id==='skilltrees') renderSkillTrees();
+  else if(id==='cyberware') await renderCyberware();
+  else if(id==='builds') renderBuilds();
+  else if(id==='endings') renderEndings();
+  else if(id==='tips') renderTips();
+}
+
+document.addEventListener('DOMContentLoaded', () => { renderSkillTrees(); });
+</script>
 </body>
 </html>

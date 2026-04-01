@@ -2,25 +2,401 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>stardew-valley Guide — VAULT.GG</title>
+<title>Stardew Valley Guide — VAULT.GG</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
 <link rel="stylesheet" href="../css/style.css">
+<style>
+.guide-hero{background:linear-gradient(135deg,#0a1a0a 0%,#0d1f0a 50%,#0a1a0a 100%);
+  border-bottom:1px solid rgba(74,222,128,.15);padding:72px 0 48px;position:relative;overflow:hidden}
+.guide-hero::before{content:'';position:absolute;inset:0;
+  background:url('https://cdn.cloudflare.steamstatic.com/steam/apps/413150/page_bg_generated_v6b.jpg') center/cover;
+  opacity:.12;filter:saturate(1.5)}
+.guide-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:28px;padding-top:12px;
+  border-bottom:1px solid var(--b1);position:sticky;top:56px;background:var(--void);z-index:10}
+.gtab{padding:9px 18px;border-radius:var(--r2) var(--r2) 0 0;background:transparent;
+  border:1px solid transparent;color:var(--t3);cursor:pointer;font-size:13px;font-weight:600;transition:all .15s;display:flex;align-items:center;gap:7px}
+.gtab.active{background:var(--card);border-color:var(--b1);border-bottom-color:var(--void);color:#4ade80;margin-bottom:-1px}
+.guide-section{display:none}.guide-section.active{display:block}
+.credit-bar{background:var(--raised);border:1px solid var(--b1);border-radius:var(--r2);padding:9px 14px;font-size:11.5px;color:var(--t3);display:flex;align-items:center;gap:8px;margin-bottom:20px}
+.crop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.crop-card{background:var(--card);border:1px solid var(--b1);border-radius:var(--r2);padding:12px;
+  display:flex;align-items:center;gap:10px;transition:border-color .15s;cursor:default}
+.crop-card:hover{border-color:rgba(74,222,128,.4)}
+.crop-img{width:40px;height:40px;object-fit:contain;image-rendering:pixelated;flex-shrink:0}
+.vil-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.vil-card{background:var(--card);border:1px solid var(--b1);border-radius:var(--r3);padding:14px;transition:all .2s}
+.vil-card:hover{border-color:rgba(74,222,128,.3);transform:translateY(-1px)}
+.season-pill{display:inline-block;font-size:9.5px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.1em;padding:2px 7px;border-radius:99px}
+</style>
 </head>
 <body>
 <nav class="nav">
   <div class="nav-inner">
-    <a class="nav-logo" href="../index.html" style="display:flex;align-items:center;text-decoration:none"><img src="../logo.svg" alt="VAULT.GG" height="28" onerror="this.style.display='none'"></a>
-    <ul class="nav-links"><li><a class="nav-link" href="../guides.html">← All Guides</a></li></ul>
+    <a class="nav-logo" href="../index.html" style="display:flex;align-items:center;text-decoration:none">
+      <img src="../logo.svg" alt="VAULT.GG" height="28" onerror="this.style.display='none'">
+    </a>
+    <ul class="nav-links">
+      <li><a class="nav-link" href="../index.html">Home</a></li>
+      <li><a class="nav-link active" href="../guides.html">Guides</a></li>
+    </ul>
   </div>
 </nav>
-<div style="padding:80px 0;text-align:center">
-  <div class="wrap">
-    <div style="font-family:var(--display);font-size:56px;color:var(--t1);margin-bottom:12px">stardew-valley</div>
-    <p style="color:var(--t2);font-size:15px;margin-bottom:24px">Full guide coming soon — fetching data from community wikis and game APIs.</p>
-    <a href="../guides.html" class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i>Back to All Guides</a>
+
+<div class="guide-hero">
+  <div class="wrap" style="position:relative;z-index:1">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
+      <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/413150/library_600x900.jpg"
+        style="width:80px;height:120px;object-fit:cover;border-radius:var(--r2);box-shadow:0 0 24px rgba(0,0,0,.6)" alt="SDV">
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:rgba(74,222,128,.7);margin-bottom:6px">VAULT.GG GAME GUIDE</div>
+        <h1 style="font-family:var(--display);font-size:clamp(36px,5vw,68px);letter-spacing:.02em;color:#e8f5e8;line-height:.9;text-shadow:0 0 40px rgba(74,222,128,.3)">
+          STARDEW<br><span style="color:#4ade80">VALLEY</span>
+        </h1>
+        <div style="margin-top:10px;font-size:13px;color:rgba(232,245,232,.5)">ConcernedApe · 2016 · v1.6.15 · Data: stardewvalleywiki.com (CC BY-NC-SA)</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:20px;flex-wrap:wrap">
+      <div style="font-size:13px;color:rgba(232,245,232,.6)"><i class="fa-solid fa-seedling" style="color:#4ade80"></i> Farming · Mining · Fishing · Foraging</div>
+      <div style="font-size:13px;color:rgba(232,245,232,.6)"><i class="fa-solid fa-clock" style="color:#60a5fa"></i> ~52h main · 150h+ 100%</div>
+    </div>
   </div>
 </div>
+
+<div class="wrap" style="padding-top:0">
+  <div class="guide-tabs">
+    <button class="gtab active" onclick="showTab('crops')"><i class="fa-solid fa-seedling"></i>Crops by Season</button>
+    <button class="gtab" onclick="showTab('villagers')"><i class="fa-solid fa-users"></i>Villager Gifts</button>
+    <button class="gtab" onclick="showTab('mine')"><i class="fa-solid fa-gem"></i>Mining Guide</button>
+    <button class="gtab" onclick="showTab('bundles')"><i class="fa-solid fa-box-open"></i>Community Center</button>
+    <button class="gtab" onclick="showTab('tips')"><i class="fa-solid fa-lightbulb"></i>Year 1 Priority</button>
+  </div>
+
+  <!-- CROPS -->
+  <div class="guide-section active" id="sec-crops">
+    <div class="credit-bar">
+      <i class="fa-solid fa-circle-info" style="color:#4ade80"></i>
+      Crop data from <strong>stardewvalleywiki.com</strong> (CC BY-NC-SA 3.0 — stardewvalleywiki.com contributors). Images © ConcernedApe.
+    </div>
+    <div id="cropsContent"></div>
+  </div>
+
+  <!-- VILLAGERS -->
+  <div class="guide-section" id="sec-villagers">
+    <div class="credit-bar">
+      <i class="fa-solid fa-circle-info" style="color:#4ade80"></i>
+      Gift preferences from <strong>stardewvalleywiki.com</strong>. Loved gifts give +80 friendship vs +45 for liked.
+    </div>
+    <div class="vil-grid" id="vilGrid">
+      <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--t3)">
+        <i class="fa-solid fa-spinner fa-spin fa-2x" style="color:#4ade80;display:block;margin-bottom:12px"></i>Loading villager data…
+      </div>
+    </div>
+  </div>
+
+  <!-- MINE -->
+  <div class="guide-section" id="sec-mine">
+    <div id="mineContent"></div>
+  </div>
+
+  <!-- BUNDLES -->
+  <div class="guide-section" id="sec-bundles">
+    <div id="bundlesContent"></div>
+  </div>
+
+  <!-- TIPS -->
+  <div class="guide-section" id="sec-tips">
+    <div id="tipsContent"></div>
+  </div>
+
+  <div style="height:80px"></div>
+</div>
+
+<script>
+const PROXY = '/api/guide';
+const WIKI = '?game=wiki&wiki=stardew';
+const cache = {};
+async function apiFetch(url) {
+  if (cache[url]) return cache[url];
+  const r = await fetch(url); const d = await r.json(); cache[url] = d; return d;
+}
+
+let loaded = {};
+function showTab(id) {
+  document.querySelectorAll('.guide-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.gtab').forEach(t => t.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  if (!loaded[id]) { loaded[id] = true; renderSection(id); }
+}
+
+// CROPS — full hardcoded data (wiki data + real wiki images)
+const CROPS = {
+  spring: [
+    {name:'Strawberry',img:'https://stardewvalleywiki.com/mediawiki/images/6/6d/Strawberry.png',days:8,sell:120,notes:'Buy seeds at Egg Festival. Plant early, harvest multiple times.',multi:true},
+    {name:'Cauliflower',img:'https://stardewvalleywiki.com/mediawiki/images/1/15/Cauliflower.png',days:12,sell:175,notes:'Can turn into Giant Crop. Strong silver+ sell price.',multi:false},
+    {name:'Potato',img:'https://stardewvalleywiki.com/mediawiki/images/5/5e/Potato.png',days:6,sell:80,notes:'Chance to drop extra at harvest. Good for year 1 income.',multi:false},
+    {name:'Garlic',img:'https://stardewvalleywiki.com/mediawiki/images/5/57/Garlic.png',days:4,sell:60,notes:'Community Center bundle. Plant first day of spring.',multi:false},
+    {name:'Green Bean',img:'https://stardewvalleywiki.com/mediawiki/images/a/a3/Green_Bean.png',days:10,sell:40,notes:'Regrows after initial harvest. Community Center.',multi:true},
+    {name:'Kale',img:'https://stardewvalleywiki.com/mediawiki/images/9/99/Kale.png',days:6,sell:110,notes:'Best gold-per-day in spring after Strawberry.',multi:false},
+    {name:'Coffee Bean',img:'https://stardewvalleywiki.com/mediawiki/images/4/4B/Coffee_Bean.png',days:10,sell:15,notes:'Makes Coffee (+1 speed). Regrows. Buy from Traveling Cart.',multi:true},
+  ],
+  summer: [
+    {name:'Blueberry',img:'https://stardewvalleywiki.com/mediawiki/images/e/e0/Blueberry.png',days:13,sell:50,notes:'Drops 3 per harvest — best bulk income in summer. Regrows every 4 days.',multi:true},
+    {name:'Starfruit',img:'https://stardewvalleywiki.com/mediawiki/images/1/15/Starfruit.png',days:13,sell:750,notes:'Best single-crop sell price. Use Preserves Jar for max value (1550g).',multi:false},
+    {name:'Melon',img:'https://stardewvalleywiki.com/mediawiki/images/3/3e/Melon.png',days:12,sell:250,notes:'Giant Crop candidate. Community Center item.',multi:false},
+    {name:'Hot Pepper',img:'https://stardewvalleywiki.com/mediawiki/images/8/87/Hot_Pepper.png',days:5,sell:40,notes:'Regrows every 3 days. Best for bundle completion.',multi:true},
+    {name:'Radish',img:'https://stardewvalleywiki.com/mediawiki/images/a/a3/Radish.png',days:6,sell:90,notes:'Good filler if you have leftover tiles.',multi:false},
+    {name:'Red Cabbage',img:'https://stardewvalleywiki.com/mediawiki/images/6/6c/Red_Cabbage.png',days:9,sell:260,notes:'Year 2+ only. Required for Community Center (Dye Bundle).',multi:false},
+    {name:'Wheat',img:'https://stardewvalleywiki.com/mediawiki/images/f/f5/Wheat.png',days:4,sell:25,notes:'Dual season (Summer+Fall). Cheap to plant, used for Flour/Beer.',multi:false},
+  ],
+  fall: [
+    {name:'Pumpkin',img:'https://stardewvalleywiki.com/mediawiki/images/b/b0/Pumpkin.png',days:13,sell:320,notes:'Giant Crop candidate. Very high sell price, great for fall.',multi:false},
+    {name:'Cranberries',img:'https://stardewvalleywiki.com/mediawiki/images/d/de/Cranberries.png',days:7,sell:75,notes:'Drops 2 per harvest, regrows every 5 days. Best fall income crop.',multi:true},
+    {name:'Grape',img:'https://stardewvalleywiki.com/mediawiki/images/b/be/Grape.png',days:10,sell:80,notes:'Regrows every 3 days. Wine = 480g. Invest in Kegs.',multi:true},
+    {name:'Sweet Gem Berry',img:'https://stardewvalleywiki.com/mediawiki/images/e/e0/Sweet_Gem_Berry.png',days:24,sell:3000,notes:'Most expensive crop. Rare seed from Traveling Cart. Required for Old Master Cannoli.',multi:false},
+    {name:'Bok Choy',img:'https://stardewvalleywiki.com/mediawiki/images/9/9b/Bok_Choy.png',days:4,sell:80,notes:'Fast-growing, good for bundle and profit in short fall periods.',multi:false},
+    {name:'Amaranth',img:'https://stardewvalleywiki.com/mediawiki/images/e/ee/Amaranth.png',days:7,sell:150,notes:'Good fall filler. Used in Cloth production via Loom (if purple colored animals).',multi:false},
+    {name:'Yam',img:'https://stardewvalleywiki.com/mediawiki/images/a/a1/Yam.png',days:10,sell:160,notes:'Community Center bundle item. Strong per-tile value.',multi:false},
+  ]
+};
+
+const SEASON_COLORS = {spring:'#f472b6',summer:'#fbbf24',fall:'#fb923c'};
+const SEASON_BG = {spring:'rgba(244,114,182,.1)',summer:'rgba(251,191,36,.1)',fall:'rgba(251,146,60,.1)'};
+
+function renderCrops() {
+  const seasons = ['spring','summer','fall'];
+  document.getElementById('cropsContent').innerHTML = seasons.map(s => `
+    <div style="margin-bottom:32px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <span style="font-size:24px">${s==='spring'?'🌸':s==='summer'?'☀️':'🍂'}</span>
+        <span style="font-family:var(--display);font-size:32px;color:${SEASON_COLORS[s]};letter-spacing:.03em">${s.toUpperCase()}</span>
+        <span class="season-pill" style="background:${SEASON_BG[s]};border:1px solid ${SEASON_COLORS[s]}40;color:${SEASON_COLORS[s]}">${CROPS[s].length} crops</span>
+      </div>
+      <div class="crop-grid">
+        ${CROPS[s].map(c => `
+          <div class="crop-card" style="${c.sell>=300?'border-color:rgba(74,222,128,.2)':''}">
+            <img class="crop-img" src="${c.img}" alt="${c.name}" onerror="this.src='';this.style.display='none'">
+            <div>
+              <div style="font-weight:700;font-size:13px;color:var(--t1)">${c.name}</div>
+              <div style="font-size:11px;color:var(--t3)">⏱ ${c.days}d · 💰 ${c.sell}g</div>
+              ${c.multi ? `<div style="font-size:10px;color:#4ade80;font-weight:600">↺ Regrows</div>` : ''}
+              <div style="font-size:10.5px;color:var(--t3);margin-top:3px;line-height:1.4">${c.notes}</div>
+            </div>
+          </div>`).join('')}
+      </div>
+    </div>`).join('') + `
+    <div style="background:var(--card);border:1px solid rgba(74,222,128,.2);border-radius:var(--r3);padding:18px 22px;margin-top:8px">
+      <div style="font-weight:700;color:#4ade80;margin-bottom:10px;font-size:14px"><i class="fa-solid fa-chart-line"></i> Gold-Per-Day Rankings (Base Price, No Profession)</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px">
+        ${[['Sweet Gem Berry','Fall','3000g / 24d = 125g/day'],['Starfruit','Summer','750g / 13d = 57.7g/day'],['Pumpkin','Fall','320g / 13d = 24.6g/day'],
+           ['Red Cabbage','Summer','260g / 9d = 28.9g/day'],['Melon','Summer','250g / 12d = 20.8g/day'],['Kale','Spring','110g / 6d = 18.3g/day'],
+           ['Cranberries','Fall','75g×2 / 5d = 30g/day'],['Blueberry','Summer','50g×3 / 4d = 37.5g/day'],['Strawberry','Spring','120g / 4d = 30g/day'],
+        ].map(([n,s,v])=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 8px;background:var(--float);border-radius:var(--r1);font-size:12px">
+          <div><strong style="color:var(--t1)">${n}</strong> <span style="color:${SEASON_COLORS[s.toLowerCase()]};font-size:10px">${s}</span></div>
+          <div style="color:#4ade80;font-family:var(--mono);font-size:11px">${v.split('=')[1]}</div>
+        </div>`).join('')}
+      </div>
+    </div>`;
+}
+
+// VILLAGERS
+const VILLAGERS = [
+  {name:'Penny',birthday:'Fall 2',loves:'Diamond, Emerald, Melon, Poppy, Pumpkin Soup, Red Plate, Roots Platter, Sandfish, Tom Kha Soup',hates:'Beer, Eggs',loc:'Town/Library'},
+  {name:'Emily',birthday:'Spring 27',loves:'Amethyst, Aquamarine, Cloth, Emerald, Jade, Ruby, Survival Burger, Topaz, Wool',hates:'Holly',loc:'Town'},
+  {name:'Haley',birthday:'Spring 14',loves:'Coconut, Fruit Salad, Pink Cake, Sunflower',hates:'Onion, Mushroom',loc:'Town'},
+  {name:'Leah',birthday:'Winter 23',loves:'Goat Cheese, Poppyseed Muffin, Salad, Stir Fry, Truffle, Vegetable Medley, Wine',hates:'Holly, Maple Bar',loc:'Forest'},
+  {name:'Abigail',birthday:'Fall 13',loves:'Amethyst, Blackberry Cobbler, Chocolate Cake, Pufferfish, Pumpkin, Spicy Eel',hates:'Salad',loc:'Town'},
+  {name:'Maru',birthday:'Summer 10',loves:'Battery Pack, Cauliflower, Cheese Cauliflower, Diamond, Gold Bar, Iridium Bar, Miner\'s Treat, Pepper Poppers, Radioactive Bar, Strawberry',hates:'Holly',loc:'Town/Clinic'},
+  {name:'Shane',birthday:'Spring 20',loves:'Beer, Hot Pepper, Pepper Poppers, Pizza',hates:'Salads, Artichoke Dip',loc:'Marnie\'s Ranch'},
+  {name:'Elliott',birthday:'Fall 5',loves:'Crab Cakes, Duck Feather, Lobster, Pomegranate, Tom Kha Soup',hates:'Fiddlehead Fern',loc:'Beach'},
+  {name:'Harvey',birthday:'Winter 14',loves:'Coffee, Pickles, Super Meal, Truffle Oil, Wine',hates:'Holly',loc:'Clinic'},
+  {name:'Sam',birthday:'Summer 17',loves:'Cactus Fruit, Maple Bar, Pizza, Tigerseye',hates:'Fried Egg',loc:'Town'},
+  {name:'Sebastian',birthday:'Winter 10',loves:'Frozen Tear, Obsidian, Pumpkin Soup, Sashimi, Void Egg',hates:'Salad',loc:'Town/Mountain'},
+  {name:'Alex',birthday:'Summer 13',loves:'Complete Breakfast, Salmon Dinner',hates:'Kale, Quartz',loc:'Town'},
+  {name:'Willy',birthday:'Summer 24',loves:'Catfish, Diamond, Gold Bar, Iridium Bar, Maki Roll, Octopus, Pumpkin, Sea Cucumber, Squid',hates:'Holly',loc:'Beach'},
+  {name:'Robin',birthday:'Fall 21',loves:'Goat Cheese, Peach, Spaghetti',hates:'Holly',loc:'Mountain'},
+  {name:'Demetrius',birthday:'Summer 19',loves:'Bean Hotpot, Ice Cream, Rice Pudding, Strawberry',hates:'Holly',loc:'Mountain'},
+  {name:'Linus',birthday:'Winter 3',loves:'Blueberry Tart, Cactus Fruit, Coconut, Dish o\' The Sea, Yam',hates:'Holly',loc:'Mountain'},
+  {name:'Evelyn',birthday:'Winter 20',loves:'Beet, Chocolate Cake, Diamond, Fairy Rose, Stuffing, Tulip',hates:'Fried Egg, Garlic',loc:'Town'},
+  {name:'George',birthday:'Fall 24',loves:'Fried Mushroom, Leek',hates:'Salad, Holly',loc:'Town'},
+  {name:'Marnie',birthday:'Fall 18',loves:'Diamond, Farmer\'s Lunch, Pink Cake, Pumpkin Pie',hates:'Holly',loc:'Ranch'},
+  {name:'Clint',birthday:'Winter 26',loves:'Amethyst, Aquamarine, Artichoke Dip, Emerald, Fiddlehead Risotto, Gold Bar, Iridium Bar, Omni Geode, Ruby, Topaz',hates:'Holly',loc:'Blacksmith'},
+];
+
+async function renderVillagers() {
+  const grid = document.getElementById('vilGrid');
+  // Try to get images from stardew wiki for each villager
+  const data = await Promise.allSettled(VILLAGERS.map(async v => {
+    try {
+      const d = await apiFetch(`${PROXY}${WIKI}&action=query&titles=${encodeURIComponent(v.name)}&prop=pageimages&pithumbsize=120&format=json`);
+      const pages = d.query?.pages || {};
+      const page = Object.values(pages)[0] || {};
+      return { ...v, image: page.thumbnail?.source || '' };
+    } catch { return v; }
+  }));
+  
+  const villagers = data.filter(r => r.status === 'fulfilled').map(r => r.value);
+  
+  grid.innerHTML = villagers.map(v => `
+    <div class="vil-card">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        ${v.image ? `<img src="${v.image}" alt="${v.name}" style="width:44px;height:44px;border-radius:50%;object-fit:cover;background:var(--deep)" onerror="this.style.display='none'">` : `<div style="width:44px;height:44px;border-radius:50%;background:var(--deep);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">👤</div>`}
+        <div>
+          <div style="font-weight:700;font-size:14px;color:var(--t1)">${v.name}</div>
+          <div style="font-size:10.5px;color:var(--t3)">🎂 ${v.birthday} · ${v.loc}</div>
+        </div>
+      </div>
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#4ade80;margin-bottom:4px">❤️ Loved Gifts</div>
+      <div style="font-size:11.5px;color:var(--t2);line-height:1.6">${v.loves}</div>
+      <div style="margin-top:7px;font-size:11px;color:var(--rose)">🚫 ${v.hates}</div>
+    </div>`).join('');
+}
+
+// MINE GUIDE
+function renderMine() {
+  const floors = [
+    {range:'1–40',zone:'Mines',ore:'Copper Ore',monsters:'Slimes, Bugs, Flies',key:'Get to floor 40 fast. Bring food. Copper → first pickaxe upgrade.'},
+    {range:'41–80',zone:'Mines',ore:'Iron Ore',monsters:'Duggies, Bats, Skeletons',key:'Floor 60–80 drops gold. Watch for the Frozen Level (floors 55–65).'},
+    {range:'81–120',zone:'Mines',ore:'Gold Ore',monsters:'Shadows, Metal Heads',key:'Shadow Shaman casts spells — kill it first. Unlock the Skull Cavern elevator key at 120.'},
+    {range:'1–40 SC',zone:'Skull Cavern',ore:'Iridium Ore',monsters:'Purple Slimes, Mummies',key:'Bomb liberally. Bring 30+ Staircases. Aim for floor 100+ with 50+ explosive ammo.'},
+    {range:'41–100+ SC',zone:'Skull Cavern',ore:'Iridium (dense)',monsters:'Serpents, Iridium Crabs',key:'Iridium Bar (5) → Iridium Pickaxe. Game-changing for mining speed.'},
+    {range:'Volcano',zone:'Ginger Island',ore:'Cinder Shards, Dragon Tooth',monsters:'Hot Head, False Magma Caps',key:'Tropical Curry to walk through lava. Forge weapons here for enchantments.'},
+  ];
+  const GEMS = [
+    {name:'Quartz',use:'Fiber (Recycling Machine) · Daily quest item',mine:'Mines 1–79'},
+    {name:'Earth Crystal',use:'Aquamarine Ring · Fertilizer (Recycling)',mine:'Mines 1–39'},
+    {name:'Frozen Tear',use:'Aquamarine Ring · Monster Musk',mine:'Mines 40–79'},
+    {name:'Fire Quartz',use:'Refined Quartz (×3) · Triple Shot Espresso',mine:'Mines 80–120'},
+    {name:'Diamond',use:'Best universal loved gift (except Haley & Maru exceptions)',mine:'Mines 50+ (rare)'},
+    {name:'Ruby',use:'Dragon\'s Tooth recipe · Infinity weapons',mine:'Mines 80+'},
+    {name:'Emerald',use:'Boots upgrade at Adventure Guild',mine:'Mines 80+'},
+    {name:'Iridium',use:'Iridium Band · Best tools',mine:'Skull Cavern'},
+  ];
+  document.getElementById('mineContent').innerHTML = `
+    <div style="margin-bottom:28px">
+      <div style="font-family:var(--display);font-size:28px;color:var(--t1);margin-bottom:4px;letter-spacing:.03em">Mine Progression</div>
+      <p style="font-size:13.5px;color:var(--t2);line-height:1.7;margin-bottom:16px">The Mines have 120 floors. Get to the bottom as fast as possible — speed matters more than clearing every floor. Use Staircases (Stone ×99) to skip hard floors.</p>
+      <div style="display:flex;flex-direction:column;gap:10px;max-width:800px">
+        ${floors.map((f,i) => `<div style="background:var(--card);border:1px solid var(--b1);border-left:3px solid ${i<3?'var(--neon)':i<5?'#8b5cf6':'#f87171'};border-radius:var(--r2);padding:14px 18px;display:grid;grid-template-columns:80px 120px 160px 1fr;gap:12px;align-items:center">
+          <div style="font-family:var(--mono);font-size:13px;font-weight:700;color:${i<3?'var(--neon)':i<5?'#8b5cf6':'#f87171'}">F${f.range}</div>
+          <div style="font-size:12px;color:var(--t3)">${f.zone}</div>
+          <div style="font-size:12.5px;color:var(--t2);font-weight:600"><i class="fa-solid fa-gem" style="font-size:10px;color:#60a5fa"></i> ${f.ore}</div>
+          <div style="font-size:12px;color:var(--t2)">${f.key}</div>
+        </div>`).join('')}
+      </div>
+    </div>
+    <div>
+      <div style="font-family:var(--display);font-size:28px;color:var(--t1);margin-bottom:12px;letter-spacing:.03em">Gem Uses Reference</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px">
+        ${GEMS.map(g => `<div style="background:var(--card);border:1px solid var(--b1);border-radius:var(--r2);padding:11px 14px">
+          <div style="font-weight:700;font-size:13px;color:var(--t1);margin-bottom:3px">${g.name}</div>
+          <div style="font-size:11.5px;color:var(--t2);margin-bottom:3px">${g.use}</div>
+          <div style="font-size:10.5px;color:var(--t3)"><i class="fa-solid fa-pickaxe" style="font-size:9px"></i> ${g.mine}</div>
+        </div>`).join('')}
+      </div>
+    </div>`;
+}
+
+// COMMUNITY CENTER BUNDLES
+function renderBundles() {
+  const bundles = [
+    {room:'Crafts Room',color:'#4ade80',icon:'🌿',bundles:[
+      {name:'Spring Foraging',items:'Daffodil · Dandelion · Leek · Spring Onion',reward:'Spring Seeds ×30'},
+      {name:'Summer Foraging',items:'Grape · Fiddlehead Fern · Red Mushroom · Spice Berry · Sweet Pea · Common Mushroom',reward:'Summer Seeds ×30'},
+      {name:'Fall Foraging',items:'Chanterelle · Blackberry · Common Mushroom · Hazelnut · Holly · Red Mushroom · Wild Plum',reward:'Fall Seeds ×30'},
+      {name:'Winter Foraging',items:'Crystal Fruit · Holly · Crocus · Nautilus Shell · Snow Yam · Winter Root',reward:'Winter Seeds ×30'},
+      {name:'Construction',items:'Wood ×99 · Stone ×99 · Hardwood ×10',reward:'Charcoal Kiln'},
+      {name:'Exotic Foraging',items:'Coconut · Cactus Fruit · Cave Carrot · Red Mushroom · Purple Mushroom · Maple Syrup · Oak Resin · Pine Tar · Morel',reward:'Autumn\'s Bounty'},
+    ]},
+    {room:'Pantry',color:'#fbbf24',icon:'🧺',bundles:[
+      {name:'Spring Crops',items:'Parsnip · Green Bean · Cauliflower · Potato',reward:'Speed-Gro ×30'},
+      {name:'Summer Crops',items:'Tomato · Hot Pepper · Blueberry · Melon',reward:'Quality Sprinkler'},
+      {name:'Fall Crops',items:'Corn · Eggplant · Pumpkin · Yam',reward:'Bee House'},
+      {name:'Quality Crops',items:'Parsnip (Gold) · Melon (Gold) · Pumpkin (Gold) · Corn (Gold)',reward:'Preserves Jar'},
+      {name:'Animal',items:'Large Milk · Egg · Large Egg · Large Goat Milk · Wool · Duck Egg',reward:'Cheese Press'},
+      {name:'Artisan',items:'Truffle Oil · Cloth · Goat Cheese · Cheese · Honey · Jelly · Apple · Apricot · Orange · Peach · Pomegranate · Cherry',reward:'Keg'},
+    ]},
+    {room:'Fish Tank',color:'#60a5fa',icon:'🐟',bundles:[
+      {name:'River Fish',items:'Sunfish · Catfish · Shad · Tiger Trout',reward:'Bait ×30'},
+      {name:'Lake Fish',items:'Largemouth Bass · Carp · Bullhead · Sturgeon',reward:'Dressed Spinner'},
+      {name:'Ocean Fish',items:'Sardine · Tuna · Red Snapper · Tilapia',reward:'Warp Totem: Beach ×5'},
+      {name:'Night Fishing',items:'Walleye · Bream · Eel',reward:'Small Glow Ring'},
+      {name:'Crab Pot',items:'Lobster · Crayfish · Crab · Cockle · Mussel · Shrimp · Snail · Periwinkle · Oyster · Clam',reward:'Crab Pot ×3'},
+      {name:'Specialty Fish',items:'Pufferfish · Ghostfish · Sandfish · Woodskip',reward:'Dish o\' The Sea ×5'},
+    ]},
+    {room:'Boiler Room',color:'#f87171',icon:'⚙️',bundles:[
+      {name:'Blacksmith',items:'Copper Bar · Iron Bar · Gold Bar',reward:'Furnace'},
+      {name:'Geologist',items:'Quartz · Earth Crystal · Frozen Tear · Fire Quartz',reward:'Bomb ×5'},
+      {name:'Adventurer',items:'Slime ×99 · Bat Wing ×10 · Solar Essence · Void Essence',reward:'Small Magnet Ring'},
+    ]},
+  ];
+  document.getElementById('bundlesContent').innerHTML = `
+    <p style="font-size:13.5px;color:var(--t2);line-height:1.7;max-width:700px;margin-bottom:24px">Complete all bundles to restore the Community Center. Tip: focus on the Pantry first — completing it unlocks the Greenhouse, which lets you grow crops year-round.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:16px">
+      ${bundles.map(room => `<div style="background:var(--card);border:1px solid ${room.color}20;border-left:3px solid ${room.color};border-radius:var(--r3);padding:18px 20px">
+        <div style="font-family:var(--display);font-size:24px;color:${room.color};margin-bottom:14px;display:flex;align-items:center;gap:8px">
+          <span>${room.icon}</span>${room.room}
+        </div>
+        ${room.bundles.map(b => `<div style="padding:8px 0;border-bottom:1px solid var(--b1)">
+          <div style="font-weight:700;font-size:12.5px;color:var(--t1);margin-bottom:3px">${b.name}</div>
+          <div style="font-size:11.5px;color:var(--t2);margin-bottom:3px">${b.items}</div>
+          <div style="font-size:11px;color:${room.color}"><i class="fa-solid fa-gift" style="font-size:9px"></i> ${b.reward}</div>
+        </div>`).join('')}
+      </div>`).join('')}
+    </div>`;
+}
+
+// YEAR 1 PRIORITY
+function renderTips() {
+  document.getElementById('tipsContent').innerHTML = `
+    <div style="max-width:800px">
+      <div style="background:var(--card);border:1px solid rgba(74,222,128,.2);border-radius:var(--r3);padding:20px 24px;margin-bottom:16px">
+        <div style="font-size:15px;font-weight:700;color:#4ade80;margin-bottom:14px"><i class="fa-solid fa-calendar-check"></i> Year 1 Day-by-Day Priority</div>
+        ${[
+          ['Spring 1–3','Clear farm, plant Parsnips. Meet every villager. Get mailbox letter from JojaMart — toss it.'],
+          ['Spring 4–12','Mine to floor 40 (Copper). Upgrade Watering Can and Pickaxe first.'],
+          ['Spring 13','Egg Festival! Buy 3+ Strawberry Seeds. Plant immediately.'],
+          ['Spring 15–28','Mine to floor 80 (Iron). Start befriending Villagers. Plant Potatoes and Kale.'],
+          ['Summer 1–15','Plant Blueberries + Melons. Mine to floor 120. Unlock Skull Cavern key.'],
+          ['Summer 16–28','Gold Pickaxe/Axe upgrade. Complete more bundles. Fishing for Catfish/Sunfish.'],
+          ['Fall 1','Plant Cranberries (priority) + Pumpkins. Start Cranberries ASAP — they regrow!'],
+          ['Fall 1–15','Complete as many Community Center bundles as possible before winter.'],
+          ['Winter','No outdoor crops. Focus on mining (Skull Cavern), fishing, befriending villagers, crafting.'],
+          ['Year 1 Goal','Complete Crafts Room + Pantry bundles. Greenhouse = game-changer for Year 2.'],
+        ].map(([d,t]) => `<div style="display:flex;gap:14px;padding:9px 0;border-bottom:1px solid var(--b1);font-size:13px">
+          <div style="font-weight:700;color:#4ade80;min-width:120px;flex-shrink:0;font-family:var(--mono)">${d}</div>
+          <div style="color:var(--t2);line-height:1.6">${t}</div>
+        </div>`).join('')}
+      </div>
+      <div style="background:var(--card);border:1px solid rgba(74,222,128,.2);border-radius:var(--r3);padding:20px 24px">
+        <div style="font-size:15px;font-weight:700;color:#4ade80;margin-bottom:14px"><i class="fa-solid fa-star"></i> Essential Mechanics New Players Miss</div>
+        ${[
+          ['Energy Management','Pass out at 2am = wake up at 6am with less HP. Eat food constantly. Salads from Emily\'s House or foraged food.'],
+          ['Quality Sprinklers','Place in diamond pattern to water 8 tiles. Automates all watering. Rush Iron.'],
+          ['Seed Maker','Plant one Gold crop → Seed Maker → 1–3 seeds back. Never buy expensive seeds again after year 1.'],
+          ['Kegs vs Preserves Jar','Keg multiplier: ×3 for most crops (best for expensive crops). Preserves Jar: +50% sell price (best for cheap crops like Cauliflower).'],
+          ['Greenhouse','Unlocked by completing Pantry bundles. Crops grow year-round. Ancient Fruit = 550g/week per tile FOREVER.'],
+          ['Traveling Cart','Appears Fridays and Sundays south of farm. Sells rare seeds, items you need for bundles, recipes. Check it every week.'],
+          ['Chest Placement','Put chests at the mine entrance, Skull Cavern entrance, and beach. No inventory management anxiety.'],
+        ].map(([k,v]) => `<div style="padding:8px 0;border-bottom:1px solid var(--b1);font-size:13px">
+          <strong style="color:var(--t1)">${k}</strong><br><span style="color:var(--t2);line-height:1.7">${v}</span>
+        </div>`).join('')}
+      </div>
+    </div>`;
+}
+
+async function renderSection(id) {
+  if (id === 'crops') renderCrops();
+  else if (id === 'villagers') await renderVillagers();
+  else if (id === 'mine') renderMine();
+  else if (id === 'bundles') renderBundles();
+  else if (id === 'tips') renderTips();
+}
+
+document.addEventListener('DOMContentLoaded', () => { renderCrops(); });
+</script>
 </body>
 </html>

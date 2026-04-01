@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Valheim Guide — VAULT.GG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.guide-hero{background:linear-gradient(135deg,var(--void) 0%,var(--raised) 100%);padding:72px 0 48px;position:relative;overflow:hidden;border-bottom:1px solid #4ade8020}
+.guide-hero::before{content:'';position:absolute;inset:0;background:url('https://cdn.cloudflare.steamstatic.com/steam/apps/892970/page_bg_generated_v6b.jpg') center/cover;opacity:.12}
+.gtab{padding:9px 18px;border-radius:var(--r2) var(--r2) 0 0;background:transparent;border:1px solid transparent;color:var(--t3);cursor:pointer;font-size:13px;font-weight:600;transition:all .15s;display:flex;align-items:center;gap:7px}
+.gtab.active{background:var(--card);border-color:var(--b1);border-bottom-color:var(--void);color:#4ade80;margin-bottom:-1px}
+.guide-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:28px;padding-top:12px;border-bottom:1px solid var(--b1);position:sticky;top:56px;background:var(--void);z-index:10}
+.guide-section{display:none}.guide-section.active{display:block}
+.credit-bar{background:var(--raised);border:1px solid var(--b1);border-radius:var(--r2);padding:9px 14px;font-size:11.5px;color:var(--t3);display:flex;align-items:center;gap:8px;margin-bottom:20px}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="../index.html" style="display:flex;align-items:center;text-decoration:none"><img src="../logo.svg" alt="VAULT.GG" height="28" onerror="this.style.display='none'"></a>
+    <ul class="nav-links"><li><a class="nav-link" href="../guides.html">← All Guides</a></li></ul>
+  </div>
+</nav>
+<div class="guide-hero">
+  <div class="wrap" style="position:relative;z-index:1">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:12px">
+      <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/892970/library_600x900.jpg" style="width:80px;height:120px;object-fit:cover;border-radius:var(--r2)" alt="Valheim" onerror="this.style.display='none'">
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:#4ade8080;margin-bottom:6px">VAULT.GG GAME GUIDE</div>
+        <h1 style="font-family:var(--display);font-size:clamp(32px,4.5vw,64px);color:var(--t1);line-height:.9;letter-spacing:.02em">VALHEIM</h1>
+        <div style="margin-top:10px;font-size:13px;color:var(--t3)">Iron Gate Studio · 2021 (EA)</div>
+      </div>
+    </div>
+    <p style="font-size:14px;color:var(--t2);max-width:600px">Viking survival with 5 biomes and 6 bosses. Craft, build, conquer.</p>
+  </div>
+</div>
+
+<div class="wrap" style="padding-top:0">
+  <div class="guide-tabs">
+    
+    <button class="gtab active" onclick="showTab('tips')"><i class="fa-solid fa-lightbulb"></i>Tips & Tricks</button>
+    <button class="gtab" onclick="showTab('overview')"><i class="fa-solid fa-circle-info"></i>Overview</button>
+  </div>
+
+  
+
+  <div class="guide-section active" id="sec-tips">
+    <div class="credit-bar"><i class="fa-solid fa-circle-info" style="color:#4ade80"></i>Tips curated for VAULT.GG based on community knowledge. Updated for current patch.</div>
+    <div style="max-width:760px">
+      <div style="background:var(--card);border:1px solid #4ade8020;border-left:3px solid #4ade80;border-radius:var(--r3);padding:20px 24px;margin-bottom:14px">
+        <div style="font-family:var(--display);font-size:24px;color:var(--t1);margin-bottom:14px">🎮 Essential Knowledge for Valheim</div>
+        <p style="font-size:14px;color:var(--t2);line-height:1.8;margin-bottom:14px">Viking survival with 5 biomes and 6 bosses. Craft, build, conquer.</p>
+        <a href="https://store.steampowered.com/app/892970/" target="_blank" rel="noopener" class="btn btn-primary btn-sm"><i class="fa-brands fa-steam"></i>View on Steam</a>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--b1);border-radius:var(--r3);padding:18px 22px">
+        <div style="font-size:13px;color:var(--t2);line-height:1.8">
+          Full strategy guide coming soon. For now, check the <a href="https://www.speedrun.com" target="_blank" style="color:#4ade80">speedrun.com leaderboards</a> for advanced routing, and the <a href="https://reddit.com" target="_blank" style="color:#4ade80">community subreddit</a> for current meta builds and tips.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="guide-section" id="sec-overview">
+    <div style="background:var(--card);border:1px solid #4ade8020;border-left:3px solid #4ade80;border-radius:var(--r3);padding:20px 24px;max-width:760px">
+      <div style="font-family:var(--display);font-size:28px;color:var(--t1);margin-bottom:10px">Valheim</div>
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:8px 20px;margin-top:14px">
+        <div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--t3)">Developer</div><div style="font-size:13px;color:var(--t1)">Iron Gate Studio</div>
+        <div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--t3)">Released</div><div style="font-size:13px;color:var(--t1)">2021 (EA)</div>
+        <div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--t3)">Steam ID</div><div style="font-size:13px;font-family:var(--mono);color:#4ade80">892970</div>
+      </div>
+      <div style="margin-top:16px">
+        <a href="https://store.steampowered.com/app/892970/" target="_blank" rel="noopener" class="btn btn-primary btn-sm"><i class="fa-brands fa-steam"></i>Steam Store Page</a>
+      </div>
+    </div>
+  </div>
+
+  <div style="height:80px"></div>
+</div>
+
+<script>
+let loaded = {};
+function showTab(id) {
+  document.querySelectorAll('.guide-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.gtab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+</script>
+</body>
+</html>

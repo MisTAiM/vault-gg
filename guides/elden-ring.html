@@ -363,7 +363,32 @@ let allBosses = [];
 async function renderBosses(filter='', region='all') {
   const grid = document.getElementById('bossGrid');
   if (!allBosses.length) {
-    allBosses = await loadAll('bosses', 106);
+    const raw = await loadAll('bosses', 106);
+    // Deduplicate: same normalized name + region = keep the one with image, else keep first
+    const seen = new Map();
+    for (const b of raw) {
+      const key = (b.name || '').toLowerCase().replace(/[^\w\s]/g,'').replace(/\s+/g,' ').trim()
+        + '|' + (b.region || '');
+      // If exact same name+region, prefer entry with image
+      if (!seen.has(key) || (!seen.get(key).image && b.image)) {
+        seen.set(key, b);
+      }
+    }
+    // Also deduplicate by name-only for truly same bosses in different regions
+    const byName = new Map();
+    for (const [key, b] of seen) {
+      const nameKey = b.name.toLowerCase().replace(/[^\w\s]/g,'').replace(/\s+/g,' ').trim();
+      if (!byName.has(nameKey)) {
+        byName.set(nameKey, b);
+      } else {
+        // Godskin Apostle appears in 2 regions legitimately - keep both but with different display
+        const existing = byName.get(nameKey);
+        if (existing.region !== b.region) {
+          byName.set(nameKey + '_' + b.region, b); // keep as separate entry
+        }
+      }
+    }
+    allBosses = Array.from(byName.values());
   }
   
   let bosses = allBosses;

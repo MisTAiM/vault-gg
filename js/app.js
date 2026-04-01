@@ -434,6 +434,7 @@ window.openVideo = function(ytId, title) {
 };
 window.closeVideo = function() {
   const f=$('videoFrame'), m=$('videoModal');
+  if(f) f.src='';  // Stop video on close
   if(f) f.src='';
   if(m) m.classList.remove('open');
   document.body.style.overflow='';
@@ -1029,6 +1030,37 @@ window.loadAllLivePlayers = function() {
 };
 
 // ── Live Players init for index page ─────────────────────────
+// ── YouTube Embed Loader ──────────────────────────────────────
+window.loadYTEmbed = function(ytId, src) {
+  const thumb = document.getElementById('ytThumb_' + ytId);
+  const frameDiv = document.getElementById('ytFrame_' + ytId);
+  if (!frameDiv) return;
+  
+  const iframe = document.createElement('iframe');
+  iframe.src = src.replace('&playsinline=1', '&autoplay=1&playsinline=1');
+  iframe.frameBorder = '0';
+  iframe.allowFullscreen = true;
+  iframe.allow = 'autoplay; encrypted-media; fullscreen';
+  iframe.style.cssText = 'width:100%;height:100%;border:none';
+  
+  // Show iframe, hide thumbnail
+  if (thumb) thumb.style.display = 'none';
+  frameDiv.style.display = 'block';
+  frameDiv.appendChild(iframe);
+  
+  // Fallback: if video fails after 5s, show YouTube button
+  setTimeout(() => {
+    // Check if iframe is stuck on error page — add YouTube button
+    const wrap = document.getElementById('ytWrap_' + ytId);
+    if (wrap && !wrap.dataset.loaded) {
+      const fallback = document.createElement('div');
+      fallback.style.cssText = 'position:absolute;bottom:10px;right:10px;z-index:5';
+      fallback.innerHTML = `<a href="https://www.youtube.com/watch?v=${ytId}" target="_blank" rel="noopener" class="btn btn-primary btn-sm"><i class="fa-brands fa-youtube"></i>Open in YouTube</a>`;
+      wrap.appendChild(fallback);
+    }
+  }, 5000);
+};
+
 // ── INIT ─────────────────────────────────────────────────────
 (function init(){
   const page=document.body.dataset.page||'';

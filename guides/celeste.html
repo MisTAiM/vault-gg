@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Celeste Guide — VAULT.GG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.guide-hero{background:linear-gradient(135deg,var(--void) 0%,var(--raised) 100%);padding:72px 0 48px;position:relative;overflow:hidden;border-bottom:1px solid #60a5fa20}
+.guide-hero::before{content:'';position:absolute;inset:0;background:url('https://cdn.cloudflare.steamstatic.com/steam/apps/504230/page_bg_generated_v6b.jpg') center/cover;opacity:.12}
+.gtab{padding:9px 18px;border-radius:var(--r2) var(--r2) 0 0;background:transparent;border:1px solid transparent;color:var(--t3);cursor:pointer;font-size:13px;font-weight:600;transition:all .15s;display:flex;align-items:center;gap:7px}
+.gtab.active{background:var(--card);border-color:var(--b1);border-bottom-color:var(--void);color:#60a5fa;margin-bottom:-1px}
+.guide-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:28px;padding-top:12px;border-bottom:1px solid var(--b1);position:sticky;top:56px;background:var(--void);z-index:10}
+.guide-section{display:none}.guide-section.active{display:block}
+.credit-bar{background:var(--raised);border:1px solid var(--b1);border-radius:var(--r2);padding:9px 14px;font-size:11.5px;color:var(--t3);display:flex;align-items:center;gap:8px;margin-bottom:20px}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="../index.html" style="display:flex;align-items:center;text-decoration:none"><img src="../logo.svg" alt="VAULT.GG" height="28" onerror="this.style.display='none'"></a>
+    <ul class="nav-links"><li><a class="nav-link" href="../guides.html">← All Guides</a></li></ul>
+  </div>
+</nav>
+<div class="guide-hero">
+  <div class="wrap" style="position:relative;z-index:1">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:12px">
+      <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/504230/library_600x900.jpg" style="width:80px;height:120px;object-fit:cover;border-radius:var(--r2)" alt="Celeste" onerror="this.style.display='none'">
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:#60a5fa80;margin-bottom:6px">VAULT.GG GAME GUIDE</div>
+        <h1 style="font-family:var(--display);font-size:clamp(32px,4.5vw,64px);color:var(--t1);line-height:.9;letter-spacing:.02em">CELESTE</h1>
+        <div style="margin-top:10px;font-size:13px;color:var(--t3)">Maddy Thorson & Noel Berry · 2018</div>
+      </div>
+    </div>
+    <p style="font-size:14px;color:var(--t2);max-width:600px">Precision platformer with incredible heart. Collect strawberries, learn tech.</p>
+  </div>
+</div>
+
+<div class="wrap" style="padding-top:0">
+  <div class="guide-tabs">
+    <button class="gtab active" onclick="showTab('bosses')"><i class="fa-solid fa-skull"></i>Boss Guide</button>
+    <button class="gtab" onclick="showTab('tips')"><i class="fa-solid fa-lightbulb"></i>Tips & Tricks</button>
+    <button class="gtab" onclick="showTab('overview')"><i class="fa-solid fa-circle-info"></i>Overview</button>
+  </div>
+
+  
+  <div class="guide-section active" id="sec-bosses">
+    <div class="credit-bar"><i class="fa-solid fa-circle-info" style="color:#60a5fa"></i>Boss data curated for VAULT.GG. Difficulty ratings relative to first encounter. Click bosses on wiki for full strategies.</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px">
+      <div style="background:var(--card);border:1px solid #60a5fa20;border-radius:var(--r3);padding:14px 16px;cursor:pointer" onclick="window.open('https://terraria.wiki.gg' if 'celeste'=='terraria' else 'https://sekiroshadowsdietwice.wiki.fextralife.com','_blank')">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px">
+          <div style="font-weight:700;font-size:14px;color:var(--t1);line-height:1.3">Chapter 2: Old Site</div>
+          <span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;background:#60a5fa15;color:#60a5fa;border:1px solid #60a5fa30;white-space:nowrap;margin-left:6px">⚔ 2/10</span>
+        </div>
+        <div style="font-size:11px;color:var(--t3);margin-bottom:6px">Dreamscape</div>
+        <div style="font-size:12px;color:var(--t2);line-height:1.6">Chase sequence with Badeline. Can't die here — tutorial boss.</div>
+      </div><div style="background:var(--card);border:1px solid #60a5fa20;border-radius:var(--r3);padding:14px 16px;cursor:pointer" onclick="window.open('https://terraria.wiki.gg' if 'celeste'=='terraria' else 'https://sekiroshadowsdietwice.wiki.fextralife.com','_blank')">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px">
+          <div style="font-weight:700;font-size:14px;color:var(--t1);line-height:1.3">Chapter 5: Mirror Temple</div>
+          <span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;background:#60a5fa15;color:#60a5fa;border:1px solid #60a5fa30;white-space:nowrap;margin-left:6px">⚔ 5/10</span>
+        </div>
+        <div style="font-size:11px;color:var(--t3);margin-bottom:6px">Reflection</div>
+        <div style="font-size:12px;color:var(--t2);line-height:1.6">Badeline confrontation. Platforming-focused fight, no direct combat.</div>
+      </div><div style="background:var(--card);border:1px solid #60a5fa20;border-radius:var(--r3);padding:14px 16px;cursor:pointer" onclick="window.open('https://terraria.wiki.gg' if 'celeste'=='terraria' else 'https://sekiroshadowsdietwice.wiki.fextralife.com','_blank')">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px">
+          <div style="font-weight:700;font-size:14px;color:var(--t1);line-height:1.3">Chapter 6: Reflection Boss</div>
+          <span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;background:#60a5fa15;color:#60a5fa;border:1px solid #60a5fa30;white-space:nowrap;margin-left:6px">⚔ 6/10</span>
+        </div>
+        <div style="font-size:11px;color:var(--t3);margin-bottom:6px">Boss Fight</div>
+        <div style="font-size:12px;color:var(--t2);line-height:1.6">First actual boss. Phase 1-3 each add mechanics. Learn the pattern then execute cleanly.</div>
+      </div><div style="background:var(--card);border:1px solid #60a5fa20;border-radius:var(--r3);padding:14px 16px;cursor:pointer" onclick="window.open('https://terraria.wiki.gg' if 'celeste'=='terraria' else 'https://sekiroshadowsdietwice.wiki.fextralife.com','_blank')">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px">
+          <div style="font-weight:700;font-size:14px;color:var(--t1);line-height:1.3">Chapter 8: Farewell</div>
+          <span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;background:#60a5fa15;color:#60a5fa;border:1px solid #60a5fa30;white-space:nowrap;margin-left:6px">⚔ 8/10</span>
+        </div>
+        <div style="font-size:11px;color:var(--t3);margin-bottom:6px">Epilogue</div>
+        <div style="font-size:12px;color:var(--t2);line-height:1.6">No boss but hardest chapters in platforming history. Bird companion sections are legendary.</div>
+      </div><div style="background:var(--card);border:1px solid #60a5fa20;border-radius:var(--r3);padding:14px 16px;cursor:pointer" onclick="window.open('https://terraria.wiki.gg' if 'celeste'=='terraria' else 'https://sekiroshadowsdietwice.wiki.fextralife.com','_blank')">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px">
+          <div style="font-weight:700;font-size:14px;color:var(--t1);line-height:1.3">Farewell Final Room</div>
+          <span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;background:#60a5fa15;color:#60a5fa;border:1px solid #60a5fa30;white-space:nowrap;margin-left:6px">⚔ 9/10</span>
+        </div>
+        <div style="font-size:11px;color:var(--t3);margin-bottom:6px">Cassette B-side</div>
+        <div style="font-size:12px;color:var(--t2);line-height:1.6">The true final challenge. Precise tech required. Hours to complete for many players.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="guide-section" id="sec-tips">
+    <div class="credit-bar"><i class="fa-solid fa-circle-info" style="color:#60a5fa"></i>Tips curated for VAULT.GG based on community knowledge. Updated for current patch.</div>
+    <div style="max-width:760px">
+      <div style="background:var(--card);border:1px solid #60a5fa20;border-left:3px solid #60a5fa;border-radius:var(--r3);padding:20px 24px;margin-bottom:14px">
+        <div style="font-family:var(--display);font-size:24px;color:var(--t1);margin-bottom:14px">🎮 Essential Knowledge for Celeste</div>
+        <p style="font-size:14px;color:var(--t2);line-height:1.8;margin-bottom:14px">Precision platformer with incredible heart. Collect strawberries, learn tech.</p>
+        <a href="https://store.steampowered.com/app/504230/" target="_blank" rel="noopener" class="btn btn-primary btn-sm"><i class="fa-brands fa-steam"></i>View on Steam</a>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--b1);border-radius:var(--r3);padding:18px 22px">
+        <div style="font-size:13px;color:var(--t2);line-height:1.8">
+          Full strategy guide coming soon. For now, check the <a href="https://www.speedrun.com" target="_blank" style="color:#60a5fa">speedrun.com leaderboards</a> for advanced routing, and the <a href="https://reddit.com" target="_blank" style="color:#60a5fa">community subreddit</a> for current meta builds and tips.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="guide-section" id="sec-overview">
+    <div style="background:var(--card);border:1px solid #60a5fa20;border-left:3px solid #60a5fa;border-radius:var(--r3);padding:20px 24px;max-width:760px">
+      <div style="font-family:var(--display);font-size:28px;color:var(--t1);margin-bottom:10px">Celeste</div>
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:8px 20px;margin-top:14px">
+        <div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--t3)">Developer</div><div style="font-size:13px;color:var(--t1)">Maddy Thorson & Noel Berry</div>
+        <div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--t3)">Released</div><div style="font-size:13px;color:var(--t1)">2018</div>
+        <div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--t3)">Steam ID</div><div style="font-size:13px;font-family:var(--mono);color:#60a5fa">504230</div>
+      </div>
+      <div style="margin-top:16px">
+        <a href="https://store.steampowered.com/app/504230/" target="_blank" rel="noopener" class="btn btn-primary btn-sm"><i class="fa-brands fa-steam"></i>Steam Store Page</a>
+      </div>
+    </div>
+  </div>
+
+  <div style="height:80px"></div>
+</div>
+
+<script>
+let loaded = {};
+function showTab(id) {
+  document.querySelectorAll('.guide-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.gtab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+</script>
+</body>
+</html>

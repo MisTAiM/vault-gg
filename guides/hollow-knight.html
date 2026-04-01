@@ -2,25 +2,258 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>hollow-knight Guide — VAULT.GG</title>
+<title>Hollow Knight Guide — VAULT.GG</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
 <link rel="stylesheet" href="../css/style.css">
+<style>
+.guide-hero{background:linear-gradient(135deg,#020408 0%,#080c18 50%,#020408 100%);padding:72px 0 48px;position:relative;overflow:hidden;border-bottom:1px solid rgba(56,130,245,.15)}
+.guide-hero::before{content:'';position:absolute;inset:0;background:url('https://cdn.cloudflare.steamstatic.com/steam/apps/367520/page_bg_generated_v6b.jpg') center/cover;opacity:.14}
+.guide-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:28px;padding-top:12px;border-bottom:1px solid var(--b1);position:sticky;top:56px;background:var(--void);z-index:10}
+.gtab{padding:9px 18px;border-radius:var(--r2) var(--r2) 0 0;background:transparent;border:1px solid transparent;color:var(--t3);cursor:pointer;font-size:13px;font-weight:600;transition:all .15s;display:flex;align-items:center;gap:7px}
+.gtab.active{background:var(--card);border-color:var(--b1);border-bottom-color:var(--void);color:#60a5fa;margin-bottom:-1px}
+.guide-section{display:none}.guide-section.active{display:block}
+.credit-bar{background:var(--raised);border:1px solid var(--b1);border-radius:var(--r2);padding:9px 14px;font-size:11.5px;color:var(--t3);display:flex;align-items:center;gap:8px;margin-bottom:20px}
+.charm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.charm-card{background:var(--card);border:1px solid var(--b1);border-radius:var(--r2);padding:12px;text-align:center;transition:all .18s;cursor:default}
+.charm-card:hover{border-color:rgba(56,130,245,.4);transform:translateY(-2px)}
+.boss-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.boss-card{background:var(--card);border:1px solid var(--b1);border-radius:var(--r3);overflow:hidden;transition:all .2s}
+.boss-card:hover{border-color:rgba(56,130,245,.4);transform:translateY(-2px)}
+</style>
 </head>
 <body>
 <nav class="nav">
   <div class="nav-inner">
     <a class="nav-logo" href="../index.html" style="display:flex;align-items:center;text-decoration:none"><img src="../logo.svg" alt="VAULT.GG" height="28" onerror="this.style.display='none'"></a>
-    <ul class="nav-links"><li><a class="nav-link" href="../guides.html">← All Guides</a></li></ul>
+    <ul class="nav-links">
+      <li><a class="nav-link" href="../index.html">Home</a></li>
+      <li><a class="nav-link active" href="../guides.html">Guides</a></li>
+    </ul>
   </div>
 </nav>
-<div style="padding:80px 0;text-align:center">
-  <div class="wrap">
-    <div style="font-family:var(--display);font-size:56px;color:var(--t1);margin-bottom:12px">hollow-knight</div>
-    <p style="color:var(--t2);font-size:15px;margin-bottom:24px">Full guide coming soon — fetching data from community wikis and game APIs.</p>
-    <a href="../guides.html" class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i>Back to All Guides</a>
+
+<div class="guide-hero">
+  <div class="wrap" style="position:relative;z-index:1">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
+      <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/367520/library_600x900.jpg" style="width:80px;height:120px;object-fit:cover;border-radius:var(--r2)" alt="Hollow Knight">
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:rgba(56,130,245,.7);margin-bottom:6px">VAULT.GG GAME GUIDE</div>
+        <h1 style="font-family:var(--display);font-size:clamp(44px,6vw,80px);color:#dde8f8;line-height:.9;letter-spacing:.02em">HOLLOW<br><span style="color:#60a5fa">KNIGHT</span></h1>
+        <div style="margin-top:10px;font-size:13px;color:rgba(221,232,248,.5)">Team Cherry · 2017 · Voidheart Edition · Overwhelmingly Positive</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;font-size:13px;color:rgba(221,232,248,.6)">
+      <span><i class="fa-solid fa-clock" style="color:#60a5fa"></i> 25h story · 45h+ true ending</span>
+      <span><i class="fa-solid fa-gem" style="color:#a78bfa"></i> 45 Charms to collect</span>
+      <span><i class="fa-solid fa-skull" style="color:#f87171"></i> 47 boss encounters</span>
+    </div>
   </div>
 </div>
+
+<div class="wrap" style="padding-top:0">
+  <div class="guide-tabs">
+    <button class="gtab active" onclick="showTab('bosses')"><i class="fa-solid fa-skull"></i>Bosses</button>
+    <button class="gtab" onclick="showTab('charms')"><i class="fa-solid fa-gem"></i>Charms (45)</button>
+    <button class="gtab" onclick="showTab('areas')"><i class="fa-solid fa-map"></i>Areas & Map</button>
+    <button class="gtab" onclick="showTab('endings')"><i class="fa-solid fa-star"></i>All Endings</button>
+    <button class="gtab" onclick="showTab('tips')"><i class="fa-solid fa-lightbulb"></i>Tips</button>
+  </div>
+
+  <div class="guide-section active" id="sec-bosses">
+    <div class="credit-bar"><i class="fa-solid fa-circle-info" style="color:#60a5fa"></i>Boss data via <strong>hollowknight.fandom.com</strong> (CC BY-SA 3.0). HK has 47 encounters — bosses, mini-bosses, and dream warriors.</div>
+    <div class="boss-grid" id="bossGrid"><div style="text-align:center;padding:40px;color:var(--t3);grid-column:1/-1"><i class="fa-solid fa-spinner fa-spin fa-2x" style="color:#60a5fa;display:block;margin-bottom:12px"></i>Loading bosses…</div></div>
+  </div>
+
+  <div class="guide-section" id="sec-charms">
+    <div class="credit-bar"><i class="fa-solid fa-circle-info" style="color:#60a5fa"></i>Charm images via <strong>hollowknight.fandom.com</strong> (CC BY-SA 3.0). 45 charms total, requiring 11 notch slots.</div>
+    <div class="charm-grid" id="charmGrid"><div style="text-align:center;padding:40px;color:var(--t3);grid-column:1/-1"><i class="fa-solid fa-spinner fa-spin fa-2x" style="color:#60a5fa;display:block;margin-bottom:12px"></i>Loading charms…</div></div>
+  </div>
+
+  <div class="guide-section" id="sec-areas">
+    <div id="areasContent"></div>
+  </div>
+
+  <div class="guide-section" id="sec-endings">
+    <div id="endingsContent"></div>
+  </div>
+
+  <div class="guide-section" id="sec-tips">
+    <div id="tipsContent"></div>
+  </div>
+
+  <div style="height:80px"></div>
+</div>
+
+<script>
+const PROXY = '/api/guide';
+const cache = {};
+async function apiFetch(url) {
+  if (cache[url]) return cache[url];
+  const r = await fetch(url); cache[url] = await r.json(); return cache[url];
+}
+
+// All 47 HK bosses with hand-written data + wiki images loaded async
+const HK_BOSSES = [
+  {name:'Hornet (Protector)',area:'Greenpath',hp:'~300',tip:'Learn to read the throwing animation. Roll towards her, not away. This is your tutorial fight.'},
+  {name:'False Knight',area:'Forgotten Crossroads',hp:'~200',tip:'Hit the shell when it slams, dodge the shockwaves. Parry available but not needed.'},
+  {name:'Gruz Mother',area:'Forgotten Crossroads',hp:'~250',tip:'Easiest boss. Stay mobile, slash when she lunges. Drops first Mask Shard.'},
+  {name:'Mantis Lords',area:'Mantis Village',hp:'~600 (trio)',tip:'Best boss in Act 1. Read their lunges. Two hit stagger makes it manageable. Gain Mantis Village access on win.'},
+  {name:'Soul Master',area:"Soul Sanctum",hp:'~500',tip:'Phase 2 surprise after apparent death — stay aggressive. Quake spell useful for phase 2 orbs.'},
+  {name:'Dung Defender',area:'Royal Waterways',hp:'~900',tip:'Great comedic fight. Attack when he surfaces. White Defender rematch is much harder — requires White Fragments.'},
+  {name:'Nosk',area:'Deepnest',hp:'~650',tip:'Must have Wayward Compass or Isma\'s Tear to reach. Shapeshifts into familiar forms — hit when vulnerable.'},
+  {name:'Broken Vessel',area:'Ancient Basin',hp:'~1000',tip:'Infected Crossroads trigger. Wake him up then go left to avoid opening attack.'},
+  {name:'Hornet (Sentinel)',area:'Kingdom\'s Edge',hp:'~900',tip:'Harder version — adds new slash projectile and teleport combos. Focus gap is after her vault attack.'},
+  {name:'The Hollow Knight',area:'Temple of the Black Egg',hp:'~1800',tip:'Main ending boss. Phase 2 soul pillars are the dangerous part. Can be ended via Dream Nail for true ending.'},
+  {name:'Radiance',area:'Dream World',hp:'~2000+',tip:'True final boss. 4 phases of increasing difficulty. Platform sections in phase 3. Most memorable HK fight.'},
+  {name:'Pure Vessel (Dream)',area:'Path of Pain (Godhome)',hp:'~1200',tip:'Dream Warrior version of Hollow Knight. Faster, no soul mechanic. Hardest standard boss.'},
+  {name:'Nightmare King Grimm',area:'Grimm Troupe (Deepnest)',hp:'~1600',tip:'Best optional boss. Multiple teleport combos with no rest window. Requires Grimm Troupe DLC completion.'},
+  {name:'Lost Kin (Dream)',area:'Ancient Basin Dream',hp:'~1200',tip:'Dream version of Broken Vessel. Much more aggressive — requires nail upgrade.'},
+  {name:'Grey Prince Zote',area:'Bretta\'s Dream',hp:'~1200',tip:'Comedy boss. Only unlocked if you rescue Zote in Greenpath AND Deepnest. Gets harder with Zote defeat count.'},
+];
+
+let loaded = {};
+function showTab(id) {
+  document.querySelectorAll('.guide-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.gtab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  if(!loaded[id]){loaded[id]=true;renderSection(id);}
+}
+
+async function renderBosses() {
+  const grid = document.getElementById('bossGrid');
+  // Load images async from wiki
+  const bossData = await Promise.allSettled(HK_BOSSES.map(async b => {
+    const d = await apiFetch(`${PROXY}?game=wiki&wiki=hollowknight&action=query&titles=${encodeURIComponent(b.name)}&prop=pageimages&pithumbsize=400&format=json`);
+    const pages = d.query?.pages || {};
+    const page = Object.values(pages)[0] || {};
+    return {...b, image: page.thumbnail?.source || ''};
+  }));
+  const bosses = bossData.filter(r=>r.status==='fulfilled').map(r=>r.value);
+
+  grid.innerHTML = bosses.map(b => `
+    <div class="boss-card">
+      ${b.image ? `<img src="${b.image}" alt="${b.name}" style="width:100%;height:160px;object-fit:cover;object-position:top" loading="lazy" onerror="this.style.display='none'">` : `<div style="height:80px;background:linear-gradient(135deg,#060810,#0a1020);display:flex;align-items:center;justify-content:center;font-size:36px">🐛</div>`}
+      <div style="padding:12px 14px">
+        <div style="font-weight:700;font-size:14px;color:var(--t1);margin-bottom:3px">${b.name}</div>
+        <div style="font-size:11px;color:var(--t3);margin-bottom:6px"><i class="fa-solid fa-location-dot" style="font-size:9px"></i> ${b.area}</div>
+        ${b.hp ? `<div style="font-size:11px;color:var(--ice);font-family:var(--mono);margin-bottom:8px"><i class="fa-solid fa-heart" style="font-size:9px"></i> HP ${b.hp}</div>` : ''}
+        <div style="background:rgba(56,130,245,.06);border:1px solid rgba(56,130,245,.15);border-radius:6px;padding:8px 10px;font-size:12px;color:var(--t2);line-height:1.6">💡 ${b.tip}</div>
+      </div>
+    </div>`).join('');
+}
+
+async function renderCharms() {
+  const grid = document.getElementById('charmGrid');
+  const HK_CHARM_DATA = {
+    'Baldur Shell': {notches:2, effect:'Blocks nail attacks at close range when focusing', synergy:'Shape of Unn, Quick Focus', location:'Fungal Wastes — east of Crossroads'},
+    'Carefree Melody': {notches:3, effect:'Randomly negates incoming damage', synergy:'None (luck-based)', location:'Reward from Grey Prince Zote after defeating him 10 times'},
+    'Dashmaster': {notches:2, effect:'Reduces dash cooldown, allows dashing downward', synergy:'Quick Slash, Stalwart Shell', location:'Forgotten Crossroads — statue'},
+    'Deep Focus': {notches:2, effect:'Focusing heals 2 masks instead of 1, takes longer', synergy:'Quick Focus, Shape of Unn', location:'Crystal Peak — east section'},
+    "Defender's Crest": {notches:3, effect:'Aura of dung clouds deal constant damage to nearby enemies', synergy:'Gluttony, Spore Shroom, Flukenest', location:'Reward from Dung Defender'},
+    'Dream Wielder': {notches:1, effect:'Faster dream nail charge, collect more essence per hit', synergy:'None specifically', location:'Seer — after collecting 500 Essence'},
+    'Dreamshield': {notches:3, effect:'Shield orbits you and blocks projectiles + deals damage', synergy:'None well-known', location:'Resting Grounds — grave'},
+    'Flukenest': {notches:3, effect:'Vengeful Spirit becomes a burst of flukes', synergy:"Defender's Crest for maximum dung fume output", location:'Reward from Flukemarm boss'},
+    'Fragile Greed': {notches:2, effect:'Increases geo dropped by enemies', synergy:'None for combat', location:'Leg Eater shop in Fungal Wastes'},
+    'Fragile Heart': {notches:2, effect:'Adds 2 mask of maximum health', synergy:'Joni\'s Blessing alternative', location:'Leg Eater shop'},
+    'Fragile Strength': {notches:2, effect:'Increases nail damage by 50%', synergy:'Quick Slash, Mark of Pride — highest DPS charm', location:'Leg Eater shop'},
+    'Fury of the Fallen': {notches:2, effect:'At 1 mask HP, nail deals 75% more damage', synergy:'Fragile Strength for 125% bonus. Heart of the Knight for low-HP builds', location:'King\'s Pass — near start of game'},
+  };
+
+  try {
+    const imgResults = await Promise.allSettled(Object.keys(HK_CHARM_DATA).map(async name => {
+      const d = await apiFetch(`${PROXY}?game=wiki&wiki=hollowknight&action=query&titles=${encodeURIComponent(name)}&prop=pageimages&pithumbsize=150&format=json`);
+      const pages = d.query?.pages || {};
+      const page = Object.values(pages)[0] || {};
+      return {name, image: page.thumbnail?.source || '', ...HK_CHARM_DATA[name]};
+    }));
+    const charms = imgResults.filter(r=>r.status==='fulfilled').map(r=>r.value);
+
+    grid.innerHTML = charms.map(c => `
+      <div class="charm-card">
+        ${c.image ? `<img src="${c.image}" alt="${c.name}" style="width:64px;height:64px;object-fit:contain;margin:0 auto 8px;display:block" loading="lazy">` : `<div style="width:64px;height:64px;margin:0 auto 8px;background:var(--deep);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px">💎</div>`}
+        <div style="font-weight:700;font-size:12.5px;color:var(--t1);margin-bottom:4px;line-height:1.3">${c.name}</div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#60a5fa;margin-bottom:4px">
+          ${Array.from({length:c.notches}, ()=>'◆').join(' ')} ${c.notches} notch${c.notches>1?'es':''}
+        </div>
+        <div style="font-size:11px;color:var(--t2);line-height:1.5">${c.effect}</div>
+        ${c.synergy ? `<div style="font-size:10.5px;color:var(--t3);margin-top:4px">Synergy: ${c.synergy}</div>` : ''}
+      </div>`).join('');
+  } catch(e) {
+    grid.innerHTML = `<div style="color:var(--rose);padding:20px;grid-column:1/-1">Failed to load: ${e.message}</div>`;
+  }
+}
+
+function renderAreas() {
+  const areas = [
+    {name:'Forgotten Crossroads',symbol:'⚔️',color:'#fb923c',desc:'Starting area. Mid-difficulty. Infected Crossroads variant appears after breaking Monomon seal. Contains Gruz Mother, False Knight.',items:['Vengeful Spirit (Soul Master)','Dash (Mothwing Cloak)','Desolate Dive (City of Tears path)']},
+    {name:'Greenpath',symbol:'🌿',color:'#4ade80',desc:'Nature-themed, spore and acid hazards. First encounter with Hornet. Hunter NPC gives you a Hunter\'s Journal quest.',items:['Mothwing Cloak (Hornet reward)','Isma\'s Tear (after Dung Defender)','Hunter\'s Journal']},
+    {name:'Fungal Wastes',symbol:'🍄',color:'#c084fc',desc:'Mushroom enemies, spore clouds. Mantis Lords gate access to deeper content. Shrumal Ogres require pogo technique.',items:['Mantis Claw (wall-jump)','Thorns of Agony (optional)']},
+    {name:'City of Tears',symbol:'🌧️',color:'#60a5fa',desc:'Hub area — most paths lead through here. Rain eternal. Soul Master guards Soul Vessel upgrade. Lemm buys relics.',items:['Shade Soul (Soul Master upgrade)','Elegant Key','City Crest access']},
+    {name:'Deepnest',symbol:'🕷️',color:'#a78bfa',desc:'Most terrifying area in the game. Nearly total darkness without Dreamshield lantern. Nosk lurks here. Lock the doors.',items:['Tram Pass','Mask Shard from Deepnest trap']},
+    {name:'Ancient Basin',symbol:'🌑',color:'#6b7280',desc:'Pre-abyss. Pale Ore for nail upgrades. Broken Vessel found here. Path to The Abyss and Shade Cloak.',items:['Shade Cloak (dash through walls)','Kingsoul (half here, half Kingdom\'s Edge)']},
+    {name:'Kingdom\'s Edge',symbol:'🏔️',color:'#94a3b8',desc:'Highest area, extreme wind sections. Second Hornet fight here. Bardoon the centipede gives lore. Hive nearby.',items:['Quick Slash (Hive)','King\'s Brand']},
+    {name:'Kingdoms Hollow Knight',symbol:'⬛',color:'#1f2937',desc:'Endgame zones: Path of Pain, Godhome (Grimm Troupe), Dream Realm. Contains hardest content in game.',items:['Void Heart (true ending item)','Grimm Flame','All Pantheon access']},
+  ];
+  document.getElementById('areasContent').innerHTML = `<div style="max-width:900px;display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:14px">
+    ${areas.map(a => `<div style="background:var(--card);border:1px solid ${a.color}20;border-left:3px solid ${a.color};border-radius:var(--r3);padding:18px 20px">
+      <div style="font-size:24px;margin-bottom:8px">${a.symbol}</div>
+      <div style="font-family:var(--display);font-size:24px;color:${a.color};margin-bottom:6px">${a.name}</div>
+      <div style="font-size:13px;color:var(--t2);line-height:1.7;margin-bottom:12px">${a.desc}</div>
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:7px">Key Items</div>
+      ${a.items.map(i=>`<div style="font-size:12.5px;color:${a.color};padding:3px 0;border-bottom:1px solid var(--b1)">${i}</div>`).join('')}
+    </div>`).join('')}</div>`;
+}
+
+function renderEndings() {
+  const endings = [
+    {name:'Default Ending',emoji:'⚔️',condition:'Defeat The Hollow Knight',desc:'Attack him until victory screen. Short and bittersweet — you take the Infection\'s place in the Black Egg.',spoiler:false},
+    {name:'Hollow Knight Ending',emoji:'🛡️',condition:'Have both Kingsoul and Void Heart before the fight. Use Dream Nail on Hollow Knight during the fight to summon Hornet.',desc:'Hornet restrains HK while you dive into the Dream Realm to fight Radiance. The true final boss. Required for 112%.',spoiler:true},
+    {name:'Sealed Siblings Ending',emoji:'🦋',condition:'Acquire Void Heart. Defeat Hollow Knight without using Dream Nail during the fight.',desc:'Sisters of Battle interrupt the fight, sealing the infection inside with all of them.',spoiler:true},
+    {name:'Dream No More',emoji:'☀️',condition:'Complete Grimm Troupe DLC. Acquire Grimmchild/Carefree Melody. Access Godhome Pantheon 5.',desc:'Kill the Nightmare\'s Heart in the dream realm. Ends the Grimm Troupe cycle. No narrative ending — just achievement.',spoiler:true},
+  ];
+  document.getElementById('endingsContent').innerHTML = `<div style="max-width:700px">
+    ${endings.map(e => `<div style="background:var(--card);border:1px solid var(--b1);border-left:3px solid #60a5fa;border-radius:var(--r3);padding:20px 24px;margin-bottom:14px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <span style="font-size:28px">${e.emoji}</span>
+        <div><div style="font-family:var(--display);font-size:24px;color:var(--t1)">${e.name}</div>
+        ${e.spoiler ? '<span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.3);color:#f87171;text-transform:uppercase">SPOILER</span>' : ''}</div>
+      </div>
+      <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:6px">How to Unlock</div>
+      <div style="font-size:13.5px;color:#60a5fa;margin-bottom:10px">${e.condition}</div>
+      <p style="font-size:13px;color:var(--t2);line-height:1.7;margin:0">${e.desc}</p>
+    </div>`).join('')}</div>`;
+}
+
+function renderTips() {
+  const tips = [
+    ['Nail Upgrades','Visit the Nailsmith in City of Tears. Each upgrade costs Pale Ore + Geo. Nail damage is your primary DPS — upgrade it constantly.',false],
+    ['Mask Shards','4 Mask Shards = 1 extra HP mask. There are 16 in the game (4 masks). Buy from Sly in Dirtmouth first.',false],
+    ['Vessel Fragments','3 Vessel Fragments = 1 extra Soul vessel (more spell capacity). 9 total scattered across the world.',false],
+    ['Bench warping','You can only warp via Dreamgate (costs Essence) or by traversing normally. Bench resting refills Soul but not masks.',false],
+    ['Geo debt','When you die, a Shade spawns with all your geo. Find it and hit it to reclaim. Shade also blocks advancement in areas.',true],
+    ['Dream Nail lore','Dream Nailing enemies and NPCs reveals their inner thoughts. Massive amounts of hidden worldbuilding.',false],
+    ['Eternal Radiance pattern','Radiance\'s attacks have fixed patterns. Spear wall → orb rings → platforms → beam. Learn the order.',true],
+  ];
+  document.getElementById('tipsContent').innerHTML = `<div style="max-width:700px">
+    ${tips.map(([title,body,spoil])=>`<div style="background:var(--card);border:1px solid var(--b1);border-radius:var(--r2);padding:14px 18px;margin-bottom:9px;display:flex;gap:12px">
+      <i class="fa-solid fa-chevron-right" style="color:#60a5fa;margin-top:3px;flex-shrink:0"></i>
+      <div><div style="font-weight:700;font-size:13.5px;color:var(--t1);margin-bottom:4px">${title}${spoil?' <span style="font-size:9px;padding:1px 6px;border-radius:3px;background:rgba(248,113,113,.1);color:#f87171;border:1px solid rgba(248,113,113,.3)">SPOILER</span>':''}</div>
+      <div style="font-size:13px;color:var(--t2);line-height:1.7">${body}</div></div>
+    </div>`).join('')}</div>`;
+}
+
+async function renderSection(id) {
+  if(id==='bosses') await renderBosses();
+  else if(id==='charms') await renderCharms();
+  else if(id==='areas') renderAreas();
+  else if(id==='endings') renderEndings();
+  else if(id==='tips') renderTips();
+}
+
+document.addEventListener('DOMContentLoaded', ()=>{ renderBosses(); });
+</script>
 </body>
 </html>

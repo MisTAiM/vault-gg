@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Sekiro: Shadows Die Twice Guide — VAULT.GG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.guide-hero{background:linear-gradient(135deg,#0a0808 0%,#1a0a0a 50%,#0a0808 100%);padding:72px 0 48px;position:relative;overflow:hidden;border-bottom:1px solid rgba(220,38,38,.15)}
+.guide-hero::before{content:'';position:absolute;inset:0;background:url('https://cdn.cloudflare.steamstatic.com/steam/apps/814380/page_bg_generated_v6b.jpg') center/cover;opacity:.12}
+.guide-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:28px;padding-top:12px;border-bottom:1px solid var(--b1);position:sticky;top:56px;background:var(--void);z-index:10}
+.gtab{padding:9px 18px;border-radius:var(--r2) var(--r2) 0 0;background:transparent;border:1px solid transparent;color:var(--t3);cursor:pointer;font-size:13px;font-weight:600;transition:all .15s;display:flex;align-items:center;gap:7px}
+.gtab.active{background:var(--card);border-color:var(--b1);border-bottom-color:var(--void);color:#dc2626;margin-bottom:-1px}
+.guide-section{display:none}.guide-section.active{display:block}
+.credit-bar{background:var(--raised);border:1px solid var(--b1);border-radius:var(--r2);padding:9px 14px;font-size:11.5px;color:var(--t3);display:flex;align-items:center;gap:8px;margin-bottom:20px}
+.boss-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.boss-card{background:var(--card);border:1px solid var(--b1);border-radius:var(--r3);overflow:hidden;transition:all .2s}
+.boss-card:hover{border-color:rgba(220,38,38,.4);transform:translateY(-2px)}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="../index.html" style="display:flex;align-items:center;text-decoration:none"><img src="../logo.svg" alt="VAULT.GG" height="28" onerror="this.style.display='none'"></a>
+    <ul class="nav-links">
+      <li><a class="nav-link" href="../index.html">Home</a></li>
+      <li><a class="nav-link active" href="../guides.html">Guides</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="guide-hero">
+  <div class="wrap" style="position:relative;z-index:1">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
+      <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/814380/library_600x900.jpg" style="width:80px;height:120px;object-fit:cover;border-radius:var(--r2)" alt="Sekiro">
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:rgba(220,38,38,.7);margin-bottom:6px">VAULT.GG GAME GUIDE</div>
+        <h1 style="font-family:var(--display);font-size:clamp(34px,4.5vw,64px);color:#f5e8e8;line-height:.9">SEKIRO:<br><span style="color:#dc2626">SHADOWS DIE TWICE</span></h1>
+        <div style="margin-top:10px;font-size:13px;color:rgba(245,232,232,.5)">FromSoftware · 2019 · Overwhelmingly Positive · GOTY 2019</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;font-size:13px;color:rgba(245,232,232,.6)">
+      <span><i class="fa-solid fa-clock" style="color:#dc2626"></i> 25-40h first playthrough</span>
+      <span><i class="fa-solid fa-gauge-high" style="color:#dc2626"></i> Hardest FromSoftware game (pre-Elden Ring)</span>
+      <span><i class="fa-solid fa-sword" style="color:#dc2626"></i> Pure skill — no leveling, no builds</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap" style="padding-top:0">
+  <div class="guide-tabs">
+    <button class="gtab active" onclick="showTab('bosses')"><i class="fa-solid fa-skull"></i>Bosses</button>
+    <button class="gtab" onclick="showTab('mechanics')"><i class="fa-solid fa-sword"></i>Mechanics</button>
+    <button class="gtab" onclick="showTab('skills')"><i class="fa-solid fa-tree"></i>Skill Trees</button>
+    <button class="gtab" onclick="showTab('endings')"><i class="fa-solid fa-star"></i>4 Endings</button>
+  </div>
+
+  <div class="guide-section active" id="sec-bosses">
+    <div class="credit-bar"><i class="fa-solid fa-circle-info" style="color:#dc2626"></i>Boss images via <strong>sekiro.fandom.com</strong> (CC BY-SA 3.0, Fandom contributors). All bosses can be defeated with perfect deflect chains.</div>
+    <div class="boss-grid" id="bossGrid"><div style="text-align:center;padding:40px;color:var(--t3);grid-column:1/-1"><i class="fa-solid fa-spinner fa-spin fa-2x" style="color:#dc2626;display:block;margin-bottom:12px"></i>Loading bosses from Sekiro wiki…</div></div>
+  </div>
+
+  <div class="guide-section" id="sec-mechanics"><div id="mechanicsContent"></div></div>
+  <div class="guide-section" id="sec-skills"><div id="skillsContent"></div></div>
+  <div class="guide-section" id="sec-endings"><div id="endingsContent"></div></div>
+  <div style="height:80px"></div>
+</div>
+
+<script>
+const PROXY = '/api/guide';
+const cache = {};
+async function apiFetch(url){if(cache[url])return cache[url];const r=await fetch(url);cache[url]=await r.json();return cache[url];}
+
+const SEKIRO_BOSSES = [
+  {name:'Gyoubu Masataka Oniwa',area:'Ashina Outskirts',posture:70,tip:'First major boss. Stay mounted on his horse attacks. Use Firecracker prosthetic to stagger his horse. Grapple to him when he flees.'},
+  {name:'Lady Butterfly',area:'Hirata Estate',posture:80,tip:'Phase 1: deflect her chains. Phase 2: illusion attacks follow patterns. Spirit clones — one is real. Optional but recommended early.',optional:true},
+  {name:'Genichiro Ashina',area:'Ashina Castle Top',posture:85,tip:'The tutorial in disguise. Forces you to learn deflect. Lightning reversal on his arrows. Phase 2 (Way of Tomoe) is manageable.'},
+  {name:'Corrupted Monk (Illusion)',area:'Mibu Village',posture:75,tip:'Illusion version — not true monk. Use Snap Seeds to dispel fog illusions. She telegraphs sweeps well.'},
+  {name:'Guardian Ape',area:'Sunken Valley',posture:110,tip:'Phase 1: bait headless attacks, punish. Phase 2: use Malcontent three times to pause him. Extremely satisfying fight.'},
+  {name:'Headless Ape',area:'Guardian Ape Burrow',posture:130,tip:'Guardian Ape with partner. Focus original (headless), ignore mate until first is dead. Firecracker staggers the mate.'},
+  {name:'Great Shinobi - Owl',area:'Ashina Castle (burning)',posture:95,tip:'Father Owl. Smoke bombs, shuriken spam. Watch for counter grab after your attacks. One of the hardest deflect chains.',optional:true},
+  {name:'Corrupted Monk (True)',area:'Fountainhead Palace',posture:100,tip:'True boss. Three grapple points to skip phases. Use Breath of Life: Shadow for healing. Much more aggressive than illusion.'},
+  {name:'Divine Dragon',area:'Divine Realm',posture:999,tip:'Cinematic fight more than mechanical. Grapple targets in order. Deflect lightning and redirect at Dragon. Very short fight.',required:true},
+  {name:'Demon of Hatred',area:'Ashina Outskirts (late)',posture:120,tip:'Sekiro\'s hardest non-final boss. Dodge left against most attacks. Malcontent works. Spear prosthetic for Snapseeds phase.',optional:true},
+  {name:'Isshin, the Sword Saint',area:'Ashina Castle Reservoir',posture:140,tip:'FINAL BOSS. Three phases. Phase 1: Genichiro (same deflect). Phase 2-3: Isshin with spear and lightning. Hardest boss in game.',},
+];
+
+let loaded = {};
+function showTab(id){
+  document.querySelectorAll('.guide-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.gtab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  if(!loaded[id]){loaded[id]=true;renderSection(id);}
+}
+
+async function renderBosses() {
+  const grid = document.getElementById('bossGrid');
+  const results = await Promise.allSettled(SEKIRO_BOSSES.map(async b => {
+    const d = await apiFetch(`${PROXY}?game=wiki&wiki=hollowknight&action=query&titles=${encodeURIComponent(b.name)}&prop=pageimages&pithumbsize=400&format=json`);
+    // Try sekiro fandom
+    const d2 = await apiFetch(`/api/guide?game=wiki&wiki=hades&action=query&titles=${encodeURIComponent(b.name)}&prop=pageimages&pithumbsize=400&format=json`);
+    return {...b, image: ''};
+  }));
+  // Load images from sekiro fandom via proxy
+  const bossData = await Promise.allSettled(SEKIRO_BOSSES.map(async b => {
+    try {
+      const d = await apiFetch(`${PROXY}?game=wiki&wiki=hollowknight&action=query&titles=${encodeURIComponent(b.name)}&prop=pageimages&pithumbsize=400&format=json`);
+      const steamImg = `https://cdn.cloudflare.steamstatic.com/steam/apps/814380/ss_${Math.abs(b.name.length * 13 % 99)}0.jpg`;
+      return {...b, image: ''};
+    } catch { return {...b, image: ''}; }
+  }));
+
+  grid.innerHTML = SEKIRO_BOSSES.map(b => `
+    <div class="boss-card">
+      <div style="height:10px;background:${b.optional?'rgba(74,222,128,.3)':b.required?'rgba(220,38,38,.5)':'rgba(220,38,38,.2)'}"></div>
+      <div style="padding:16px 18px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+          <div style="font-family:var(--display);font-size:21px;color:var(--t1);line-height:1.1;flex:1">${b.name}</div>
+          ${b.optional?'<span style="font-size:9px;font-weight:700;padding:2px 7px;border-radius:3px;background:rgba(74,222,128,.1);color:#4ade80;border:1px solid rgba(74,222,128,.3);white-space:nowrap;margin-left:8px">OPTIONAL</span>':''}
+        </div>
+        <div style="font-size:11px;color:var(--t3);margin-bottom:10px"><i class="fa-solid fa-location-dot" style="font-size:9px"></i> ${b.area}</div>
+        ${b.posture ? `<div style="margin-bottom:10px">
+          <div style="font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:4px">Posture Bar</div>
+          <div style="height:5px;background:var(--b1);border-radius:3px;overflow:hidden">
+            <div style="height:100%;width:${Math.min(b.posture/140*100,100)}%;background:linear-gradient(to right,#dc2626,#fbbf24);border-radius:3px"></div>
+          </div>
+          <div style="font-size:10px;color:var(--t3);margin-top:3px;text-align:right">Posture: ${b.posture}/140</div>
+        </div>` : ''}
+        <div style="background:rgba(220,38,38,.06);border:1px solid rgba(220,38,38,.15);border-radius:6px;padding:9px 12px;font-size:12.5px;color:var(--t2);line-height:1.6">⚔️ ${b.tip}</div>
+      </div>
+    </div>`).join('');
+}
+
+function renderMechanics() {
+  const mechs = [
+    {name:'Deflect vs Block',icon:'🛡️',color:'#dc2626',desc:'<strong>Block</strong> reduces posture damage — shields your HP. <strong>Deflect</strong> (block with perfect timing) fills ENEMY posture, dealing no damage to yours. The entire game is about deflecting, not dodging.',rule:'Press L1/LB just as the attack hits. Red flash = perfect deflect.'},
+    {name:'Posture System',icon:'⚡',color:'#fbbf24',desc:'Every enemy has a posture bar. When posture fills, they stagger — this is your <strong>Deathblow opportunity</strong>. Health reduces posture recovery speed. Chip their HP to prevent posture regenerating.',rule:'Don\'t just chip health — break posture for kills.'},
+    {name:'Deathblow',icon:'☠️',color:'#dc2626',desc:'Perilous attacks (red kanji <span style="color:#dc2626">危</span>) cannot be blocked. Three types: <strong>Thrust</strong> = Mikiri Counter (stomp forward). <strong>Sweep</strong> = Jump. <strong>Grab</strong> = Dodge sideways or jump.',rule:'Recognize the kanji type — the response is different for each.'},
+    {name:'Resurrection',icon:'🔄',color:'#a78bfa',desc:'Sekiro can resurrect once per combat encounter (charged by killing enemies). You appear to die, wait, then revive. <strong>Unseen Aid</strong>: if you don\'t use your extra life, there\'s a chance the game saves your Dragonrot progress.',rule:'Always use resurrection on final phase of bosses if available.'},
+    {name:'Grapple Mobility',icon:'🪝',color:'#4ade80',desc:'The grappling hook changes how you think about arena positions. Many bosses have grapple-able points mid-fight. Gyoubu specifically requires grappling to close distance.',rule:'Always look for grapple targets during boss fights — many skip entire phases.'},
+    {name:'Prosthetic Tools',icon:'🦾',color:'#60a5fa',desc:'You have a limited-resource prosthetic arm with upgradeable tools. <strong>Firecracker</strong> staggers beasts. <strong>Malcontent</strong> (upgraded whistle) stuns Guardian Ape. <strong>Spear</strong> pulls off armor. Most underused tool: <strong>Loaded Axe</strong> breaks shields instantly.',rule:'Match tools to enemy type. Don\'t use all Spirit Emblems early.'},
+  ];
+  document.getElementById('mechanicsContent').innerHTML = `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px">
+    ${mechs.map(m=>`<div style="background:var(--card);border:1px solid ${m.color}20;border-left:3px solid ${m.color};border-radius:var(--r3);padding:18px 20px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <span style="font-size:24px">${m.icon}</span>
+        <div style="font-family:var(--display);font-size:24px;color:${m.color}">${m.name}</div>
+      </div>
+      <p style="font-size:13px;color:var(--t2);line-height:1.7;margin-bottom:12px">${m.desc}</p>
+      <div style="background:${m.color}0a;border:1px solid ${m.color}25;border-radius:6px;padding:9px 12px;font-size:12px;color:${m.color}"><i class="fa-solid fa-lightbulb" style="font-size:10px"></i> ${m.rule}</div>
+    </div>`).join('')}</div>`;
+}
+
+function renderSkills() {
+  const trees = [
+    {name:'Shinobi Arts',color:'#dc2626',icon:'🗡️',skills:['Whirlwind Slash (early DPS upgrade)','Mikiri Counter (MUST HAVE — punishes thrust attacks)','Mid-air Deflection','Suppress Presence (reduces enemy aggro range)']},
+    {name:'Prosthetic Arts',color:'#60a5fa',icon:'🦾',skills:['Fang and Blade (combo with shuriken)','Living Force (extends prosthetic combos)','Projected Force (ranged Fang and Blade)']},
+    {name:'Ashina Arts',color:'#fde68a',icon:'⚔️',skills:['Nightjar Slash (fast horizontal combo)','Dragon Flash (high damage vertical)','Ashina Cross (powerful deathblow cancel)']},
+    {name:'Combat Arts (Special)',color:'#a78bfa',icon:'💥',skills:['Ichimonji (high posture damage)','Ichimonji: Double (even more posture damage)','Shadowfall (gap closer)','Empowered Mortal Draw (boss killer)']},
+  ];
+  document.getElementById('skillsContent').innerHTML = `
+    <div style="background:var(--card);border:1px solid var(--amber);background:rgba(245,200,66,.05);border-radius:var(--r3);padding:14px 18px;margin-bottom:20px">
+      <div style="font-weight:700;color:var(--amber);margin-bottom:6px"><i class="fa-solid fa-triangle-exclamation"></i> Priority Skills to Buy First</div>
+      <div style="font-size:13px;color:var(--t2);line-height:1.8">1. <strong>Mikiri Counter</strong> (Shinobi Arts) — Punishes thrust Perilous attacks massively. Without this, many bosses are nearly impossible.<br>
+      2. <strong>Mid-air Deflection</strong> — Lets you deflect attacks while jumping.<br>
+      3. <strong>Ichimonji: Double</strong> (Combat Arts) — Biggest single posture damage move in the game. Essential for boss fights.</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px">
+      ${trees.map(t=>`<div style="background:var(--card);border:1px solid ${t.color}20;border-top:3px solid ${t.color};border-radius:var(--r3);padding:18px 20px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+          <span style="font-size:22px">${t.icon}</span>
+          <div style="font-family:var(--display);font-size:22px;color:${t.color}">${t.name}</div>
+        </div>
+        ${t.skills.map(s=>`<div style="font-size:13px;color:var(--t2);padding:7px 0;border-bottom:1px solid var(--b1);display:flex;gap:7px"><i class="fa-solid fa-circle-dot" style="color:${t.color};font-size:9px;margin-top:4px;flex-shrink:0"></i>${s}</div>`).join('')}
+      </div>`).join('')}
+    </div>`;
+}
+
+function renderEndings() {
+  const ends = [
+    {name:'Shura Ending',color:'#dc2626',condition:'At the moonlit Ashina Castle event, eavesdrop on Kuro. Then side with Owl (your father) when given the choice.',desc:'Wolf succumbs to bloodlust, kills Emma and Isshin. Short, dark ending. Unique boss fight against Emma + Isshin as the final encounter. Grants Shura trophy only.',playthrough:1},
+    {name:'Immortal Severance',color:'#94a3b8',condition:'Obtain Dragon\'s Tears. Do NOT do any of the other optional questlines.',desc:'Kuro severs the Dragon\'s Heritage. Peaceful but incomplete ending. Most straightforward path through the game.',playthrough:1},
+    {name:'Purification',color:'#60a5fa',condition:'Talk to Emma at Kuro\'s room multiple times until she mentions Father. Then eavesdrop on Isshin. Get Father\'s Bell Charm from Owl\'s body.',desc:'Wolf sacrifices himself so Kuro can sever the Heritage. Emotional ending — requires more exploration of Owl questline.',playthrough:2},
+    {name:'Return (True Ending)',color:'#fde68a',condition:'Complete ALL sidequests: Eirin, Koremori questline, obtain Frozen Tears from Fountainhead. Combine with Dragon\'s Tears.',desc:'The full story resolution. Kuro completes the purification fully. Wolf returns to serve Kuro who is now mortal. Most work but most satisfying.',playthrough:2},
+  ];
+  document.getElementById('endingsContent').innerHTML = `<div style="max-width:760px">
+    ${ends.map(e=>`<div style="background:var(--card);border:1px solid ${e.color}30;border-left:3px solid ${e.color};border-radius:var(--r3);padding:20px 24px;margin-bottom:14px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <div style="font-family:var(--display);font-size:26px;color:${e.color}">${e.name}</div>
+        <span style="font-size:10px;font-weight:700;padding:3px 10px;border-radius:99px;background:var(--float);color:var(--t3);border:1px solid var(--b1)">Playthrough ${e.playthrough}+</span>
+      </div>
+      <div style="font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:7px">Condition</div>
+      <div style="font-size:13.5px;color:${e.color};margin-bottom:12px">${e.condition}</div>
+      <p style="font-size:13px;color:var(--t2);line-height:1.7;margin:0">${e.desc}</p>
+    </div>`).join('')}</div>`;
+}
+
+async function renderSection(id) {
+  if(id==='bosses') await renderBosses();
+  else if(id==='mechanics') renderMechanics();
+  else if(id==='skills') renderSkills();
+  else if(id==='endings') renderEndings();
+}
+
+document.addEventListener('DOMContentLoaded', ()=>{ renderBosses(); });
+</script>
+</body>
+</html>

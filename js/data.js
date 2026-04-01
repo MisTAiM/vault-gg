@@ -613,7 +613,7 @@ const GAMES = [
   {
     id:'dusk', title:'DUSK', steam:519860,
     genre:'FPS', dev:'David Szymanski', year:2018, score:90, tier:'S',
-    yt:'52gD4nEmpME',
+    yt:'LbqNRDPd5_k',
     hltb:{ main:5, comp:12 }, players:'1K',
     tags:['fps','retro','brutal','indie'],
     cat:['gems'],
